@@ -16,17 +16,18 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <SectionWrapper id="products" tone="light">
+<SectionWrapper id="products" tone="light">
         <AnimatedSection>
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl">
               <span className="eyebrow border-[#1A1040]/10 bg-[#F8F7FF] text-[#1A1040]">Products</span>
-              <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">Flagship products built as premium execution systems.</h2>
+              <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">Two systems. One goal — complete business control.</h2>
               <p className="mt-4 text-base leading-8 text-[#1A1040]/66">Every Sync Labs product is built to feel minimal on the surface and operationally powerful underneath.</p>
             </div>
             <Link href="/products" className="button-light w-fit">View all products</Link>
           </div>
         </AnimatedSection>
+<p className="mt-4 text-sm font-medium text-[#1A1040]/60">Built for real business operations • Designed for East African SMEs • Works with how you already run your business</p>
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {products.map((product, i) => (
             <AnimatedSection key={product.slug} delay={(i % 2) + 1}>
@@ -34,6 +35,7 @@ export default function Home() {
             </AnimatedSection>
           ))}
         </div>
+        <p className="mt-8 text-center text-sm font-medium text-[#1A1040]/60">Early users get priority access to upcoming AI features.</p>
       </SectionWrapper>
       <SectionWrapper tone="muted" className="border-y border-[#1A1040]/10">
         <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">

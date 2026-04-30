@@ -14,6 +14,11 @@ export type Product = {
   features: string[];
   mockup: string;
   accent: "electric" | "teal";
+  proof?: {
+    revenue: string;
+    growth: string;
+    insight: string;
+  };
 };
 
 export const company = {
@@ -46,38 +51,44 @@ export const navItems: NavItem[] = [
 
 export const products: Product[] = [
   {
-    name: "syncrAI",
-    slug: "syncrai",
-    description: "Your work, intelligently organized.",
-    summary:
-      "An AI system that automates workflows, coordinates tasks, and executes operations across your business.",
-    status: "Coming soon",
-    href: "/contact#project-brief",
-    cta: "Join the waitlist",
-    features: [
-      "Workflow automation",
-      "Task orchestration",
-      "AI-driven execution",
-    ],
-    mockup: "/mockups/syncrai-dashboard.svg",
-    accent: "electric",
-  },
-  {
     name: "E-Manager",
     slug: "e-manager",
-    description: "Know your numbers. Grow your business.",
+    description: "Know your money. Control your business.",
     summary:
-      "A simple, powerful system that tracks your money, shows your performance, and tells you what to do next.",
-    status: "Live",
+      "Track every shilling, understand your performance, and get clear daily actions to grow.",
+    status: "LIVE PRODUCT",
     href: "https://e-manager.synclabs.io",
-    cta: "Visit Product",
+    cta: "Use E-Manager",
     features: [
-      "Financial tracking",
-      "Smart insights",
+      "Real-time financial tracking",
+      "Profit visibility",
       "Daily action recommendations",
     ],
     mockup: "/mockups/salespro-dashboard.svg",
     accent: "teal",
+    // Micro-proof elements
+    proof: {
+      revenue: "KSh 1.2M",
+      growth: "+12%",
+      insight: "Expenses increased 12% this week",
+    },
+  },
+  {
+    name: "syncrAI",
+    slug: "syncrai",
+    description: "Your business — running itself.",
+    summary:
+      "An AI system that connects your workflows, automates operations, and executes tasks across your business.",
+    status: "COMING SOON",
+    href: "/contact#project-brief",
+    cta: "Request Early Access",
+    features: [
+      "Workflow automation",
+      "Task orchestration",
+      "AI execution layer",
+    ],
+    mockup: "/mockups/syncrai-dashboard.svg",
+    accent: "electric",
   },
 ];
 

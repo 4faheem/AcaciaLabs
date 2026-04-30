@@ -10,20 +10,38 @@ type ProductShowcaseProps = {
 };
 
 export function ProductShowcase({ product, reverse = false }: ProductShowcaseProps) {
+  const isLive = product.status === "LIVE PRODUCT";
   const badgeTone = product.accent === "electric" ? "border-[#6C5CE7]/20 bg-[#6C5CE7]/10 text-[#6C5CE7]" : "border-[#00CEC9]/20 bg-[#00CEC9]/10 text-[#008E8A]";
-  const actionClass = product.status === "Coming soon" ? "button-light" : "button-primary";
+  const actionClass = !isLive ? "button-light" : "button-primary";
   const action = isExternalLink(product.href) ? (
     <a href={product.href} target="_blank" rel="noreferrer" className={cn(actionClass, "w-fit")}>{product.cta}</a>
   ) : (
     <Link href={product.href} className={cn(actionClass, "w-fit")}>{product.cta}</Link>
   );
+  const hasProof = product.proof !== undefined;
   return (
     <div className={cn("grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center", reverse && "lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1")}>
       <div className="surface-card p-8 sm:p-10">
-        <span className={cn("eyebrow", badgeTone)}>{product.status}</span>
+        <span className={cn("eyebrow", badgeTone, isLive && "ring-2 ring-green-500/30")}>{product.status}</span>
         <h2 className="mt-6 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">{product.name}</h2>
         <p className="mt-4 text-lg text-[#1A1040]/82">{product.description}</p>
         <p className="mt-5 max-w-2xl text-base leading-8 text-[#1A1040]/66">{product.summary}</p>
+        {/* Micro-proof for E-Manager */}
+        {hasProof && product.proof && (
+          <div className="mt-6 rounded-xl bg-black/5 p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wider text-black/50">Monthly Revenue</p>
+                <p className="mt-1 text-2xl font-bold tracking-tight text-black">{product.proof.revenue}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-xs font-medium uppercase tracking-wider text-black/50">Growth</p>
+                <p className="mt-1 text-xl font-bold text-green-600">{product.proof.growth}</p>
+              </div>
+            </div>
+            <p className="mt-3 border-t border-black/10 pt-3 text-xs italic text-black/60">{product.proof.insight}</p>
+          </div>
+        )}
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           {product.features.map((feature) => (
             <div key={feature} className="rounded-2xl border border-[#1A1040]/10 bg-[#F8F7FF] p-4 text-sm leading-6 text-[#1A1040]/74">{feature}</div>

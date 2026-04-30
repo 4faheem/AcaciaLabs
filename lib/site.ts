@@ -20,12 +20,12 @@ export const company = {
   name: "Sync Labs",
   ceo: "Fahim Kiama",
   coo: "Gwamaka Johas",
-  email: "hello@synclabs.io",
+email: "kiamafahim@gmail.com",
   domain: "synclabs.io",
   url: "https://synclabs.io",
   headline: "Run your business without the guesswork.",
   subtext:
-    "Sync Labs builds intelligent systems that show you what’s happening, what’s next, and what to do — automatically.",
+    "Sync Labs builds intelligent systems that show what's happening, what's next, and what to do — automatically.",
   positioning:
     "Sync Labs builds intelligent systems that run businesses — automatically.",
   promise: "From chaos to control — instantly.",
@@ -38,10 +38,10 @@ export const company = {
 };
 
 export const navItems: NavItem[] = [
-  { label: "Enterprise", href: "/" },
-  { label: "Pricing", href: "/products" },
-  { label: "Customers", href: "/about" },
-  { label: "Resources", href: "/contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Products", href: "/products" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const products: Product[] = [
@@ -85,7 +85,7 @@ export const trustSegments = [
   {
     title: "Solo founders",
     description:
-      "Make decisions faster with one clear view of what is happening.",
+      "Make decisions faster with one clear view of what's happening.",
   },
   {
     title: "Growing teams",
@@ -103,7 +103,7 @@ export const values = [
   {
     title: "Clarity first",
     description:
-      "If a business cannot see what is happening, it cannot improve what matters.",
+      "If a business cannot see what's happening, it cannot improve what matters.",
   },
   {
     title: "Systems over patchwork",
@@ -174,3 +174,4 @@ export const siteKeywords = [
   "operations software",
   "East Africa business tools",
 ];
+

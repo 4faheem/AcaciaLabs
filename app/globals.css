@@ -1,9 +1,9 @@
 ﻿@import "tailwindcss";
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   --brand-indigo: #1a1040;
-  --brand-electric: #6c5ce7;
+  --brand-cyan: #00d4ff;
   --brand-teal: #00cec9;
   --brand-offwhite: #f8f7ff;
   --brand-ink: #090714;
@@ -12,7 +12,7 @@
 
 @theme inline {
   --color-brand-indigo: var(--brand-indigo);
-  --color-brand-electric: var(--brand-electric);
+  --color-brand-cyan: var(--brand-cyan);
   --color-brand-teal: var(--brand-teal);
   --color-brand-offwhite: var(--brand-offwhite);
   --color-brand-ink: var(--brand-ink);
@@ -24,10 +24,8 @@ html {
 }
 
 body {
-  background: #0a0a0a;
-  color: #ffffff;
+  background: var(--brand-offwhite);
   font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer base {
@@ -36,7 +34,7 @@ body {
   }
 
   body {
-    @apply bg-[#0a0a0a] text-white antialiased;
+    @apply bg-transparent text-white antialiased;
   }
 
   h1,
@@ -51,8 +49,8 @@ body {
   }
 
   ::selection {
-    background: rgba(59, 130, 246, 0.3);
-    color: #ffffff;
+    background: rgba(0, 212, 255, 0.4);
+    color: white;
   }
 }
 
@@ -66,15 +64,31 @@ body {
   }
 
   .glass-surface {
-    @apply rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_24px_80px_rgba(108,92,231,0.2)];
+    @apply rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_24px_80px_rgba(0,212,255,0.2)];
   }
 
   .surface-card {
-    @apply rounded-[2rem] border border-white/10 bg-[#111111] shadow-[0_20px_64px_rgba(0,0,0,0.4)];
+    @apply rounded-[2rem] border border-black/20 bg-black/10 shadow-[0_20px_64px_rgba(0,0,0,0.6)];
   }
 
-  .button-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#2563eb] hover:shadow-[0_18px_44px_rgba(59,130,246,0.34)];
+.button-primary {
+    padding-inline: calc(var(--spacing) * 5);
+    padding-block: calc(var(--spacing) * 3);
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-white);
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+    --tw-duration: .3s;
+    background-color: #3b82f6;
+    border-radius: 9999px;
+    justify-content: center;
+    align-items: center;
+    transition-duration: .3s;
+    display: inline-flex;
   }
 
   .button-secondary {
@@ -82,20 +96,20 @@ body {
   }
 
   .button-light {
-    @apply inline-flex items-center justify-center rounded-full border border-white/10 bg-white px-5 py-3 text-sm font-semibold text-[#0a0a0a] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_64px_rgba(0,0,0,0.3)];
+    @apply inline-flex items-center justify-center rounded-full border border-black/20 bg-white/90 px-5 py-3 text-sm font-semibold text-black transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_64px_rgba(0,0,0,0.2)];
   }
 
   .hero-backdrop {
     background-image:
-      radial-gradient(circle at top left, rgba(59, 130, 246, 0.25), transparent 35%),
-      radial-gradient(circle at 80% 0%, rgba(0, 206, 201, 0.15), transparent 28%),
-      linear-gradient(135deg, #0a0a0a 0%, #111111 48%, #0a0a0a 100%);
+      radial-gradient(circle at top left, rgba(0, 212, 255, 0.3), transparent 35%),
+      radial-gradient(circle at 80% 0%, rgba(0, 206, 201, 0.2), transparent 28%),
+      linear-gradient(135deg, #090714 0%, #111827 48%, #0a0a0a 100%);
   }
 
   .soft-grid {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 32px 32px;
   }
 

@@ -1,31 +1,40 @@
-﻿import Link from "next/link";
+﻿import Image from "next/image";
+import Link from "next/link";
 
-export function Logo() {
+import { cn } from "@/lib/utils";
+
+type LogoProps = {
+  tone?: "light" | "dark";
+};
+
+export function Logo({ tone = "light" }: LogoProps) {
   return (
     <Link href="/" className="flex items-center gap-3" aria-label="Sync Labs home">
-      <svg
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="shrink-0"
-      >
-        {/* 8 dots arranged in a flower / hexagonal pattern */}
-        {/* Center ring - 6 dots */}
-        <circle cx="16" cy="6" r="2.5" fill="white" />
-        <circle cx="24.66" cy="11" r="2.5" fill="white" />
-        <circle cx="24.66" cy="21" r="2.5" fill="white" />
-        <circle cx="16" cy="26" r="2.5" fill="white" />
-        <circle cx="7.34" cy="21" r="2.5" fill="white" />
-        <circle cx="7.34" cy="11" r="2.5" fill="white" />
-        {/* Outer top and bottom */}
-        <circle cx="16" cy="16" r="2.5" fill="white" opacity="0" />
-        <circle cx="16" cy="1" r="2" fill="white" />
-        <circle cx="16" cy="31" r="2" fill="white" />
-      </svg>
-      <span className="text-sm font-semibold tracking-wide text-white">
-        Sync Labs
+      <Image
+        src="/syncLabs-logo.png"
+        alt="Sync Labs logo"
+        width={48}
+        height={48}
+        className="h-12 w-12 rounded-2xl object-contain"
+        priority
+      />
+      <span className="flex flex-col leading-none">
+        <span
+          className={cn(
+            "text-[0.68rem] font-semibold uppercase tracking-[0.28em]",
+            tone === "light" ? "text-white/62" : "text-[#1A1040]/62"
+          )}
+        >
+          AI Product Studio
+        </span>
+        <span
+          className={cn(
+            "mt-1 text-sm font-semibold uppercase tracking-[0.24em]",
+            tone === "light" ? "text-white" : "text-[#1A1040]"
+          )}
+        >
+          Sync Labs
+        </span>
       </span>
     </Link>
   );

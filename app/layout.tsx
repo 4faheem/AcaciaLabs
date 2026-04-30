@@ -68,7 +68,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="dark h-full bg-[#0a0a0a]">
+    <html lang="en" className="h-full bg-gradient-to-b from-transparent via-transparent/30 to-[#1f1729]">
       <body className={`min-h-full font-sans ${inter.variable}`}>
         <div className="flex min-h-screen flex-col">
           <Navbar />
@@ -83,3 +83,4 @@ export default function RootLayout({
     </html>
   );
 }
+

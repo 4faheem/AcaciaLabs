@@ -14,6 +14,9 @@ const config: Config = {
           electric: "#6C5CE7",
           teal: "#00CEC9",
           offwhite: "#F8F7FF",
+          cyan: "#00d4ff",
+          ink: "#090714",
+          mist: "#8a84ad",
         },
       },
     },
@@ -22,4 +25,3 @@ const config: Config = {
 };
 
 export default config;
-

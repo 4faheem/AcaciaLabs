@@ -1,4 +1,5 @@
-﻿export type NavItem = {
+﻿
+export type NavItem = {
   label: string;
   href: string;
 };
@@ -25,15 +26,15 @@ export const company = {
   name: "Sync Labs",
   ceo: "Fahim Kiama",
   coo: "Gwamaka Johas",
-email: "kiamafahim@gmail.com",
+  email: "kiamafahim@gmail.com",
   domain: "synclabs.io",
   url: "https://synclabs.io",
-  headline: "Run your business without the guesswork.",
+  headline: "Know your real profit. Control your business daily.",
   subtext:
-    "Sync Labs builds intelligent systems that show what's happening, what's next, and what to do — automatically.",
+    "Track revenue, expenses, and performance in one place—and get clear actions to stop losing money and grow faster.",
   positioning:
-    "Sync Labs builds intelligent systems that run businesses — automatically.",
-  promise: "From chaos to control — instantly.",
+    "Sync Labs builds systems that turn business chaos into control.",
+  promise: "Built for real business operations across East Africa",
   vision: "Close the gap between human intent and execution.",
   mission: "Build intelligent systems that remove friction between ideas and results.",
   founderBio:
@@ -43,9 +44,8 @@ email: "kiamafahim@gmail.com",
 };
 
 export const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
   { label: "Products", href: "/products" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -55,8 +55,8 @@ export const products: Product[] = [
     slug: "e-manager",
     description: "Know your money. Control your business.",
     summary:
-      "Track every shilling, understand your performance, and get clear daily actions to grow.",
-    status: "LIVE PRODUCT",
+      "Track every transaction, see your real profit, and get daily actions to improve performance.",
+    status: "LIVE",
     href: "https://e-manager.synclabs.io",
     cta: "Use E-Manager",
     features: [
@@ -66,9 +66,8 @@ export const products: Product[] = [
     ],
     mockup: "/mockups/salespro-dashboard.svg",
     accent: "teal",
-    // Micro-proof elements
-    proof: {
-      revenue: "KSh 1.2M",
+proof: {
+      revenue: "TSh 1.2M",
       growth: "+12%",
       insight: "Expenses increased 12% this week",
     },
@@ -78,14 +77,14 @@ export const products: Product[] = [
     slug: "syncrai",
     description: "Your business — running itself.",
     summary:
-      "An AI system that connects your workflows, automates operations, and executes tasks across your business.",
+      "An AI system that automates workflows, coordinates tasks, and executes operations.",
     status: "COMING SOON",
     href: "/contact#project-brief",
-    cta: "Request Early Access",
+    cta: "Get Early Access",
     features: [
       "Workflow automation",
       "Task orchestration",
-      "AI execution layer",
+      "AI execution",
     ],
     mockup: "/mockups/syncrai-dashboard.svg",
     accent: "electric",
@@ -104,7 +103,7 @@ export const trustSegments = [
       "Replace scattered tools with systems that keep work moving.",
   },
   {
-    title: "African SMEs",
+    title: "East African SMEs",
     description:
       "Built for businesses that need clarity, control, and room to grow.",
   },
@@ -185,4 +184,3 @@ export const siteKeywords = [
   "operations software",
   "East Africa business tools",
 ];
-

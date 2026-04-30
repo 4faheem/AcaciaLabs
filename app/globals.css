@@ -3,6 +3,7 @@
 :root {
   color-scheme: light;
   --brand-indigo: #1a1040;
+  --brand-electric: #6c5ce7;
   --brand-cyan: #00d4ff;
   --brand-teal: #00cec9;
   --brand-offwhite: #f8f7ff;
@@ -12,6 +13,7 @@
 
 @theme inline {
   --color-brand-indigo: var(--brand-indigo);
+  --color-brand-electric: var(--brand-electric);
   --color-brand-cyan: var(--brand-cyan);
   --color-brand-teal: var(--brand-teal);
   --color-brand-offwhite: var(--brand-offwhite);
@@ -24,7 +26,7 @@ html {
 }
 
 body {
-  background: var(--brand-offwhite);
+  background: transparent;
   font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 

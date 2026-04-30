@@ -10,8 +10,8 @@ export function Footer() {
       <div className="section-shell grid gap-12 py-14 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-5">
           <Logo />
-          <p className="max-w-xl text-sm leading-7 text-white/68">
-            {company.positioning} Premium product thinking, AI-native systems, and software that helps ambitious teams move with clarity.
+<p className="max-w-xl text-sm leading-7 text-white/68">
+            {company.positioning} Built for real businesses across East Africa.
           </p>
           <a href={`mailto:${company.email}`} className="inline-flex text-sm font-medium text-[#00CEC9] transition hover:text-white">
             {company.email}

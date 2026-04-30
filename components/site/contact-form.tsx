@@ -1,38 +1,53 @@
 ﻿"use client";
 
+import emailjs from "@emailjs/browser";
 import { FormEvent, startTransition, useState } from "react";
 
 type ContactFormProps = {
   email: string;
 };
 
-export function ContactForm({ email }: ContactFormProps) {
-  const [message, setMessage] = useState("This form opens your email client with a structured project brief.");
+const EMAILJS_PUBLIC_KEY = "MRA9au2IGFnTmk_4n";
+const EMAILJS_SERVICE_ID = "service_8nv2cxj";
+const EMAILJS_TEMPLATE_ID = "template_emkh0qt";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+export function ContactForm({ email }: ContactFormProps) {
+  const [message, setMessage] = useState("This form sends your project directly to our team.");
+  const [isSending, setIsSending] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const name = String(formData.get("name") ?? "").trim();
     const senderEmail = String(formData.get("email") ?? "").trim();
     const company = String(formData.get("company") ?? "").trim();
     const project = String(formData.get("project") ?? "").trim();
-    const subject = `Sync Labs project inquiry from ${name || "Website visitor"}`;
-    const body = [
-      "Hello Sync Labs,",
-      "",
-      "I would like to start a project.",
-      "",
-      `Name: ${name || "-"}`,
-      `Email: ${senderEmail || "-"}`,
-      `Company: ${company || "-"}`,
-      "",
-      "Project description:",
-      project || "-",
-    ].join("\n");
+
     startTransition(() => {
-      setMessage("Opening your email client with your project brief...");
+      setIsSending(true);
+      setMessage("Sending your project...");
     });
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: name || "Website visitor",
+          from_email: senderEmail || "-",
+          company: company || "-",
+          project: project || "-",
+          to_email: email,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      setMessage("Sent! We'll be in touch soon.");
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setMessage("Something went wrong. Please try again or email us directly.");
+    } finally {
+      setIsSending(false);
+    }
   }
 
   return (
@@ -57,7 +72,9 @@ export function ContactForm({ email }: ContactFormProps) {
         <span className="text-sm font-medium text-[#1A1040]">Project Description</span>
         <textarea name="project" required rows={6} placeholder="Tell us what you want to build, what problem it solves, and where AI should create leverage." className="w-full rounded-3xl border border-[#1A1040]/10 bg-[#F8F7FF] px-4 py-3 text-sm leading-7 text-[#1A1040] outline-none transition focus:border-[#6C5CE7] focus:bg-white" />
       </label>
-      <button type="submit" className="button-primary w-full sm:w-fit">Start a Project</button>
+      <button type="submit" disabled={isSending} className="button-primary w-full sm:w-fit disabled:opacity-50 disabled:cursor-not-allowed">
+        {isSending ? "Sending..." : "Start a Project"}
+      </button>
     </form>
   );
 }

@@ -7,8 +7,7 @@ import { SectionWrapper } from "@/components/site/section-wrapper";
 import { company, contactExpectations } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: "Start a project with Sync Labs and discuss your AI software or operating system build.",
+  title: "Sync Labs",
 };
 
 export default function ContactPage() {

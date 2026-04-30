@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+﻿ import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -18,23 +18,13 @@ export function Logo({ tone = "light" }: LogoProps) {
         className="h-12 w-12 rounded-2xl object-contain"
         priority
       />
-      <span className="flex flex-col leading-none">
-        <span
-          className={cn(
-            "text-[0.68rem] font-semibold uppercase tracking-[0.28em]",
-            tone === "light" ? "text-white/62" : "text-[#1A1040]/62"
-          )}
-        >
-          AI Product Studio
-        </span>
-        <span
-          className={cn(
-            "mt-1 text-sm font-semibold uppercase tracking-[0.24em]",
-            tone === "light" ? "text-white" : "text-[#1A1040]"
-          )}
-        >
-          Sync Labs
-        </span>
+      <span
+        className={cn(
+          "text-sm font-semibold uppercase tracking-[0.24em]",
+          tone === "light" ? "text-white" : "text-[#1A1040]"
+        )}
+      >
+        SYNC LABS
       </span>
     </Link>
   );

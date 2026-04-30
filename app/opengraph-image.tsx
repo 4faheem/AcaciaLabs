@@ -49,7 +49,7 @@ export default function OpenGraphImage() {
             justifyContent: "space-between",
             width: "100%",
           }}
-        >
+>
           <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
             <img
               src={logoSrc}
@@ -58,13 +58,8 @@ export default function OpenGraphImage() {
               height={68}
               style={{ borderRadius: 18 }}
             />
-            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <div style={{ fontSize: 22, letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(248,247,255,0.62)" }}>
-                AI Business Infrastructure
-              </div>
-              <div style={{ fontSize: 30, letterSpacing: "0.18em", textTransform: "uppercase" }}>
-                Sync Labs
-              </div>
+            <div style={{ fontSize: 30, letterSpacing: "0.18em", textTransform: "uppercase" }}>
+              Sync Labs
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>

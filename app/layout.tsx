@@ -15,21 +15,22 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(company.url),
-  title: {
-    default: `${company.name} | AI Business Infrastructure`,
-    template: `%s | ${company.name}`,
-  },
+  title: company.name,
   description: company.subtext,
   applicationName: company.name,
   keywords: siteKeywords,
   authors: [{ name: company.ceo }],
+  icons: {
+    icon: "/syncLabs-logo.png",
+    apple: "/syncLabs-logo.png",
+  },
   creator: company.ceo,
   publisher: company.name,
   alternates: {
     canonical: company.url,
   },
   openGraph: {
-    title: `${company.name} | AI Business Infrastructure`,
+    title: company.name,
     description: company.subtext,
     url: company.url,
     siteName: company.name,
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${company.name} | AI Business Infrastructure`,
+    title: company.name,
     description: company.subtext,
     images: ["/opengraph-image.png"],
   },
@@ -68,7 +69,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="h-full bg-gradient-to-b from-transparent via-transparent/30 to-[#1f1729]">
+<html lang="en" className="h-full bg-gradient-to-b from-[#090714] via-[#090714]/80 to-[#1f1729]">
       <body className={`min-h-full font-sans ${inter.variable}`}>
         <div className="flex min-h-screen flex-col">
           <Navbar />

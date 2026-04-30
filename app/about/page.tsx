@@ -6,8 +6,7 @@ import { SectionWrapper } from "@/components/site/section-wrapper";
 import { company, teamTracks, values } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Learn how Sync Labs approaches AI operating systems, product execution, and premium software design.",
+  title: "Sync Labs",
 };
 
 export default function AboutPage() {

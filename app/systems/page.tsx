@@ -58,7 +58,7 @@ export default function SystemsPage() {
                     <span className="text-[8px] font-mono text-text-muted">NODE_02</span>
                   </div>
                   <div className="text-[12px] font-bold text-text-primary uppercase tracking-wider">E-MANAGER</div>
-                  <div className="text-[9px] text-text-secondary mt-1 leading-relaxed">Carrier money & profit ledger ledger.</div>
+                  <div className="text-[9px] text-text-secondary mt-1 leading-relaxed">Carrier money & profit ledger.</div>
                 </div>
                 <div className="text-[8px] font-mono text-text-muted border-t border-glass-border/40 pt-2 uppercase">INTEGRITY: 99.998%</div>
               </div>

@@ -23,7 +23,7 @@ export function TelemetryCanvas() {
   const [telemetryLog, setTelemetryLog] = useState<string[]>([
     "SYS_INIT: Network pulse active",
     "NODE_TANZANIA: Latency 8ms (Optimal)",
-    "NODE_NAIROBI: Sync standard complete",
+    "NODE_SYS_1: Sync standard complete",
   ]);
 
   useEffect(() => {
@@ -55,13 +55,13 @@ export function TelemetryCanvas() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Operational nodes (Tanzania HQ, Nairobi, Dar es Salaam, etc.)
+    // Operational nodes
     const nodes: Node[] = [
       { id: "TZ", label: "Tanzania Node [HQ]", x: 0.5, y: 0.5, isMain: true },
-      { id: "NBO", label: "Nairobi Node", x: 0.75, y: 0.25 },
-      { id: "DAR", label: "Dar Node", x: 0.3, y: 0.75 },
-      { id: "KLA", label: "Kampala Node", x: 0.2, y: 0.35 },
-      { id: "KGL", label: "Kigali Node", x: 0.8, y: 0.7 },
+      { id: "SYS_1", label: "System Node 1", x: 0.75, y: 0.25 },
+      { id: "SYS_2", label: "System Node 2", x: 0.3, y: 0.75 },
+      { id: "SYS_3", label: "System Node 3", x: 0.2, y: 0.35 },
+      { id: "SYS_4", label: "System Node 4", x: 0.8, y: 0.7 },
     ];
 
     const packets: Packet[] = [];

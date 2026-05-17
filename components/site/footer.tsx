@@ -69,9 +69,7 @@ export function Footer() {
             <div>
               <span className="text-text-muted">HQ NODE: </span> TANZANIA
             </div>
-            <div>
-              <span className="text-text-muted">SYNC NODES: </span> NAIROBI / DAR
-            </div>
+
             <div>
               <span className="text-text-muted">Uptime SLA: </span> 99.998%
             </div>

@@ -131,19 +131,19 @@ export default function Home() {
               
               {/* Telemetry metadata copy */}
               <div className="space-y-8 relative z-10">
-                <span className="eyebrow">INTELLIGENCE SPECIFICATIONS</span>
+                <span className="eyebrow">SYSTEM CAPABILITIES</span>
                 <h3 className="text-3xl md:text-4xl font-bold text-text-primary uppercase tracking-tight leading-tight">
-                  Unified Intelligence <br /> Orchestration.
+                  Unified Business <br /> Operations.
                 </h3>
                 <p className="text-text-secondary text-sm leading-relaxed max-w-md">
-                  Acacia Labs coordinates distributed commercial workflows across Sub-Saharan enterprise, linking ledger accounts, carriers, carrier billing pathways, and remote systems into one high-availability stream.
+                  Acacia Labs builds systems that connect teams, financial ledgers, and field operations into one clear, reliable platform designed for the African continent.
                 </p>
                 <div className="grid grid-cols-2 gap-6 pt-4">
                   {[
-                    "Intelligent Routing Node",
-                    "Offline Ledger consensus",
-                    "Carrier Network integration",
-                    "Localized execution layers"
+                    "Workflow Automation",
+                    "Financial Tracking",
+                    "Carrier Integrations",
+                    "Real-time Syncing"
                   ].map(spec => (
                     <div key={spec} className="flex items-center gap-3 text-[11px] font-bold text-text-primary uppercase tracking-wider">
                       <span className="h-1 w-1 bg-accent-cyan rounded-full" />
@@ -162,14 +162,14 @@ export default function Home() {
                 className="relative border border-glass-border bg-primary-bg/80 p-8 rounded-sm font-mono text-[10px] text-text-secondary leading-relaxed space-y-4 shadow-2xl"
               >
                 <div className="flex items-center justify-between border-b border-glass-border pb-3">
-                  <span className="text-[9px] text-accent-cyan font-bold tracking-widest">LAYER_ORCHESTRATION_LOG</span>
+                  <span className="text-[9px] text-accent-cyan font-bold tracking-widest">SYSTEM_LOG</span>
                   <span className="text-text-muted">ACTIVE</span>
                 </div>
                 <div className="space-y-2 text-text-muted">
-                  <div>[09:12:04] &gt; initializing distributed node synchronization...</div>
-                  <div>[09:12:05] &gt; carrier m-pesa transaction stream: <span className="text-accent-cyan">CONNECTED</span></div>
-                  <div>[09:12:05] &gt; localized cash-flow consensus layer: <span className="text-accent-cyan">STABLE</span></div>
-                  <div className="text-text-primary">[09:12:06] &gt; telemetry node latencies to Tanzania HQ: 8ms avg</div>
+                  <div>[09:12:04] &gt; initializing system synchronization...</div>
+                  <div>[09:12:05] &gt; m-pesa transaction stream: <span className="text-accent-cyan">CONNECTED</span></div>
+                  <div>[09:12:05] &gt; financial ledger consensus: <span className="text-accent-cyan">STABLE</span></div>
+                  <div className="text-text-primary">[09:12:06] &gt; system latency to Tanzania HQ: 8ms avg</div>
                   <div className="text-text-primary">[09:12:06] &gt; SYSTEM SYNC RATE: 88,432 ops/sec</div>
                 </div>
                 <div className="h-[2px] bg-glass-border/40 w-full" />

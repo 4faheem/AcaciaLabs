@@ -1,17 +1,24 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="hero-backdrop flex min-h-[70vh] items-center justify-center text-white">
-      <div className="section-shell text-center">
-        <span className="eyebrow border-white/15 bg-white/[0.06] text-[#00CEC9]">404</span>
-        <h1 className="mt-6 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">This page does not exist.</h1>
-        <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/68">The route may have moved, or the link may be outdated. Head back to the main Sync Labs site.</p>
-        <div className="mt-8 flex justify-center">
-          <Link href="/" className="button-primary">Return home</Link>
+    <section className="bg-primary-bg min-h-screen flex items-center justify-center text-text-primary">
+      <div className="section-container text-center space-y-8 max-w-xl">
+        <span className="eyebrow">ERROR CODE 404</span>
+        <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tight text-text-primary">
+          Protocol <br />
+          Not Found.
+        </h1>
+        <p className="text-text-secondary text-sm leading-relaxed">
+          The requested system node does not exist or has been re-routed. Please return to the main operational interface.
+        </p>
+        <div className="pt-4 flex justify-center">
+          <Link href="/" className="btn-secondary">
+            Return to Core Index
+          </Link>
         </div>
       </div>
     </section>
   );
 }
-
+export const dynamic = "force-static";

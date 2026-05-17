@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { Footer } from "@/components/site/footer";
@@ -13,17 +13,21 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+// Since Satoshi/Geist/IBM Plex Sans are requested, we'll use Inter as primary for now 
+// but add a fallback variable if we were to add local fonts later.
+// For now, let's stick to Inter and system fonts for performance, 
+// unless we have the font files.
+
 export const metadata: Metadata = {
   metadataBase: new URL(company.url),
-  title: company.name,
+  title: {
+    default: company.name,
+    template: `%s | ${company.name}`
+  },
   description: company.subtext,
   applicationName: company.name,
   keywords: siteKeywords,
   authors: [{ name: company.ceo }],
-  icons: {
-    icon: "/syncLabs-logo.png",
-    apple: "/syncLabs-logo.png",
-  },
   creator: company.ceo,
   publisher: company.name,
   alternates: {
@@ -69,9 +73,16 @@ export default function RootLayout({
   };
 
   return (
-<html lang="en" className="h-full bg-gradient-to-b from-[#090714] via-[#090714]/80 to-[#1f1729]">
-      <body className={`min-h-full font-sans ${inter.variable}`}>
-        <div className="flex min-h-screen flex-col">
+    <html lang="en" className="h-full scroll-smooth">
+      <body className={`min-h-full font-sans antialiased bg-[#080808] text-white ${inter.variable}`}>
+        <div className="flex min-h-screen flex-col relative overflow-hidden">
+          {/* Global Background Elements */}
+          <div className="fixed inset-0 pointer-events-none z-[-1]">
+             {/* Secondary Glow: Atmospheric radial blurs */}
+            <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-[#6C5CE7]/10 blur-[120px]" />
+            <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#00CEC9]/5 blur-[100px]" />
+          </div>
+          
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
@@ -84,4 +95,3 @@ export default function RootLayout({
     </html>
   );
 }
-

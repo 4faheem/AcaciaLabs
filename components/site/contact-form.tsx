@@ -1,79 +1,161 @@
-﻿"use client";
+"use client";
 
-import emailjs from "@emailjs/browser";
 import { FormEvent, startTransition, useState } from "react";
+import { cn } from "@/lib/utils";
 
-type ContactFormProps = {
-  email: string;
-};
+type StatusState = "idle" | "sending" | "success" | "error";
 
-const EMAILJS_PUBLIC_KEY = "MRA9au2IGFnTmk_4n";
-const EMAILJS_SERVICE_ID = "service_8nv2cxj";
-const EMAILJS_TEMPLATE_ID = "template_emkh0qt";
-
-export function ContactForm({ email }: ContactFormProps) {
-  const [message, setMessage] = useState("This form sends your project directly to our team.");
-  const [isSending, setIsSending] = useState(false);
+export function ContactForm() {
+  const [status, setStatus] = useState<StatusState>("idle");
+  const [feedbackMessage, setFeedbackMessage] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
     const name = String(formData.get("name") ?? "").trim();
-    const senderEmail = String(formData.get("email") ?? "").trim();
-    const company = String(formData.get("company") ?? "").trim();
-    const project = String(formData.get("project") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const companyName = String(formData.get("company") ?? "").trim();
+    const projectType = String(formData.get("projectType") ?? "").trim();
+    const message = String(formData.get("message") ?? "").trim();
+    const honeypot = String(formData.get("username") ?? "").trim();
 
     startTransition(() => {
-      setIsSending(true);
-      setMessage("Sending your project...");
+      setStatus("sending");
+      setFeedbackMessage("");
     });
 
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: name || "Website visitor",
-          from_email: senderEmail || "-",
-          company: company || "-",
-          project: project || "-",
-          to_email: email,
-        },
-        EMAILJS_PUBLIC_KEY
-      );
-      setMessage("Sent! We'll be in touch soon.");
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          company: companyName,
+          projectType,
+          message,
+          honeypot,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        setFeedbackMessage(data.message || "Message sent successfully. Our team will contact you shortly.");
+        form.reset();
+      } else {
+        setStatus("error");
+        setFeedbackMessage(data.error || "Failed to send message. Please try again or contact us directly.");
+      }
     } catch (error) {
-      console.error("EmailJS error:", error);
-      setMessage("Something went wrong. Please try again or email us directly.");
-    } finally {
-      setIsSending(false);
+      console.error("Submission error:", error);
+      setStatus("error");
+      setFeedbackMessage("A network error occurred. Please contact us directly at kiamafahim@gmail.com");
     }
   }
 
   return (
-    <form className="surface-card flex flex-col gap-5 p-7 sm:p-8" onSubmit={handleSubmit}>
-      <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-[-0.04em] text-[#1A1040]">Start a Project</h2>
-        <p className="text-sm leading-7 text-[#1A1040]/64">{message}</p>
+    <form 
+      onSubmit={handleSubmit}
+      className="border border-glass-border bg-glass-bg/60 p-8 md:p-10 rounded-2xl relative flex flex-col gap-6 shadow-2xl shadow-black/30"
+    >
+      {/* Honeypot field disguised to block spam bots */}
+      <input
+        type="text"
+        name="username"
+        autoComplete="off"
+        tabIndex={-1}
+        className="absolute w-0 h-0 opacity-0 pointer-events-none"
+        placeholder="Do not fill this field"
+      />
+
+      <div className="space-y-1">
+        <h3 className="text-xl font-bold uppercase tracking-tight text-text-primary">Start a Project</h3>
+        <p className="text-xs text-text-secondary">Tell us about your operational needs.</p>
       </div>
-      <label className="space-y-2">
-        <span className="text-sm font-medium text-[#1A1040]">Name</span>
-        <input type="text" name="name" required placeholder="Your name" className="w-full rounded-2xl border border-[#1A1040]/10 bg-[#F8F7FF] px-4 py-3 text-sm text-[#1A1040] outline-none transition focus:border-[#6C5CE7] focus:bg-white" />
-      </label>
-      <label className="space-y-2">
-        <span className="text-sm font-medium text-[#1A1040]">Email</span>
-        <input type="email" name="email" required placeholder="you@company.com" className="w-full rounded-2xl border border-[#1A1040]/10 bg-[#F8F7FF] px-4 py-3 text-sm text-[#1A1040] outline-none transition focus:border-[#6C5CE7] focus:bg-white" />
-      </label>
-      <label className="space-y-2">
-        <span className="text-sm font-medium text-[#1A1040]">Company</span>
-        <input type="text" name="company" placeholder="Company name" className="w-full rounded-2xl border border-[#1A1040]/10 bg-[#F8F7FF] px-4 py-3 text-sm text-[#1A1040] outline-none transition focus:border-[#6C5CE7] focus:bg-white" />
-      </label>
-      <label className="space-y-2">
-        <span className="text-sm font-medium text-[#1A1040]">Project Description</span>
-        <textarea name="project" required rows={6} placeholder="Tell us what you want to build, what problem it solves, and where AI should create leverage." className="w-full rounded-3xl border border-[#1A1040]/10 bg-[#F8F7FF] px-4 py-3 text-sm leading-7 text-[#1A1040] outline-none transition focus:border-[#6C5CE7] focus:bg-white" />
-      </label>
-      <button type="submit" disabled={isSending} className="button-primary w-full sm:w-fit disabled:opacity-50 disabled:cursor-not-allowed">
-        {isSending ? "Sending..." : "Start a Project"}
+
+      {feedbackMessage && (
+        <div className={cn(
+          "text-xs px-4 py-3 rounded-lg border",
+          status === "success" && "bg-emerald-500/10 border-emerald-500/30 text-emerald-400",
+          status === "error" && "bg-red-500/10 border-red-500/30 text-red-400"
+        )}>
+          {feedbackMessage}
+        </div>
+      )}
+
+      {/* Inputs grid */}
+      <div className="grid sm:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="text-[10px] font-bold tracking-widest text-text-secondary uppercase">Full Name *</label>
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder="Your name"
+            className="w-full rounded-lg border border-glass-border bg-white/[0.01] px-4 py-3 text-xs text-text-primary outline-none transition duration-300 focus:border-accent-blue/50 focus:bg-white/[0.04] placeholder:text-text-muted"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="text-[10px] font-bold tracking-widest text-text-secondary uppercase">Work Email *</label>
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="you@company.com"
+            className="w-full rounded-lg border border-glass-border bg-white/[0.01] px-4 py-3 text-xs text-text-primary outline-none transition duration-300 focus:border-accent-blue/50 focus:bg-white/[0.04] placeholder:text-text-muted"
+          />
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="text-[10px] font-bold tracking-widest text-text-secondary uppercase">Company</label>
+          <input
+            type="text"
+            name="company"
+            placeholder="Company or organization"
+            className="w-full rounded-lg border border-glass-border bg-white/[0.01] px-4 py-3 text-xs text-text-primary outline-none transition duration-300 focus:border-accent-blue/50 focus:bg-white/[0.04] placeholder:text-text-muted"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="text-[10px] font-bold tracking-widest text-text-secondary uppercase">Interested In *</label>
+          <select
+            name="projectType"
+            required
+            className="w-full rounded-lg border border-glass-border bg-secondary-bg px-4 py-3 text-xs text-text-primary outline-none transition duration-300 focus:border-accent-blue/50 focus:bg-white/[0.04]"
+          >
+            <option value="E-Manager">E-Manager</option>
+            <option value="syncAI">syncAI</option>
+            <option value="Operational Infrastructure">Operational Infrastructure</option>
+            <option value="Enterprise Automation">Enterprise Automation</option>
+            <option value="Custom Systems">Custom Systems</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label className="text-[10px] font-bold tracking-widest text-text-secondary uppercase">Project Details *</label>
+        <textarea
+          name="message"
+          required
+          rows={5}
+          placeholder="Describe your project, operational challenges, or infrastructure goals."
+          className="w-full rounded-lg border border-glass-border bg-white/[0.01] px-4 py-4 text-xs leading-relaxed text-text-primary outline-none transition duration-300 focus:border-accent-blue/50 focus:bg-white/[0.04] placeholder:text-text-muted resize-none"
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="inline-flex items-center justify-center rounded-full bg-text-primary px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-primary-bg transition-all duration-300 hover:bg-white hover:shadow-[0_0_20px_rgba(256,256,256,0.15)] hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+      >
+        {status === "sending" ? "Sending..." : "Send Message"}
       </button>
     </form>
   );

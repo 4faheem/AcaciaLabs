@@ -1,4 +1,3 @@
-﻿
 export type NavItem = {
   label: string;
   href: string;
@@ -12,9 +11,17 @@ export type Product = {
   status: string;
   href: string;
   cta: string;
+  problem: string;
+  intelligenceLayer: string;
+  coordinationValue: string;
+  infrastructureRole: string;
   features: string[];
   mockup: string;
-  accent: "electric" | "teal";
+  accent: "electric" | "cyan" | "gold";
+  metrics?: {
+    label: string;
+    value: string;
+  }[];
   proof?: {
     revenue: string;
     growth: string;
@@ -23,27 +30,24 @@ export type Product = {
 };
 
 export const company = {
-  name: "Sync Labs",
+  name: "Acacia Labs",
   ceo: "Fahim Kiama",
   coo: "Gwamaka Johas",
   email: "kiamafahim@gmail.com",
-  domain: "synclabs.io",
-  url: "https://synclabs.io",
-  headline: "Know your real profit. Control your business daily.",
-  subtext:
-    "Track revenue, expenses, and performance in one place—and get clear actions to stop losing money and grow faster.",
-  positioning:
-    "Sync Labs builds systems that turn business chaos into control.",
-  promise: "Built for real business operations across East Africa",
-  vision: "Close the gap between human intent and execution.",
-  mission: "Build intelligent systems that remove friction between ideas and results.",
-  founderBio:
-    "Building systems focused on execution, clarity, and real-world impact.",
-  cooBio:
-    "Operational discipline, rollout clarity, and systems that make growth easier to manage.",
+  location: "Tanzania",
+  domain: "acacialabs.io",
+  url: "https://acacialabs.io",
+  headline: "Infrastructure for African Enterprise.",
+  subtext: "Operational intelligence engineered for African commerce.",
+  positioning: "An operational intelligence infrastructure company building AI-native systems for African enterprise.",
+  promise: "Built for real businesses operating in real conditions.",
+  vision: "To define the operating layer of African enterprise.",
+  mission: "To engineer the future operating systems of African enterprise.",
+  philosophy: "Acacia Labs is building AI-native operational systems designed for the realities of African commerce — transforming fragmented execution into scalable infrastructure.",
 };
 
 export const navItems: NavItem[] = [
+  { label: "Home", href: "/" },
   { label: "Products", href: "/products" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -51,136 +55,94 @@ export const navItems: NavItem[] = [
 
 export const products: Product[] = [
   {
-    name: "E-Manager",
-    slug: "e-manager",
-    description: "Know your money. Control your business.",
-    summary:
-      "Track every transaction, see your real profit, and get daily actions to improve performance.",
-    status: "LIVE",
-    href: "https://e-manager.synclabs.io",
-    cta: "Use E-Manager",
+    name: "syncAI",
+    slug: "syncai",
+    description: "Intelligent orchestration and workflow automation layer.",
+    summary: "A neural business system that automates workflows, coordinates cross-functional tasks, and executes operations at machine speed.",
+    status: "BETA ACCESS",
+    href: "/systems#syncai",
+    cta: "Request Systems Access",
+    problem: "Fragmented processes, manual operational handoffs, and coordination lag that limits execution speed.",
+    intelligenceLayer: "A distributed neural task routing and workflow execution engine built for Sub-Saharan operations.",
+    coordinationValue: "Syncs sales pipelines, supply chain updates, and customer communications into a singular automated loop.",
+    infrastructureRole: "Acts as the central business automation layer to eliminate operational guesswork.",
     features: [
-      "Real-time financial tracking",
-      "Profit visibility",
-      "Daily action recommendations",
-    ],
-    mockup: "/mockups/salespro-dashboard.svg",
-    accent: "teal",
-proof: {
-      revenue: "TSh 1.2M",
-      growth: "+12%",
-      insight: "Expenses increased 12% this week",
-    },
-  },
-  {
-    name: "syncrAI",
-    slug: "syncrai",
-    description: "Your business — running itself.",
-    summary:
-      "An AI system that automates workflows, coordinates tasks, and executes operations.",
-    status: "COMING SOON",
-    href: "/contact#project-brief",
-    cta: "Get Early Access",
-    features: [
-      "Workflow automation",
-      "Task orchestration",
-      "AI execution",
+      "Neural workflow orchestration",
+      "Distributed execution routing",
+      "Real-time task synchronization",
     ],
     mockup: "/mockups/syncrai-dashboard.svg",
     accent: "electric",
+    metrics: [
+      { label: "Processing Speed", value: "< 50ms" },
+      { label: "Automation Index", value: "88.4%" },
+    ]
+  },
+  {
+    name: "E-Manager",
+    slug: "e-manager",
+    description: "Operational control and financial intelligence for enterprise scale.",
+    summary: "Track every transaction, map real-time profitability architecture, and receive predictive strategic recommendations.",
+    status: "SYSTEM ACTIVE",
+    href: "/systems#e-manager",
+    cta: "Initialize Deployment",
+    problem: "Unseen cash-flow leaks, transaction fragmentation across mobile networks, and lack of real-time profitability models.",
+    intelligenceLayer: "Deep transaction tracing engine integrated directly with local financial pipelines and carrier channels.",
+    coordinationValue: "Transforms raw ledger transactions into actionable financial alerts and clear profitability pathways.",
+    infrastructureRole: "The primary operational control ledger and financial intelligence operating layer.",
+    features: [
+      "Real-time profit tracking",
+      "Carrier network integrations",
+      "Actionable intelligence alerts",
+    ],
+    mockup: "/mockups/salespro-dashboard.svg",
+    accent: "cyan",
+    metrics: [
+      { label: "Active Workflows", value: "2.4k+" },
+      { label: "Uptime SLA", value: "99.99%" },
+    ],
+    proof: {
+      revenue: "$1.2M+",
+      growth: "+142%",
+      insight: "Financial tracking node operating at 99.99% ledger accuracy across mobile networks."
+    }
   },
 ];
 
-export const trustSegments = [
+export const operationalPrinciples = [
   {
-    title: "Solo founders",
-    description:
-      "Make decisions faster with one clear view of what's happening.",
+    title: "Systems over hype",
+    description: "We prioritize structural reliability and architectural integrity over ephemeral market trends.",
   },
   {
-    title: "Growing teams",
-    description:
-      "Replace scattered tools with systems that keep work moving.",
+    title: "Precision execution",
+    description: "Operational excellence is not an objective; it is a baseline requirement for every system we deploy.",
   },
   {
-    title: "East African SMEs",
-    description:
-      "Built for businesses that need clarity, control, and room to grow.",
-  },
-];
-
-export const values = [
-  {
-    title: "Clarity first",
-    description:
-      "If a business cannot see what's happening, it cannot improve what matters.",
+    title: "African reality first",
+    description: "Our engineering begins with the unique structural requirements and operational constraints of the continent.",
   },
   {
-    title: "Systems over patchwork",
-    description:
-      "We replace fragmented tools with one operating layer that holds the business together.",
+    title: "Intelligence embedded everywhere",
+    description: "Neural coordination is not an additive feature; it is the fundamental layer of modern enterprise.",
   },
   {
-    title: "Useful intelligence",
-    description:
-      "The goal is action, not noise. Software should tell you what to do next.",
-  },
-];
-
-export const businessChallenges = [
-  {
-    title: "No real profit visibility",
-    description:
-      "Too many businesses are selling every day but still cannot see what they actually make.",
+    title: "Operational clarity",
+    description: "We transform fragmented data and disconnected workflows into unified strategic visibility.",
   },
   {
-    title: "Operations live everywhere",
-    description:
-      "WhatsApp, spreadsheets, memory, and side notes create confusion instead of control.",
+    title: "Design with authority",
+    description: "Our interfaces communicate technical dominance, structural reliability, and institutional trust.",
   },
-  {
-    title: "No clear next move",
-    description:
-      "When the system is weak, every decision takes too long and every problem costs more.",
-  },
-];
-
-export const teamTracks = [
-  {
-    title: "Business Systems",
-    description:
-      "Map the business flow before building software around it.",
-  },
-  {
-    title: "Execution Design",
-    description:
-      "Interfaces that reduce friction and keep work moving.",
-  },
-  {
-    title: "Applied Intelligence",
-    description:
-      "Systems that surface insight, automate follow-through, and tighten control.",
-  },
-  {
-    title: "Operations Infrastructure",
-    description:
-      "Production-ready infrastructure for teams that need dependable execution.",
-  },
-];
-
-export const contactExpectations = [
-  "A focused review of where your operations are leaking time, money, or visibility.",
-  "A clear recommendation on the right system, scope, and rollout path.",
-  "A practical next step toward more control across the business.",
 ];
 
 export const siteKeywords = [
-  "Sync Labs",
-  "Syncr Labs",
-  "AI business infrastructure",
-  "business systems",
-  "SME software Africa",
-  "workflow automation",
-  "operations software",
-  "East Africa business tools",
+  "Acacia Labs",
+  "African AI Infrastructure",
+  "Enterprise Software Africa",
+  "Intelligent Automation",
+  "East Africa Business Systems",
+  "AI Operating System",
+  "Operational Excellence",
+  "Resilient Engineering",
 ];

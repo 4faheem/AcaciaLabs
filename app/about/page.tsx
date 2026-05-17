@@ -1,86 +1,144 @@
-﻿import type { Metadata } from "next";
+"use client";
 
-import { AnimatedSection } from "@/components/site/animated-section";
-import { PageIntro } from "@/components/site/page-intro";
-import { SectionWrapper } from "@/components/site/section-wrapper";
-import { company, teamTracks, values } from "@/lib/site";
-
-export const metadata: Metadata = {
-  title: "Sync Labs",
-};
+import { motion } from "framer-motion";
+import { operationalPrinciples } from "@/lib/site";
 
 export default function AboutPage() {
   return (
-    <>
-      <PageIntro eyebrow="About" title="A product studio for teams that want software to execute, not just exist." description="Sync Labs is built around a simple belief: software should reduce the distance between intent and execution.">
-        <div className="space-y-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/45">Vision</p>
-          <p className="text-2xl font-semibold leading-tight tracking-[-0.05em] text-white">&ldquo;{company.vision}&rdquo;</p>
+    <div className="bg-primary-bg min-h-screen pt-32 pb-24 overflow-hidden">
+      
+      {/* 1. CINEMATIC ABOUT HERO */}
+      <section className="relative overflow-hidden border-b border-glass-border bg-secondary-bg py-24 mb-16">
+        <div className="absolute inset-0 grid-pattern opacity-[0.25]" />
+        
+        <div className="section-container">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl space-y-8"
+          >
+            <span className="eyebrow">INSTITUTIONAL STRATEGY</span>
+            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tight text-text-primary leading-tight">
+              Engineering Operational <br />
+              <span className="text-text-secondary">Intelligence for African Enterprise.</span>
+            </h1>
+            <p className="text-text-secondary text-base md:text-lg max-w-2xl leading-relaxed">
+              Acacia Labs builds AI-native systems designed to transform fragmented business operations into scalable infrastructure.
+            </p>
+          </motion.div>
         </div>
-      </PageIntro>
-      <SectionWrapper tone="light">
-        <div className="grid gap-10 lg:grid-cols-2">
-          <AnimatedSection delay={1}>
-            <div className="surface-card p-8 sm:p-10">
-              <div className="flex h-20 w-20 items-center justify-center rounded-[1.75rem] bg-[linear-gradient(135deg,rgba(108,92,231,0.18),rgba(0,206,201,0.18))] text-3xl font-semibold tracking-[-0.08em] text-[#1A1040]">FK</div>
-              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.22em] text-[#8A84AD]">Founder & CEO</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] text-[#1A1040]">Fahim Kiama</h2>
-              <p className="mt-4 text-sm leading-7 text-[#1A1040]/65">{company.founderBio}</p>
-            </div>
-          </AnimatedSection>
-          <AnimatedSection delay={2}>
-            <div className="surface-card p-8 sm:p-10">
-              <div className="flex h-20 w-20 items-center justify-center rounded-[1.75rem] bg-[linear-gradient(135deg,rgba(0,206,201,0.18),rgba(108,92,231,0.18))] text-3xl font-semibold tracking-[-0.08em] text-[#1A1040]">GJ</div>
-              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.22em] text-[#8A84AD]">Co-founder & COO</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] text-[#1A1040]">Gwamaka Johas</h2>
-              <p className="mt-4 text-sm leading-7 text-[#1A1040]/65">{company.cooBio}</p>
-            </div>
-          </AnimatedSection>
-        </div>
-        <AnimatedSection className="mt-10 lg:mt-14">
-          <div>
-            <span className="eyebrow border-[#1A1040]/10 bg-[#F8F7FF] text-[#1A1040]">Mission</span>
-            <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">Build intelligent systems that remove friction between ideas and execution.</h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-[#1A1040]/66">We combine product strategy, interface design, applied AI, and engineering into one focused operating model. The result is software that feels premium, moves fast, and stays useful as complexity grows.</p>
-          </div>
-        </AnimatedSection>
-      </SectionWrapper>
-      <SectionWrapper tone="muted">
-        <AnimatedSection>
-          <div className="max-w-2xl">
-            <span className="eyebrow border-[#1A1040]/10 bg-white text-[#1A1040]">Team</span>
-            <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">Lean, senior, and ready to scale as the company grows.</h2>
-          </div>
-        </AnimatedSection>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {teamTracks.map((track, i) => (
-            <AnimatedSection key={track.title} delay={i + 1}>
-              <div className="surface-card p-7 transition duration-300 hover:-translate-y-0.5">
-                <h3 className="text-xl font-semibold tracking-[-0.04em] text-[#1A1040]">{track.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-[#1A1040]/66">{track.description}</p>
+      </section>
+
+      {/* 2. STRATEGIC LEADERSHIP BLOCK */}
+      <section className="section-container py-12">
+        <div className="max-w-4xl space-y-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-4"
+          >
+            <span className="eyebrow">LEADERSHIP GRID</span>
+            <h2 className="text-3xl font-bold uppercase tracking-tight text-text-primary">
+              Institutional Direction.
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12 pt-6">
+            {/* CEO */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-4 border-l-2 border-accent-blue/30 pl-6"
+            >
+              <div className="text-[10px] font-mono text-text-muted tracking-widest uppercase">
+                Founder & CEO
               </div>
-            </AnimatedSection>
+              <div className="text-2xl font-bold uppercase tracking-tight text-text-primary">
+                Fahim Kiama
+              </div>
+              <p className="text-xs leading-relaxed text-text-secondary font-mono italic">
+                “Leading the development of AI-native operational infrastructure for African enterprise systems.”
+              </p>
+            </motion.div>
+
+            {/* COO */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              className="space-y-4 border-l-2 border-accent-cyan/30 pl-6"
+            >
+              <div className="text-[10px] font-mono text-text-muted tracking-widest uppercase">
+                Chief Operating Officer
+              </div>
+              <div className="text-2xl font-bold uppercase tracking-tight text-text-primary">
+                Gwamaka Johas
+              </div>
+              <p className="text-xs leading-relaxed text-text-secondary font-mono italic">
+                “Focused on operational execution, systems coordination, and scalable enterprise processes.”
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Add founding summary paragraph */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="border border-glass-border bg-glass-bg p-8 md:p-12 rounded-sm max-w-3xl text-sm leading-relaxed text-text-secondary"
+          >
+            <p>
+              Acacia Labs was founded to address fragmented workflows, poor operational visibility, and inefficient coordination across modern business environments.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 3. OPERATIONAL PRINCIPLES */}
+      <section className="section-container py-16 border-t border-glass-border/40 mt-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-primary mb-2">
+            Operational Principles
+          </div>
+          <p className="text-xs text-text-secondary max-w-md">
+            Our framework is governed by strict rules designed for stable enterprise execution in real-world environments.
+          </p>
+        </motion.div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {operationalPrinciples.map((principle, idx) => (
+            <motion.div 
+              key={principle.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.05 }}
+              className="border border-glass-border bg-white/[0.01] p-6 rounded-sm space-y-3"
+            >
+              <div className="text-[10px] font-mono text-accent-cyan tracking-widest uppercase font-bold">
+                {principle.title}
+              </div>
+              <p className="text-xs leading-relaxed text-text-secondary">
+                {principle.description}
+              </p>
+            </motion.div>
           ))}
         </div>
-      </SectionWrapper>
-      <SectionWrapper tone="light">
-        <AnimatedSection>
-          <div className="max-w-2xl">
-            <span className="eyebrow border-[#1A1040]/10 bg-[#F8F7FF] text-[#1A1040]">Values</span>
-            <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">Principles that keep the work sharp.</h2>
-          </div>
-        </AnimatedSection>
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {values.map((value, i) => (
-            <AnimatedSection key={value.title} delay={i + 1}>
-              <div className="surface-card p-7">
-                <h3 className="text-xl font-semibold tracking-[-0.04em] text-[#1A1040]">{value.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-[#1A1040]/66">{value.description}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </SectionWrapper>
-    </>
+      </section>
+
+    </div>
   );
 }

@@ -1,116 +1,91 @@
-import Link from "next/link";
+"use client";
 
-import { company, products } from "@/lib/site";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { company } from "@/lib/site";
+import { TelemetryCanvas } from "./telemetry-canvas";
 
 export function Hero() {
   return (
-    <section className="hero-backdrop relative overflow-hidden border-b border-white/10 text-white">
-      <div className="soft-grid absolute inset-0 opacity-20" />
-      <div className="pointer-events-none absolute -left-20 top-24 h-72 w-72 rounded-full bg-[#6C5CE7]/30 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-[#00CEC9]/18 blur-3xl" />
-      <div className="section-shell relative grid gap-16 py-20 sm:py-24 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-28">
-        <div className="max-w-3xl">
-          <span className="eyebrow border-white/15 bg-white/[0.06] text-[#00CEC9]">
-            AI Business Infrastructure
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 bg-primary-bg">
+      {/* Engineered System Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 grid-pattern opacity-[0.4]" />
+        {/* Extreme subtle radial vignette to convey restraint */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,#050505_95%)]" />
+      </div>
+
+      <div className="section-container relative z-10 w-full grid gap-16 lg:grid-cols-[1.1fr_0.9fr] items-center py-16">
+        
+        {/* LEFT COLUMN: Swiss oversized typography structure */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col text-left space-y-8"
+        >
+          <span className="eyebrow w-fit">
+            OPERATIONAL INTELLIGENCE INFRASTRUCTURE
           </span>
-          <h1 className="mt-6 max-w-5xl text-5xl font-semibold tracking-[-0.075em] text-white sm:text-6xl lg:text-7xl">
-            {company.headline}
+
+          <h1 className="oversized-heading text-gradient-monochrome">
+            Infrastructure <br />
+            <span className="text-text-secondary/45">For African</span> <br />
+            Enterprise.
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
-            {company.subtext}
-          </p>
-          <p className="mt-5 max-w-xl text-sm font-medium uppercase tracking-[0.22em] text-white/46">
-            {company.promise}
+
+          <p className="text-base md:text-lg text-text-secondary max-w-xl leading-relaxed">
+            {company.subtext} {company.promise} Acacia Labs deploys sovereign, highly resilient operating systems engineered for the unique structural realities of African commerce.
           </p>
 
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Link href="/products" className="button-primary">
-              Explore Products
-            </Link>
-            <Link href="/contact#project-brief" className="button-secondary">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+            <Link href="/contact" className="btn-primary text-center">
               Start a Project
             </Link>
+            <Link href="/systems" className="btn-secondary text-center">
+              Explore Systems
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* RIGHT COLUMN: Telemetry visualizer & high-density panels */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-6 flex flex-col justify-center"
+        >
+          {/* Telemetry Canvas Panel */}
+          <div className="rounded-sm border border-glass-border overflow-hidden bg-glass-bg shadow-2xl">
+            <TelemetryCanvas />
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            <span className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-white/72">
-              Know real profit
-            </span>
-            <span className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-white/72">
-              Control daily operations
-            </span>
-            <span className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-white/72">
-              Built for East African SMEs
-            </span>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="glass-surface relative overflow-hidden p-6 sm:p-8">
-            <div className="pointer-events-none absolute inset-x-10 top-0 h-28 rounded-full bg-[#6C5CE7]/20 blur-3xl" />
-            <div className="absolute right-5 top-5 rounded-full border border-white/10 bg-white/[0.08] px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/70">
-              Business Control Layer
-            </div>
-
-            <div className="mt-10 space-y-4">
-              {[
-                {
-                  title: "See the money",
-                  description:
-                    "Track cash, profit, and business performance without second-guessing the numbers.",
-                },
-                {
-                  title: "Run the work",
-                  description:
-                    "Turn scattered tasks, chats, and manual follow-up into one coordinated system.",
-                },
-                {
-                  title: "Know the next move",
-                  description:
-                    "Get a clearer picture of what needs attention before small issues become expensive.",
-                },
-              ].map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-3xl border border-white/10 bg-white/[0.06] p-5 transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.09]"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h2 className="text-lg font-semibold text-white">
-                        {item.title}
-                      </h2>
-                      <p className="mt-2 text-sm leading-7 text-white/64">
-                        {item.description}
-                      </p>
-                    </div>
-                    <span className="mt-1 h-2.5 w-2.5 rounded-full bg-[#00CEC9] shadow-[0_0_20px_rgba(0,206,201,0.8)]" />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-3xl border border-white/10 bg-white/[0.05] p-5">
-                <p className="text-xs uppercase tracking-[0.22em] text-white/45">
-                  Market
-                </p>
-                <p className="mt-3 text-2xl font-semibold text-white">
-                  SMEs first
-                </p>
+          {/* Floating High-Density Systems Metric Panels */}
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "SYSTEM THROUGHPUT", value: "4.8GB/s", detail: "Sub-50ms sync latency" },
+              { label: "AUTOMATION LOAD", value: "18.4M", detail: "Active task executions" },
+              { label: "SME NETWORK", value: "2,400+", detail: "Coordinated workflows" },
+              { label: "SYNC INDEX", value: "98.2%", detail: "Ledger accuracy" },
+            ].map((metric) => (
+              <div 
+                key={metric.label}
+                className="border border-glass-border bg-white/[0.01] p-5 rounded-sm hover:border-glass-border-hover transition-colors"
+              >
+                <div className="text-[9px] font-mono tracking-widest text-text-muted uppercase mb-1">{metric.label}</div>
+                <div className="text-2xl font-bold tracking-tight text-text-primary">{metric.value}</div>
+                <div className="text-[9px] font-mono text-accent-cyan/80 tracking-wider mt-1">{metric.detail}</div>
               </div>
-              <div className="rounded-3xl border border-white/10 bg-white/[0.05] p-5">
-                <p className="text-xs uppercase tracking-[0.22em] text-white/45">
-                  Systems
-                </p>
-                <p className="mt-3 text-2xl font-semibold text-white">
-                  {products.length} product tracks
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
+        </motion.div>
+      </div>
+
+      {/* System Scroll Telemetry Pulse */}
+      <div className="absolute bottom-8 left-6 lg:left-12 flex items-center gap-4 font-mono text-[9px] text-text-muted tracking-widest uppercase z-10 select-none">
+        <span className="telemetry-pulse">SCROLL_TELEMETRY</span>
+        <div className="w-16 h-[1px] bg-glass-border" />
       </div>
     </section>
   );
 }
-

@@ -1,141 +1,216 @@
-﻿import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
-
-import { AnimatedSection } from "@/components/site/animated-section";
+import { motion } from "framer-motion";
 import { Hero } from "@/components/site/hero";
-import { ProductCard } from "@/components/site/product-card";
-import { SectionWrapper } from "@/components/site/section-wrapper";
-import { company, products, trustSegments } from "@/lib/site";
-
-export const metadata: Metadata = {
-  title: "Sync Labs",
-};
+import { products } from "@/lib/site";
 
 export default function Home() {
   return (
     <>
+      {/* 1. CINEMATIC HERO SECTION */}
       <Hero />
 
-      {/* PROBLEM SECTION */}
-      <SectionWrapper tone="light">
-        <AnimatedSection>
-          <div className="max-w-2xl">
-            <span className="eyebrow border-[#1A1040]/10 bg-[#F8F7FF] text-[#1A1040]">Problem</span>
-            <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">Most businesses are running blind.</h2>
-          </div>
-        </AnimatedSection>
-        <div className="mt-8 max-w-2xl">
-          <p className="text-lg leading-8 text-[#1A1040]/66">
-            You're making decisions without clear numbers.
-            Money comes in, money goes out—but profit isn't obvious.
-          </p>
-          <p className="mt-4 text-lg leading-8 text-[#1A1040]/66">
-            Tasks are scattered across WhatsApp, notes, and memory.
-            Problems show up late—when they're already expensive.
-          </p>
-          <p className="mt-6 text-xl font-semibold text-[#1A1040]">
-            That's not a strategy. That's guesswork.
-          </p>
-        </div>
-      </SectionWrapper>
+      {/* 2. OPERATIONAL REALITY (THE STRUCTURAL CHALLENGE) */}
+      <section className="relative py-32 bg-secondary-bg border-y border-glass-border overflow-hidden">
+        <div className="absolute inset-0 grid-pattern opacity-[0.2]" />
+        
+        <div className="section-container">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-20 items-start">
+            
+            {/* Left: Statement */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
+              <span className="eyebrow">OPERATIONAL CONSTRAINTS</span>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary uppercase leading-tight">
+                The Reality <br />
+                Of African <br />
+                Commerce.
+              </h2>
+              <div className="h-[1px] w-24 bg-accent-cyan" />
+            </motion.div>
 
-      {/* SOLUTION SECTION - 3 PILLARS */}
-      <SectionWrapper tone="muted" className="border-y border-[#1A1040]/10">
-        <AnimatedSection>
-          <div className="max-w-2xl">
-            <span className="eyebrow border-[#1A1040]/10 bg-white text-[#1A1040]">Solution</span>
-            <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">Replace guesswork with control.</h2>
-          </div>
-        </AnimatedSection>
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {[
-            {
-              title: "Clarity",
-              description: "See your revenue, expenses, and profit in one place.",
-            },
-            {
-              title: "Control",
-              description: "Understand exactly what's happening in your business—daily.",
-            },
-            {
-              title: "Action",
-              description: "Get clear recommendations on what to fix, improve, or scale.",
-            },
-          ].map((value, i) => (
-            <AnimatedSection key={value.title} delay={i + 1}>
-              <div className="surface-card p-7 transition duration-300 hover:-translate-y-0.5">
-                <h3 className="text-xl font-semibold tracking-[-0.04em] text-[#1A1040]">{value.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-[#1A1040]/66">{value.description}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </SectionWrapper>
+            {/* Right: Technical Explanation */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="space-y-8 text-text-secondary text-base md:text-lg leading-relaxed max-w-2xl"
+            >
+              <p>
+                African commerce does not suffer from a lack of transactional activity; it suffers from extreme execution fragmentation. Transactions are scattered across diverse mobile money networks, local carrier pipelines, and physical logistics nodes.
+              </p>
+              <p>
+                Without unified operational coordination, enterprise scale becomes a liability. Operational leakage, untracked cash-flow channels, and manual communication handoffs compound into massive invisible bottlenecks.
+              </p>
+              <p className="text-text-primary font-bold">
+                Acacia Labs develops the sovereign intelligence infrastructure that bridges these gaps — transforming fragmented execution workflows into stable, automated enterprise assets.
+              </p>
+            </motion.div>
 
-      {/* PRODUCTS SECTION */}
-      <SectionWrapper id="products" tone="light">
-        <AnimatedSection>
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          </div>
+        </div>
+      </section>
+
+      {/* 3. MODULAR SYSTEMS ARCHITECTURE PREVIEW */}
+      <section className="relative py-32 bg-primary-bg overflow-hidden" id="systems">
+        <div className="section-container">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-24 border-b border-glass-border pb-12"
+          >
             <div className="max-w-2xl">
-              <span className="eyebrow border-[#1A1040]/10 bg-[#F8F7FF] text-[#1A1040]">Products</span>
-              <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">Two systems. One goal — complete business control.</h2>
-              <p className="mt-4 text-base leading-8 text-[#1A1040]/66">Every Sync Labs product is built to feel minimal on the surface and operationally powerful underneath.</p>
+              <span className="eyebrow">Enterprise Modules</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-text-primary uppercase tracking-tight">
+                Unified Systems Index
+              </h2>
+              <p className="text-text-secondary text-base mt-4 max-w-lg">
+                Acacia Labs enterprise components are engineered to integrate seamlessly, providing an active, machine-speed orchestration layer.
+              </p>
             </div>
-            <Link href="/products" className="button-light w-fit">View all products</Link>
-          </div>
-        </AnimatedSection>
+            <Link href="/systems" className="btn-secondary whitespace-nowrap self-start md:self-auto">
+              View Specifications
+            </Link>
+          </motion.div>
 
-        <p className="mt-4 text-sm font-medium text-[#1A1040]/60">Built for real business operations • Designed for East African SMEs • Works with how you already run your business</p>
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {products.map((product, i) => (
-            <AnimatedSection key={product.slug} delay={(i % 2) + 1}>
-              <ProductCard product={product} />
-            </AnimatedSection>
-          ))}
-        </div>
-        <p className="mt-8 text-center text-sm font-medium text-[#1A1040]/60">Early users get priority access to upcoming AI features.</p>
-      </SectionWrapper>
-
-      {/* TRUST SECTION */}
-      <SectionWrapper tone="muted" className="border-y border-[#1A1040]/10">
-        <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-          <AnimatedSection>
-            <div className="max-w-2xl">
-              <span className="eyebrow border-[#1A1040]/10 bg-white text-[#1A1040]">Trust</span>
-              <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-[#1A1040] sm:text-5xl">Built for how businesses actually run.</h2>
-              <p className="mt-4 text-base leading-8 text-[#1A1040]/66">Designed for operators—not just founders. Works with how you already manage money, tasks, and decisions. Built for growing businesses across East Africa.</p>
-            </div>
-          </AnimatedSection>
-          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-            {trustSegments.map((segment, i) => (
-              <AnimatedSection key={segment.title} delay={i + 1}>
-                <div className="surface-card p-6 transition duration-300 hover:-translate-y-0.5">
-                  <h3 className="text-lg font-semibold text-[#1A1040]">{segment.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#1A1040]/65">{segment.description}</p>
+          {/* Connected Grid Map */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((product, i) => (
+              <motion.div
+                key={product.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="border border-glass-border bg-glass-bg/40 p-8 rounded-sm hover:border-glass-border-hover transition-all duration-300 flex flex-col justify-between h-[360px]"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-8">
+                    <span className="text-[9px] font-mono tracking-widest text-accent-cyan uppercase bg-white/[0.02] border border-white/5 px-2.5 py-1">{product.status}</span>
+                    <span className="text-[10px] font-mono text-text-muted">NODE // 0{i + 1}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-text-primary uppercase tracking-wide mb-3">{product.name}</h3>
+                  <p className="text-[12px] text-text-secondary leading-relaxed mb-6">
+                    {product.description}
+                  </p>
                 </div>
-              </AnimatedSection>
+                <div className="flex items-center justify-between border-t border-glass-border/40 pt-4">
+                  <div className="flex gap-4">
+                    {product.metrics?.slice(0, 1).map(m => (
+                      <div key={m.label}>
+                        <div className="text-[8px] font-mono text-text-muted">{m.label}</div>
+                        <div className="text-xs font-bold text-text-primary">{m.value}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <Link href={`/systems#${product.slug}`} className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent-blue hover:text-text-primary transition-colors">
+                    SPEC_MAP &gt;
+                  </Link>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </SectionWrapper>
+      </section>
 
-{/* FINAL CTA SECTION */}
-      <SectionWrapper tone="dark" className="hero-backdrop border-t border-white/10">
-        <AnimatedSection>
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-            <div className="max-w-2xl">
-              <span className="eyebrow border-white/15 bg-white/[0.06] text-[#00CEC9]">Call to Action</span>
-              <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-5xl">Start running your business with clarity.</h2>
-              <p className="mt-4 text-base leading-8 text-white/68">Use E-Manager today. Add automation with syncrAI as you grow.</p>
-            </div>
-            <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
-<Link href="https://e-manager.synclabs.io" target="_blank" rel="noopener noreferrer" className="button-primary">Use E-Manager</Link>
-              <Link href="/contact" className="button-secondary">See how it works</Link>
+      {/* 4. UNIFIED INTELLIGENCE ARCHITECTURE SPEC */}
+      <section className="relative py-32 bg-secondary-bg border-t border-glass-border overflow-hidden">
+        <div className="absolute inset-0 grid-pattern opacity-[0.2]" />
+        
+        <div className="section-container">
+          <div className="border border-glass-border bg-glass-bg p-8 md:p-16 relative overflow-hidden rounded-sm">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              
+              {/* Telemetry metadata copy */}
+              <div className="space-y-8 relative z-10">
+                <span className="eyebrow">INTELLIGENCE SPECIFICATIONS</span>
+                <h3 className="text-3xl md:text-4xl font-bold text-text-primary uppercase tracking-tight leading-tight">
+                  Unified Intelligence <br /> Orchestration.
+                </h3>
+                <p className="text-text-secondary text-sm leading-relaxed max-w-md">
+                  Acacia Labs coordinates distributed commercial workflows across Sub-Saharan enterprise, linking ledger accounts, carriers, carrier billing pathways, and remote systems into one high-availability stream.
+                </p>
+                <div className="grid grid-cols-2 gap-6 pt-4">
+                  {[
+                    "Intelligent Routing Node",
+                    "Offline Ledger consensus",
+                    "Carrier Network integration",
+                    "Localized execution layers"
+                  ].map(spec => (
+                    <div key={spec} className="flex items-center gap-3 text-[11px] font-bold text-text-primary uppercase tracking-wider">
+                      <span className="h-1 w-1 bg-accent-cyan rounded-full" />
+                      {spec}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Graphical Spec Control Panel */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.98, y: 15 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="relative border border-glass-border bg-primary-bg/80 p-8 rounded-sm font-mono text-[10px] text-text-secondary leading-relaxed space-y-4 shadow-2xl"
+              >
+                <div className="flex items-center justify-between border-b border-glass-border pb-3">
+                  <span className="text-[9px] text-accent-cyan font-bold tracking-widest">LAYER_ORCHESTRATION_LOG</span>
+                  <span className="text-text-muted">ACTIVE</span>
+                </div>
+                <div className="space-y-2 text-text-muted">
+                  <div>[09:12:04] &gt; initializing distributed node synchronization...</div>
+                  <div>[09:12:05] &gt; carrier m-pesa transaction stream: <span className="text-accent-cyan">CONNECTED</span></div>
+                  <div>[09:12:05] &gt; localized cash-flow consensus layer: <span className="text-accent-cyan">STABLE</span></div>
+                  <div className="text-text-primary">[09:12:06] &gt; telemetry node latencies to Tanzania HQ: 8ms avg</div>
+                  <div className="text-text-primary">[09:12:06] &gt; SYSTEM SYNC RATE: 88,432 ops/sec</div>
+                </div>
+                <div className="h-[2px] bg-glass-border/40 w-full" />
+                <div className="flex items-center justify-between text-[9px] text-text-muted">
+                  <span>PACKET_SYS: STABLE</span>
+                  <span>REF: AC-OS-8.9</span>
+                </div>
+              </motion.div>
+
             </div>
           </div>
-        </AnimatedSection>
-      </SectionWrapper>
+        </div>
+      </section>
+
+      {/* 5. DIRECT CONSULTATION INITIATION */}
+      <section className="relative py-36 bg-primary-bg overflow-hidden border-t border-glass-border">
+        <div className="section-container flex flex-col items-center text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="max-w-3xl space-y-8"
+          >
+            <span className="eyebrow mx-auto">CONSULTATION INITIATION</span>
+            <h2 className="text-4xl md:text-6xl font-bold text-text-primary uppercase tracking-tight max-w-2xl mx-auto leading-tight">
+              Initialize Systems <br /> Integration.
+            </h2>
+            <p className="text-text-secondary text-base max-w-xl mx-auto leading-relaxed">
+              Connect with our enterprise engineering and strategy team to discuss automated operational architectures, custom transaction grids, or custom carrier network layers.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <Link href="/contact" className="btn-primary w-full sm:w-auto">
+                Start a Project
+              </Link>
+              <Link href="/systems" className="btn-secondary w-full sm:w-auto">
+                Systems Spec Index
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </>
   );
 }
-

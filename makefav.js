@@ -1,31 +1,32 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
 async function generateFavicon() {
-  const logoPath = path.join(__dirname, 'syncLabs-logo-nobg.png');
+  const logoPath = path.join(__dirname, 'public', 'acacia-logo.png');
   const outputPath = path.join(__dirname, 'app', 'favicon.ico');
+  const iconPath = path.join(__dirname, 'app', 'icon.png');
   
   console.log('Loading logo:', logoPath);
   
   const logoBuffer = fs.readFileSync(logoPath);
-  const sizes = [16, 32, 48, 64, 128, 256];
   
-  // Generate PNG buffers - use resize with specific settings to preserve alpha
+  // Generate the app/icon.png (high res)
+  await sharp(logoBuffer)
+    .resize(512, 512)
+    .png()
+    .toFile(iconPath);
+  console.log('Icon saved:', iconPath);
+
+  const sizes = [16, 32, 48, 64];
+  
+  // Generate PNG buffers for ICO
   const pngBuffers = await Promise.all(
     sizes.map(size => 
-      sharp(logoBuffer, { 
-        failOnError: false 
-      })
-        .resize(size, size, {
-          fit: 'fill',
-          kernel: sharp.kernel.lanczos3
-        })
-        .png({
-          compressionLevel: 9,
-          palette: false,
-          quality: 100
-        })
+      sharp(logoBuffer)
+        .resize(size, size)
+        .png()
         .toBuffer()
     )
   );
@@ -43,8 +44,8 @@ async function generateFavicon() {
     const pngData = pngBuffers[i];
     
     directories.push({
-      width: size === 256 ? 0 : size,
-      height: size === 256 ? 0 : size,
+      width: size,
+      height: size,
       colorCount: 0,
       reserved: 0,
       planes: 1,
@@ -57,7 +58,8 @@ async function generateFavicon() {
     offset += pngData.length;
   }
   
-  const icoBuffer = Buffer.alloc(headerSize + directorySize + offset);
+  const totalSize = headerSize + directorySize + imageDataBuffers.reduce((acc, buf) => acc + buf.length, 0);
+  const icoBuffer = Buffer.alloc(totalSize);
   let pos = 0;
   
   icoBuffer.writeUInt16LE(0, pos); pos += 2;
@@ -82,10 +84,6 @@ async function generateFavicon() {
   
   fs.writeFileSync(outputPath, icoBuffer);
   console.log('Favicon saved:', outputPath, 'Size:', icoBuffer.length);
-  
-  // Also copy to public
-  fs.copyFileSync(logoPath, path.join(__dirname, 'public', 'syncLabs-logo.png'));
-  console.log('Logo copied to public folder');
 }
 
 generateFavicon().catch(console.error);

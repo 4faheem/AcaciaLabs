@@ -1,10 +1,12 @@
-﻿export const dynamic = "force-static";
+/* eslint-disable @next/next/no-img-element */
+export const dynamic = "force-static";
 
 import { ImageResponse } from "next/og";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-export const alt = "Sync Labs";
+export const alt = "Acacia Labs";
+
 export const size = {
   width: 1200,
   height: 630,
@@ -53,13 +55,13 @@ export default function OpenGraphImage() {
           <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
             <img
               src={logoSrc}
-              alt="Sync Labs logo"
+              alt="Acacia Labs logo"
               width={68}
               height={68}
               style={{ borderRadius: 18 }}
             />
             <div style={{ fontSize: 30, letterSpacing: "0.18em", textTransform: "uppercase" }}>
-              Sync Labs
+              Acacia Labs
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>

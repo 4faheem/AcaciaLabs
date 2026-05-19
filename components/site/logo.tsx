@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -9,35 +10,25 @@ type LogoProps = {
 
 export function Logo({ className, showText = true, size = "sm" }: LogoProps) {
   const iconSizes = {
-    sm: { class: "h-7 w-7" },
-    md: { class: "h-10 w-10" },
-    lg: { class: "h-14 w-14" },
-    xl: { class: "h-18 w-18" },
+    sm: { px: 28, class: "h-7 w-7" },
+    md: { px: 40, class: "h-10 w-10" },
+    lg: { px: 56, class: "h-14 w-14" },
+    xl: { px: 72, class: "h-18 w-18" },
   };
 
   const currentSize = iconSizes[size];
 
   return (
     <Link href="/" className={cn("flex items-center gap-4 group", className)} aria-label="Acacia Labs Home">
-      <div className={cn("relative flex items-center justify-center text-text-primary group-hover:text-accent-cyan transition-colors duration-300", currentSize.class)}>
-        <svg viewBox="0 0 100 100" className="w-full h-full fill-none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15,35 L85,35" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
-          <path d="M25,50 L75,50" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
-          <path d="M38,65 L62,65" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
-          <path d="M50,35 L50,80" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
-          <path d="M50,50 L38,35" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
-          <path d="M50,50 L62,35" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
-          <path d="M50,65 L25,50" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
-          <path d="M50,65 L75,50" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
-          <circle cx="15" cy="35" r="5.5" className="fill-accent-cyan" />
-          <circle cx="50" cy="35" r="5.5" className="fill-accent-cyan" />
-          <circle cx="85" cy="35" r="5.5" className="fill-accent-cyan" />
-          <circle cx="25" cy="50" r="5.5" className="fill-accent-cyan" />
-          <circle cx="75" cy="50" r="5.5" className="fill-accent-cyan" />
-          <circle cx="38" cy="65" r="5.5" className="fill-accent-cyan" />
-          <circle cx="62" cy="65" r="5.5" className="fill-accent-cyan" />
-          <circle cx="50" cy="80" r="7" className="fill-text-primary" />
-        </svg>
+      <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+        <Image
+          src="/acacia-logo.png"
+          alt="Acacia Labs Official Logo"
+          width={currentSize.px}
+          height={currentSize.px}
+          className={cn(currentSize.class, "object-contain transition-opacity duration-300 group-hover:opacity-95")}
+          priority
+        />
       </div>
       
       {showText && (

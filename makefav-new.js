@@ -3,71 +3,64 @@ const fs = require('fs');
 const path = require('path');
 
 async function generateFaviconSystem() {
-  const svgPath = path.join(__dirname, 'public', 'acacia-logo-white.svg');
-  console.log('Loading SVG from:', svgPath);
+  const logoPath = path.join(__dirname, 'public', 'acacia-logo.png');
+  console.log('Loading official logo from:', logoPath);
   
-  if (!fs.existsSync(svgPath)) {
-    throw new Error('Source SVG file not found!');
+  if (!fs.existsSync(logoPath)) {
+    throw new Error('Source logo PNG file not found!');
   }
   
-  const svgBuffer = fs.readFileSync(svgPath);
-  
-  // 1. Generate high-res base PNG for logo in navbar
-  await sharp(svgBuffer)
-    .resize(512, 512)
-    .png()
-    .toFile(path.join(__dirname, 'public', 'acacia-logo.png'));
-  console.log('Saved public/acacia-logo.png');
+  const logoBuffer = fs.readFileSync(logoPath);
 
-  // 2. Generate Next.js automatic high-res icons
-  await sharp(svgBuffer)
+  // 1. Generate Next.js automatic high-res icons
+  await sharp(logoBuffer)
     .resize(512, 512)
     .png()
     .toFile(path.join(__dirname, 'app', 'icon.png'));
   console.log('Saved app/icon.png');
 
-  await sharp(svgBuffer)
+  await sharp(logoBuffer)
     .resize(180, 180)
     .png()
     .toFile(path.join(__dirname, 'app', 'apple-icon.png'));
   console.log('Saved app/apple-icon.png');
 
-  // 3. Generate classic public directory icons for standard HTML fallback
-  await sharp(svgBuffer)
+  // 2. Generate classic public directory icons for standard HTML fallback
+  await sharp(logoBuffer)
     .resize(16, 16)
     .png()
     .toFile(path.join(__dirname, 'public', 'favicon-16x16.png'));
   console.log('Saved public/favicon-16x16.png');
 
-  await sharp(svgBuffer)
+  await sharp(logoBuffer)
     .resize(32, 32)
     .png()
     .toFile(path.join(__dirname, 'public', 'favicon-32x32.png'));
   console.log('Saved public/favicon-32x32.png');
 
-  await sharp(svgBuffer)
+  await sharp(logoBuffer)
     .resize(180, 180)
     .png()
     .toFile(path.join(__dirname, 'public', 'apple-touch-icon.png'));
   console.log('Saved public/apple-touch-icon.png');
 
-  await sharp(svgBuffer)
+  await sharp(logoBuffer)
     .resize(192, 192)
     .png()
     .toFile(path.join(__dirname, 'public', 'android-chrome-192x192.png'));
   console.log('Saved public/android-chrome-192x192.png');
 
-  await sharp(svgBuffer)
+  await sharp(logoBuffer)
     .resize(512, 512)
     .png()
     .toFile(path.join(__dirname, 'public', 'android-chrome-512x512.png'));
   console.log('Saved public/android-chrome-512x512.png');
 
-  // 4. Create multi-resolution favicon.ico
+  // 3. Create multi-resolution favicon.ico
   const sizes = [16, 32, 48, 64];
   const pngBuffers = await Promise.all(
     sizes.map(size => 
-      sharp(svgBuffer)
+      sharp(logoBuffer)
         .resize(size, size)
         .png()
         .toBuffer()

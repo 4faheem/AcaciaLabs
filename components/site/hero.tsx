@@ -3,7 +3,16 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { company } from "@/lib/site";
-import { TelemetryCanvas } from "./telemetry-canvas";
+import dynamic from "next/dynamic";
+
+const TelemetryCanvas = dynamic(() => import("./telemetry-canvas").then((m) => m.TelemetryCanvas), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[450px] w-full bg-glass-bg/10 animate-pulse border border-glass-border rounded-sm flex items-center justify-center font-mono text-[9px] text-text-muted tracking-widest uppercase">
+      Loading Systems Telemetry...
+    </div>
+  )
+});
 
 export function Hero() {
   return (

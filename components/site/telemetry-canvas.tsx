@@ -155,14 +155,21 @@ export function TelemetryCanvas() {
         const currentX = startX + (endX - startX) * p.progress;
         const currentY = startY + (endY - startY) * p.progress;
 
-        // Pulse Gradient Glow
+        // Optimized Concentric Pulse Glow (Avoids expensive CPU shadowBlur)
         ctx.beginPath();
-        ctx.arc(currentX, currentY, 3, 0, Math.PI * 2);
-        ctx.fillStyle = "#00D1FF";
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = "#00D1FF";
+        ctx.arc(currentX, currentY, 6, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0, 209, 255, 0.15)";
         ctx.fill();
-        ctx.shadowBlur = 0; // Reset shadow
+
+        ctx.beginPath();
+        ctx.arc(currentX, currentY, 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0, 209, 255, 0.4)";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(currentX, currentY, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = "#00D1FF";
+        ctx.fill();
       });
 
       // Draw Nodes

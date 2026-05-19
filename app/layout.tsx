@@ -21,10 +21,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(company.url),
   title: {
-    default: company.name,
+    default: "Acacia Labs | AI-Powered Operational Infrastructure for African Enterprise",
     template: `%s | ${company.name}`
   },
-  description: company.subtext,
+  description: "Acacia Labs engineers high-availability, AI-powered business operating systems, carrier money ledgers, and autonomous workflow infrastructure for modern African commerce.",
   applicationName: company.name,
   keywords: siteKeywords,
   authors: [{ name: company.ceo }],
@@ -33,9 +33,27 @@ export const metadata: Metadata = {
   alternates: {
     canonical: company.url,
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/safari-pinned-tab.svg",
+        color: "#00D1FF",
+      },
+    ],
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
-    title: company.name,
-    description: company.subtext,
+    title: "Acacia Labs | AI-Powered Operational Infrastructure for African Enterprise",
+    description: "Acacia Labs engineers high-availability, AI-powered business operating systems, carrier money ledgers, and autonomous workflow infrastructure for modern African commerce.",
     url: company.url,
     siteName: company.name,
     type: "website",
@@ -44,14 +62,14 @@ export const metadata: Metadata = {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: `${company.name} website preview`,
+        alt: `${company.name} - AI-Powered Operational Infrastructure for African Enterprise`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: company.name,
-    description: company.subtext,
+    title: "Acacia Labs | AI-Powered Operational Infrastructure for African Enterprise",
+    description: "Acacia Labs engineers high-availability, AI-powered business operating systems, carrier money ledgers, and autonomous workflow infrastructure for modern African commerce.",
     images: ["/opengraph-image.png"],
   },
 };
@@ -64,12 +82,29 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: company.name,
-    url: company.url,
-    email: company.email,
-    description: company.positioning,
-    founder: company.ceo,
-    slogan: company.promise,
+    "name": company.name,
+    "url": company.url,
+    "logo": `${company.url}/acacia-logo.png`,
+    "description": "Sovereign AI-powered operational infrastructure, carrier money ledgers, and autonomous business coordination platforms engineered for Sub-Saharan African enterprise.",
+    "founder": {
+      "@type": "Person",
+      "name": company.ceo
+    },
+    "coo": {
+      "@type": "Person",
+      "name": company.coo
+    },
+    "location": company.location,
+    "email": company.email,
+    "slogan": company.promise,
+    "knowsAbout": [
+      "AI Infrastructure",
+      "Enterprise Software",
+      "Workflow Automation",
+      "Carrier Money Ledgers",
+      "Consensus Ledger Protocols",
+      "East African Commerce Systems"
+    ]
   };
 
   return (

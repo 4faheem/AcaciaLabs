@@ -13,7 +13,7 @@ export const size = {
 };
 export const contentType = "image/png";
 
-const logoPath = join(process.cwd(), "public", "syncLabs-logo.png");
+const logoPath = join(process.cwd(), "public", "acacia-logo.png");
 const logoData = readFileSync(logoPath);
 const logoSrc = `data:image/png;base64,${logoData.toString("base64")}`;
 
@@ -26,9 +26,9 @@ export default function OpenGraphImage() {
           height: "100%",
           display: "flex",
           background:
-            "radial-gradient(circle at top left, rgba(108,92,231,0.34), transparent 35%), radial-gradient(circle at 80% 0%, rgba(0,206,201,0.22), transparent 28%), linear-gradient(135deg, #090714 0%, #1A1040 48%, #0B0820 100%)",
-          color: "#F8F7FF",
-          padding: "60px",
+            "radial-gradient(circle at top left, rgba(108,92,231,0.2), transparent 45%), radial-gradient(circle at 80% 0%, rgba(0,209,255,0.15), transparent 35%), linear-gradient(135deg, #050505 0%, #0F0F15 60%, #08080C 100%)",
+          color: "#F5F5F5",
+          padding: "70px",
           position: "relative",
           fontFamily: "Inter, Arial, sans-serif",
         }}
@@ -38,9 +38,9 @@ export default function OpenGraphImage() {
             position: "absolute",
             inset: "0",
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-            opacity: 0.18,
+              "linear-gradient(rgba(245,245,245,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(245,245,245,0.03) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+            opacity: 0.25,
           }}
         />
         <div
@@ -51,25 +51,31 @@ export default function OpenGraphImage() {
             justifyContent: "space-between",
             width: "100%",
           }}
->
-          <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
             <img
               src={logoSrc}
               alt="Acacia Labs logo"
-              width={68}
-              height={68}
-              style={{ borderRadius: 18 }}
+              width={75}
+              height={75}
+              style={{ objectFit: "contain" }}
             />
-            <div style={{ fontSize: 30, letterSpacing: "0.18em", textTransform: "uppercase" }}>
-              Acacia Labs
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              <span style={{ fontSize: 24, fontWeight: 800, letterSpacing: "0.4em", textTransform: "uppercase", color: "#F5F5F5" }}>
+                Acacia
+              </span>
+              <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: "0.6em", textTransform: "uppercase", color: "rgba(245,245,245,0.5)" }}>
+                Labs
+              </span>
             </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            <div style={{ fontSize: 78, fontWeight: 700, lineHeight: 1.04 }}>
-              Run your business without the guesswork.
+          <div style={{ display: "flex", flexDirection: "column", gap: "28px", paddingBottom: "20px" }}>
+            <div style={{ display: "flex", flexDirection: "column", fontSize: 62, fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.02em", color: "#F5F5F5", textTransform: "uppercase" }}>
+              <span>AI-Powered Operational</span>
+              <span>Infrastructure.</span>
             </div>
-            <div style={{ maxWidth: 900, fontSize: 30, lineHeight: 1.45, color: "rgba(248,247,255,0.78)" }}>
-              Sync Labs builds intelligent systems that show you what is happening, what is next, and what to do.
+            <div style={{ maxWidth: 960, fontSize: 24, fontWeight: 500, lineHeight: 1.5, color: "rgba(245,245,245,0.6)" }}>
+              Acacia Labs engineers high-availability business operating systems, carrier money ledgers, and autonomous workflows for Sub-Saharan African enterprise.
             </div>
           </div>
         </div>

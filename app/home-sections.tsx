@@ -1,11 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { MotionDiv } from "@/components/ui/motion-wrapper";
 import { Hero } from "@/components/site/hero";
 import { products } from "@/lib/site";
 
-export default function HomeClient() {
+export default function HomeSections() {
   return (
     <>
       {/* 1. CINEMATIC HERO SECTION */}
@@ -19,7 +17,7 @@ export default function HomeClient() {
           <div className="grid lg:grid-cols-[1fr_1.2fr] gap-20 items-start">
 
             {/* Left: Statement */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -33,10 +31,10 @@ export default function HomeClient() {
                 Commerce.
               </h2>
               <div className="h-[1px] w-24 bg-accent-cyan" />
-            </motion.div>
+            </MotionDiv>
 
             {/* Right: Technical Explanation */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -52,7 +50,7 @@ export default function HomeClient() {
               <p className="text-text-primary font-bold">
                 Acacia Labs develops the sovereign intelligence infrastructure that bridges these gaps — transforming fragmented execution workflows into stable, automated enterprise assets.
               </p>
-            </motion.div>
+            </MotionDiv>
 
           </div>
         </div>
@@ -61,7 +59,7 @@ export default function HomeClient() {
       {/* 3. MODULAR SYSTEMS ARCHITECTURE PREVIEW */}
       <section className="relative py-32 bg-primary-bg overflow-hidden" id="systems">
         <div className="section-container">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -79,12 +77,12 @@ export default function HomeClient() {
             <Link href="/systems" className="btn-secondary whitespace-nowrap self-start md:self-auto">
               View Specifications
             </Link>
-          </motion.div>
+          </MotionDiv>
 
           {/* Connected Grid Map */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product, i) => (
-              <motion.div
+              <MotionDiv
                 key={product.slug}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -115,7 +113,7 @@ export default function HomeClient() {
                     SPEC_MAP &gt;
                   </Link>
                 </div>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -154,7 +152,7 @@ export default function HomeClient() {
               </div>
 
               {/* Graphical Spec Control Panel */}
-              <motion.div
+              <MotionDiv
                 initial={{ opacity: 0, scale: 0.98, y: 15 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -177,7 +175,7 @@ export default function HomeClient() {
                   <span>PACKET_SYS: STABLE</span>
                   <span>REF: AC-OS-8.9</span>
                 </div>
-              </motion.div>
+              </MotionDiv>
 
             </div>
           </div>
@@ -187,7 +185,7 @@ export default function HomeClient() {
       {/* 4.5. ARCHITECTURAL LEADERSHIP TEASER */}
       <section className="relative py-32 bg-[#050505] border-t border-glass-border overflow-hidden">
         <div className="section-container">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -205,11 +203,11 @@ export default function HomeClient() {
             <Link href="/about" className="btn-secondary whitespace-nowrap self-start md:self-auto">
               About The Company
             </Link>
-          </motion.div>
+          </MotionDiv>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Founder/CEO Card */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -231,10 +229,10 @@ export default function HomeClient() {
                   VIEW PROFILE &gt;
                 </Link>
               </div>
-            </motion.div>
+            </MotionDiv>
 
             {/* COO Card */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -256,7 +254,7 @@ export default function HomeClient() {
                   VIEW PROFILE &gt;
                 </Link>
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -264,7 +262,7 @@ export default function HomeClient() {
       {/* 5. DIRECT CONSULTATION INITIATION */}
       <section className="relative py-36 bg-primary-bg overflow-hidden border-t border-glass-border">
         <div className="section-container flex flex-col items-center text-center">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -285,7 +283,7 @@ export default function HomeClient() {
                 Systems Spec Index
               </Link>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
     </>

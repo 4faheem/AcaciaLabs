@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HomeClient from "./HomeClient";
+import HomeSections from "./home-sections";
 import { company } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -52,7 +52,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HomeClient />
+      <HomeSections />
     </>
   );
 }

@@ -1,18 +1,7 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { company } from "@/lib/site";
-import dynamic from "next/dynamic";
-
-const TelemetryCanvas = dynamic(() => import("./telemetry-canvas").then((m) => m.TelemetryCanvas), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[450px] w-full bg-glass-bg/10 animate-pulse border border-glass-border rounded-sm flex items-center justify-center font-mono text-[9px] text-text-muted tracking-widest uppercase">
-      Loading Systems Telemetry...
-    </div>
-  )
-});
+import { MotionDiv } from "@/components/ui/motion-wrapper";
+import { TelemetryCanvasLoader as TelemetryCanvas } from "./telemetry-canvas-loader";
 
 export function Hero() {
   return (
@@ -27,7 +16,7 @@ export function Hero() {
       <div className="section-container relative z-10 w-full grid gap-16 lg:grid-cols-[1.1fr_0.9fr] items-center py-16">
 
         {/* LEFT COLUMN: Swiss oversized typography structure */}
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -55,10 +44,10 @@ export function Hero() {
               Explore Systems
             </Link>
           </div>
-        </motion.div>
+        </MotionDiv>
 
         {/* RIGHT COLUMN: Telemetry visualizer & high-density panels */}
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -87,7 +76,7 @@ export function Hero() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </MotionDiv>
       </div>
 
       {/* System Scroll Telemetry Pulse */}

@@ -42,3 +42,6 @@ next-env.d.ts
 
 .vercel
 .env*.local
+
+# installed third-party agent skill (not product code)
+.claude/skills/

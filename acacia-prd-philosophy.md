@@ -1,0 +1,11 @@
+# Meridian Intelligence
+
+**An aesthetic movement for sovereign operational systems.**
+
+Space in this movement is never empty — it is pressurized. Negative space carries the weight of what the system holds in reserve. Elements breathe only at the margins, compressed toward intentional centers of gravity. The form vocabulary is architectural: rectilinear precision interrupted by the tension of spherical depth, orbital ellipses that suggest invisible mechanisms in slow rotation. Layouts express hierarchy as physical weight — heavier blocks anchor the base, lighter elements ascend toward the horizon. Nothing floats arbitrarily. Every position is justified by the geometry of the whole.
+
+The palette is the universe at depth, before dawn — the precise moment when indigo bleeds into navy bleeds into black. Accent colors emerge like signal flares from that darkness: electric blue for certainty, cyan for live data, pale gold for critical thresholds, phosphor green for confirmation. Every color carries functional meaning applied with the discipline of a master instrument-maker calibrating tolerances to the micrometer. The material feel is polished alloy behind frosted glass — precision beneath translucency, the hum of something engineered to run forever.
+
+Type is used with surgical restraint. Display words are rare and enormous — single-word gestures of geometric authority. Body type is fine-grain, structured like instrument readouts, never decorative. Monospace intrudes at precise intervals to signal data, status, and technical truth. Every size relationship, tracking value, and leading ratio is the product of countless deliberate iterations — the kind of calibration that looks inevitable only after it is achieved.
+
+The final work must appear as though it emerged from months of deliberation by someone who has designed simultaneously for intelligence agencies, enterprise infrastructure firms, and precision instrument manufacturers. Every proportion tested. Every margin measured. Every gradient transition the result of painstaking iteration. It possesses the quiet confidence of infrastructure that works when everything else has failed — the terminal that stays lit when the power goes out, the ledger that stays accurate when the network drops. That reliability must be legible in the design itself: not declared, but felt.

@@ -1,8 +1,10 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 
 import { Footer } from "@/components/site/footer";
 import { Navbar } from "@/components/site/navbar";
+import { CursorGlow } from "@/components/site/cursor-glow";
+import { ReadingProgress, AmbientGlow } from "@/components/site/motion-primitives";
 import { company, siteKeywords } from "@/lib/site";
 import { OrganizationSchema } from "@/components/seo/SchemaMarkup";
 
@@ -12,12 +14,32 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-// Since Satoshi/Geist/IBM Plex Sans are requested, we'll use Inter as primary for now 
-// but add a fallback variable if we were to add local fonts later.
-// For now, let's stick to Inter and system fonts for performance, 
-// unless we have the font files.
+// IBM Plex Sans: engineering, systems thinking, research, institutional trust — display/headlines
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700"],
+});
+
+// JetBrains Mono: premium monospace for data labels, status indicators, terminal text
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+  weight: ["400", "500"],
+});
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#050505",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(company.url),
@@ -83,15 +105,32 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="h-full scroll-smooth">
-      <body className={`min-h-full font-sans antialiased bg-[#080808] text-white ${inter.variable}`}>
+      <body suppressHydrationWarning className={`min-h-full font-sans antialiased bg-[#050505] text-white ${inter.variable} ${ibmPlexSans.variable} ${jetbrainsMono.variable}`}>
+
+        {/* Global SVG noise filter — used by shiny headline text */}
+        <svg className="pointer-events-none absolute w-0 h-0 overflow-hidden" aria-hidden="true">
+          <defs>
+            <filter id="c3-noise">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+              <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0" />
+              <feComposite in2="SourceGraphic" operator="in" result="noise" />
+              <feBlend in="SourceGraphic" in2="noise" mode="multiply" />
+            </filter>
+          </defs>
+        </svg>
+
+        {/* Vertical guide lines (Aura-style) */}
+        <div className="hidden md:block pointer-events-none fixed inset-y-0 left-1/2 -translate-x-[calc(50%+36rem)] w-px bg-white/[0.06] z-[5]" />
+        <div className="hidden md:block pointer-events-none fixed inset-y-0 left-1/2 translate-x-[calc(-50%+36rem)] w-px bg-white/[0.06] z-[5]" />
+
+        {/* Reading progress bar */}
+        <ReadingProgress />
+        {/* Ambient cursor glow */}
+        <AmbientGlow />
+        {/* Interactive cursor glow */}
+        <CursorGlow />
+
         <div className="flex min-h-screen flex-col relative overflow-hidden">
-          {/* Global Background Elements */}
-          <div className="fixed inset-0 pointer-events-none z-[-1]">
-             {/* Secondary Glow: Atmospheric radial blurs */}
-            <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-[#6C5CE7]/10 blur-[120px]" />
-            <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#00CEC9]/5 blur-[100px]" />
-          </div>
-          
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />

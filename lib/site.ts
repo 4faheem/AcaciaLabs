@@ -33,7 +33,7 @@ export const company = {
   name: "Acacia Labs",
   ceo: "Fahim Kiama",
   coo: "Gwamaka Johas",
-  email: "kiamafahim@gmail.com",
+  email: "hello@acacialabs.co.tz",
   location: "Tanzania",
   domain: "www.acacialabs.co.tz",
   url: "https://www.acacialabs.co.tz",

@@ -3,38 +3,73 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { operationalPrinciples } from "@/lib/site";
+import { AnimatedCounter } from "@/components/ui/animated-counter";
+
+const companyStats = [
+  { value: "2024", label: "Founded", sub: "Dar es Salaam", color: "text-accent-indigo" },
+  { value: "99.99%", label: "Uptime SLA", sub: "Guaranteed", color: "text-accent-success" },
+  { value: "4.8GB/s", label: "Throughput", sub: "System capacity", color: "text-accent-cyan" },
+  { value: "2,400+", label: "Workflows", sub: "Active & coordinated", color: "text-accent-blue" },
+];
 
 export default function AboutClient() {
   return (
     <div className="bg-primary-bg min-h-screen pt-32 pb-24 overflow-hidden">
-      
+
       {/* 1. CINEMATIC ABOUT HERO */}
-      <section className="relative overflow-hidden border-b border-glass-border bg-secondary-bg py-24 mb-16">
+      <section className="relative overflow-hidden border-b border-glass-border bg-secondary-bg py-24 mb-0">
         <div className="absolute inset-0 grid-pattern opacity-[0.25]" />
-        
+        <div className="absolute top-[20%] left-[5%] w-[400px] h-[400px] rounded-full bg-[#6366F1]/[0.05] blur-[120px] pointer-events-none" />
+
         <div className="section-container">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-4xl space-y-8"
           >
             <span className="eyebrow">INSTITUTIONAL STRATEGY</span>
-            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tight text-text-primary leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tight leading-tight">
               Engineering Operational <br />
-              <span className="text-text-secondary">Intelligence for African Enterprise.</span>
+              <span className="text-gradient-accent">Intelligence.</span>
             </h1>
             <p className="text-text-secondary text-base md:text-lg max-w-2xl leading-relaxed">
-              Acacia Labs builds AI-native systems designed to transform fragmented business operations into scalable infrastructure.
+              Acacia Labs builds AI-native systems designed to transform fragmented business operations into scalable infrastructure built for the realities of African commerce.
             </p>
           </motion.div>
         </div>
       </section>
 
+      {/* 1.5 BY THE NUMBERS — animated stats row (content-research-writer: authority signals) */}
+      <section className="border-b border-glass-border bg-primary-bg">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 py-10">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-glass-border"
+          >
+            {companyStats.map((stat) => (
+              <div key={stat.label} className="flex flex-col items-center text-center px-6 md:px-10">
+                <AnimatedCounter
+                  value={stat.value}
+                  className={`text-3xl md:text-4xl font-bold tracking-tighter ${stat.color}`}
+                  duration={1400}
+                />
+                <div className="text-[10px] font-bold tracking-[0.25em] uppercase text-text-primary mt-2">
+                  {stat.label}
+                </div>
+                <div className="terminal-text text-[9px] text-text-muted tracking-widest mt-1">{stat.sub}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* 2. STRATEGIC LEADERSHIP BLOCK */}
-      <section className="section-container py-12">
+      <section className="section-container py-16">
         <div className="max-w-4xl space-y-16">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -49,67 +84,66 @@ export default function AboutClient() {
 
           <div className="grid md:grid-cols-2 gap-12 pt-6">
             {/* CEO */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-4 border-l-2 border-accent-blue/30 pl-6 group"
+              className="space-y-4 border-l-2 border-accent-indigo/40 pl-6 group"
             >
-              <div className="text-[10px] font-mono text-text-muted tracking-widest uppercase">
-                Founder & CEO
+              <div className="w-10 h-10 rounded-full bg-accent-indigo/10 border border-accent-indigo/25 flex items-center justify-center mb-4">
+                <span className="terminal-text text-[10px] font-bold text-accent-indigo">FK</span>
               </div>
-              <div className="text-2xl font-bold uppercase tracking-tight text-text-primary group-hover:text-accent-blue transition-colors">
+              <div className="terminal-text text-[10px] text-text-muted tracking-widest uppercase">Founder & CEO</div>
+              <div className="text-2xl font-bold uppercase tracking-tight text-text-primary group-hover:text-accent-indigo" style={{ transition: `color 220ms var(--ease-premium)` }}>
                 <Link href="/founder">Fahim Kiama →</Link>
               </div>
-              <p className="text-xs leading-relaxed text-text-secondary font-mono italic">
-                “Leading the development of AI-native operational infrastructure for African enterprise systems.”
+              <p className="text-sm leading-relaxed text-text-secondary/80 border-l border-accent-indigo/20 pl-4">
+                &ldquo;Leading the development of AI-native operational infrastructure for African enterprise systems.&rdquo;
               </p>
-              <div>
-                <Link href="/founder" className="text-[9px] font-mono text-accent-blue tracking-wider uppercase hover:underline">
-                  View Strategic Profile
-                </Link>
-              </div>
+              <Link href="/founder" className="terminal-text text-[10px] text-accent-indigo tracking-wider uppercase hover:text-text-primary" style={{ transition: `color 200ms var(--ease-premium)` }}>
+                View Strategic Profile →
+              </Link>
             </motion.div>
 
             {/* COO */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              className="space-y-4 border-l-2 border-accent-cyan/30 pl-6 group"
+              className="space-y-4 border-l-2 border-accent-cyan/40 pl-6 group"
             >
-              <div className="text-[10px] font-mono text-text-muted tracking-widest uppercase">
-                Chief Operating Officer
+              <div className="w-10 h-10 rounded-full bg-accent-cyan/10 border border-accent-cyan/25 flex items-center justify-center mb-4">
+                <span className="terminal-text text-[10px] font-bold text-accent-cyan">GJ</span>
               </div>
-              <div className="text-2xl font-bold uppercase tracking-tight text-text-primary group-hover:text-accent-cyan transition-colors">
+              <div className="terminal-text text-[10px] text-text-muted tracking-widest uppercase">Chief Operating Officer</div>
+              <div className="text-2xl font-bold uppercase tracking-tight text-text-primary group-hover:text-accent-cyan" style={{ transition: `color 220ms var(--ease-premium)` }}>
                 <Link href="/coo">Gwamaka Johas →</Link>
               </div>
-              <p className="text-xs leading-relaxed text-text-secondary font-mono italic">
-                “Focused on operational execution, systems coordination, and scalable enterprise processes.”
+              <p className="text-sm leading-relaxed text-text-secondary/80 border-l border-accent-cyan/20 pl-4">
+                &ldquo;Focused on operational execution, systems coordination, and scalable enterprise processes.&rdquo;
               </p>
-              <div>
-                <Link href="/coo" className="text-[9px] font-mono text-accent-cyan tracking-wider uppercase hover:underline">
-                  View Operations Profile
-                </Link>
-              </div>
+              <Link href="/coo" className="terminal-text text-[10px] text-accent-cyan tracking-wider uppercase hover:text-text-primary" style={{ transition: `color 200ms var(--ease-premium)` }}>
+                View Operations Profile →
+              </Link>
             </motion.div>
           </div>
 
-          {/* Founding summary paragraph */}
-          <motion.div 
+          {/* Founding summary */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="border border-glass-border bg-glass-bg p-8 md:p-12 rounded-sm max-w-3xl text-sm leading-relaxed text-text-secondary"
+            className="glass-deep p-8 md:p-12 max-w-3xl relative overflow-hidden"
           >
-            <p className="mb-4">
+            <div className="absolute inset-x-0 top-0 h-[1px] section-rule" />
+            <p className="mb-5 text-base md:text-lg leading-relaxed font-medium text-text-primary">
               Acacia Labs was founded to build systems that eliminate guesswork, centralize operations, and orchestrate execution. We replace fragmented workflows with unified strategic visibility designed specifically for the unique environment of East African commerce.
             </p>
-            <p>
-              By starting with regional realities—low-bandwidth networks, mobile payment infrastructure, and complex distribution channels—we create systems that work where other solutions fail.
+            <p className="text-base md:text-lg leading-relaxed font-medium text-white/80">
+              By starting with regional realities — low-bandwidth networks, mobile payment infrastructure, and complex distribution channels — we create systems that work where other solutions fail.
             </p>
           </motion.div>
         </div>
@@ -117,7 +151,7 @@ export default function AboutClient() {
 
       {/* 3. OPERATIONAL PRINCIPLES */}
       <section className="section-container py-16 border-t border-glass-border/40 mt-16">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -132,20 +166,27 @@ export default function AboutClient() {
           </p>
         </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {operationalPrinciples.map((principle, idx) => (
-            <motion.div 
+            <motion.div
               key={principle.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.05 }}
-              className="border border-glass-border bg-white/[0.01] p-6 rounded-sm space-y-3"
+              whileHover={{ y: -2, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
+              className="glass-card p-6 space-y-3 group relative"
             >
-              <div className="text-[10px] font-mono text-accent-cyan tracking-widest uppercase font-bold">
-                {principle.title}
+              <div className="absolute inset-x-0 top-0 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 section-rule" />
+              <div className="flex items-start gap-3">
+                <span className="terminal-text text-[10px] text-accent-indigo/60 min-w-[20px] pt-0.5">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <div className="text-[11px] font-bold terminal-text text-accent-cyan tracking-widest uppercase">
+                  {principle.title}
+                </div>
               </div>
-              <p className="text-xs leading-relaxed text-text-secondary">
+              <p className="text-[13px] leading-relaxed text-text-secondary pl-8">
                 {principle.description}
               </p>
             </motion.div>

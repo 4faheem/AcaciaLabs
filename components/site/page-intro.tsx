@@ -1,26 +1,54 @@
-﻿import { ReactNode } from "react";
+import { ReactNode } from "react";
 
 type PageIntroProps = {
   eyebrow: string;
   title: string;
+  gradientWord?: string;
   description: string;
   children?: ReactNode;
 };
 
-export function PageIntro({ eyebrow, title, description, children }: PageIntroProps) {
+export function PageIntro({ eyebrow, title, gradientWord, description, children }: PageIntroProps) {
+  const titleParts = gradientWord
+    ? title.split(gradientWord)
+    : [title];
+
   return (
-    <section className="hero-backdrop relative overflow-hidden border-b border-white/10 text-white">
-      <div className="soft-grid absolute inset-0 opacity-20" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top,rgba(108,92,231,0.32),transparent_55%)]" />
-      <div className="section-shell relative grid gap-10 py-20 sm:py-24 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:py-28">
-        <div className="max-w-3xl">
-          <span className="eyebrow border-white/15 bg-white/[0.06] text-[#00CEC9]">{eyebrow}</span>
-          <h1 className="mt-6 max-w-4xl text-4xl font-semibold tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">{title}</h1>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">{description}</p>
+    <section className="relative overflow-hidden border-b border-glass-border bg-[#010308] py-24 mb-0">
+      <div className="absolute inset-0 grid-pattern opacity-[0.10]" />
+      <div className="absolute top-0 left-0 right-0 h-[60%]"
+        style={{ background: "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56,189,248,0.05) 0%, transparent 100%)" }} />
+      {/* Rim line at section top */}
+      <div className="absolute inset-x-0 top-0 h-[1px] section-rule" />
+      <div className="absolute inset-x-0 bottom-0 h-[1px] section-rule" />
+
+      <div className="section-container relative z-10">
+        <div className="max-w-4xl space-y-8">
+          <span className="eyebrow">{eyebrow}</span>
+
+          <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tight leading-tight">
+            {gradientWord ? (
+              <>
+                <span className="text-text-primary">{titleParts[0]}</span>
+                <span className="text-gradient-accent">{gradientWord}</span>
+                {titleParts[1] && <span className="text-text-primary">{titleParts[1]}</span>}
+              </>
+            ) : (
+              <span className="text-text-primary">{title}</span>
+            )}
+          </h1>
+
+          <p className="text-text-secondary text-base md:text-lg max-w-2xl leading-relaxed">
+            {description}
+          </p>
         </div>
-        {children ? <div className="glass-surface p-6 sm:p-8">{children}</div> : null}
+
+        {children && (
+          <div className="mt-12 glass-deep p-6 sm:p-8 max-w-xl">
+            {children}
+          </div>
+        )}
       </div>
     </section>
   );
 }
-

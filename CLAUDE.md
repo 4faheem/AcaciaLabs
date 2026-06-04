@@ -1,1 +1,2 @@
 @AGENTS.md
+@EXECUTIVE_OS.md

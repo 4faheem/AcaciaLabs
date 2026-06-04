@@ -11,6 +11,7 @@ export default function ContactClient() {
       {/* Cinematic Intro Header */}
       <section className="relative overflow-hidden border-b border-glass-border bg-secondary-bg py-20 mb-16">
         <div className="absolute inset-0 grid-pattern opacity-[0.25]" />
+        <div className="absolute inset-x-0 bottom-0 h-[1px] section-rule" />
         
         <div className="section-container">
           <motion.div 
@@ -20,8 +21,8 @@ export default function ContactClient() {
             className="max-w-4xl space-y-6"
           >
             <span className="eyebrow">GET IN TOUCH</span>
-            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tight text-text-primary leading-tight">
-              Start a Conversation.
+            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tight leading-tight">
+              Start a <span className="text-gradient-accent">Conversation.</span>
             </h1>
             <p className="text-text-secondary text-base md:text-lg max-w-2xl leading-relaxed">
               Discuss operational systems, infrastructure, or enterprise intelligence solutions with Acacia Labs.
@@ -42,46 +43,49 @@ export default function ContactClient() {
             className="space-y-12"
           >
             {/* Contact details */}
-            <div className="border border-glass-border bg-white/[0.01] p-8 rounded-2xl space-y-6">
+            <div className="border border-glass-border bg-white/[0.01] p-8 rounded-sm space-y-6">
               <div className="space-y-1">
-                <div className="text-[10px] font-mono text-text-muted tracking-widest uppercase">Email Channel</div>
-                <a 
-                  href={`mailto:${company.email}`} 
-                  className="text-xl md:text-2xl font-bold text-text-primary hover:text-accent-blue transition-colors duration-300 break-words"
+                <div className="terminal-text text-[10px] text-text-muted tracking-widest uppercase">Email Channel</div>
+                <a
+                  href={`mailto:${company.email}`}
+                  className="text-xl md:text-2xl font-bold text-text-primary hover:text-accent-cyan transition-colors duration-300 break-words"
+                  style={{ transition: `color 220ms var(--ease-premium)` }}
                 >
                   {company.email}
                 </a>
               </div>
 
               <div className="space-y-1 pt-4 border-t border-glass-border/40">
-                <div className="text-[10px] font-mono text-text-muted tracking-widest uppercase">Office Location</div>
-                <div className="text-sm font-medium text-text-primary">
-                  {company.location}
-                </div>
+                <div className="terminal-text text-[10px] text-text-muted tracking-widest uppercase">Office Location</div>
+                <div className="text-sm font-medium text-text-primary">{company.location}</div>
               </div>
             </div>
 
             {/* How We Work Section */}
-            <div className="space-y-6">
-              <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-text-primary">How We Work</h3>
-              <ul className="space-y-4 font-mono text-[10px] text-text-secondary uppercase tracking-wider">
-                <li className="flex items-center gap-3">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent-blue" />
-                  Operational Assessment
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent-blue" />
-                  Workflow & Systems Analysis
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent-blue" />
-                  Infrastructure Planning
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent-blue" />
-                  Deployment Strategy
-                </li>
-              </ul>
+            <div className="space-y-5">
+              <div className="terminal-text text-[10px] text-text-muted tracking-[0.3em] uppercase">Our Process</div>
+              <ol className="space-y-3">
+                {[
+                  { num: "01", label: "Operational Assessment", desc: "We map your current workflows and identify friction points.", color: "text-accent-indigo", bg: "bg-accent-indigo/10 border-accent-indigo/20" },
+                  { num: "02", label: "Systems Analysis",       desc: "Deep-dive into your financial and coordination gaps.",          color: "text-accent-blue",   bg: "bg-accent-blue/10 border-accent-blue/20" },
+                  { num: "03", label: "Infrastructure Planning", desc: "We design the architecture tailored to your reality.",         color: "text-accent-cyan",   bg: "bg-accent-cyan/10 border-accent-cyan/20" },
+                  { num: "04", label: "Deployment & Handoff",   desc: "We ship, train your team, and stay on-call.",                  color: "text-accent-success", bg: "bg-accent-success/10 border-accent-success/20" },
+                ].map(step => (
+                  <li
+                    key={step.num}
+                    className="flex items-start gap-4 border border-glass-border bg-white/[0.01] p-4 rounded-sm hover:border-[rgba(99,102,241,0.25)] hover:bg-accent-indigo/[0.02] group"
+                    style={{ transition: `border-color 220ms var(--ease-premium), background 220ms var(--ease-premium)` }}
+                  >
+                    <div className={`terminal-text text-[10px] font-bold min-w-[28px] h-6 flex items-center justify-center rounded-sm border ${step.bg} ${step.color} flex-shrink-0 mt-0.5`}>
+                      {step.num}
+                    </div>
+                    <div>
+                      <div className={`text-xs font-bold uppercase tracking-wide text-text-primary group-hover:${step.color}`} style={{ transition: `color 220ms var(--ease-premium)` }}>{step.label}</div>
+                      <div className="text-[11px] text-text-secondary mt-0.5 leading-relaxed">{step.desc}</div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
           </motion.div>
 

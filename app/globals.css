@@ -1,24 +1,84 @@
 @import "tailwindcss";
 
+/* ── GLOBAL KEYFRAMES ─────────────────────────────── */
+
+/* Aura-spec shiny sweep: 6s, exact gradient stops */
+@keyframes shine-sweep {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── LIQUID-GLASS (Aura card treatment) ──────────── */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0)    40%,
+    rgba(255, 255, 255, 0)    60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
 :root {
   color-scheme: dark;
+  /* Acacia Labs Intelligence Brand — deep void black */
   --bg-primary: #050505;
-  --bg-secondary: #0B0B0B;
-  --bg-tertiary: #161616;
-  --text-primary: #F5F5F5;
-  --text-secondary: rgba(245, 245, 245, 0.6);
-  --text-muted: rgba(245, 245, 245, 0.35);
-  
-  /* Accents */
-  --accent-blue: #2563FF;
-  --accent-cyan: #00D1FF;
-  --accent-gold: #D4AF37;
-  
-  /* Glass and Borders */
-  --glass-bg: rgba(11, 11, 11, 0.7);
-  --glass-border: rgba(245, 245, 245, 0.05);
-  --glass-border-hover: rgba(245, 245, 245, 0.1);
-  --grid-color: rgba(245, 245, 245, 0.02);
+  --bg-secondary: #080808;
+  --bg-tertiary: #0c0c0c;
+  /* Pure white text hierarchy */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.55);
+  --text-muted: rgba(154, 154, 154, 0.7);
+
+  /* Brand accents — #4F7CFF primary, #00D4FF secondary */
+  --accent-blue: #4F7CFF;
+  --accent-indigo: #6366F1;
+  --accent-cyan: #00D4FF;
+  --accent-gold: #E0B341;
+  --accent-success: #34D399;
+
+  /* Glass — ultra-dark with blue-tinted borders */
+  --glass-bg: rgba(5, 5, 5, 0.88);
+  --glass-border: rgba(79, 124, 255, 0.08);
+  --glass-border-hover: rgba(79, 124, 255, 0.22);
+  --grid-color: rgba(79, 124, 255, 0.018);
+
+  /* Rim Glow */
+  --rim-glow: rgba(79, 124, 255, 0.75);
+  --rim-glow-bright: rgba(180, 210, 255, 0.95);
+  --rim-glow-soft: rgba(79, 124, 255, 0.30);
+
+  /* Premium easing */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 @theme inline {
@@ -28,14 +88,16 @@
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
-  
+
   --color-accent-blue: var(--accent-blue);
+  --color-accent-indigo: var(--accent-indigo);
   --color-accent-cyan: var(--accent-cyan);
   --color-accent-gold: var(--accent-gold);
-  
+
   --color-glass-bg: var(--glass-bg);
   --color-glass-border: var(--glass-border);
   --color-glass-border-hover: var(--glass-border-hover);
+  --color-accent-success: var(--accent-success);
 }
 
 @layer base {
@@ -47,12 +109,31 @@
   body {
     @apply bg-primary-bg text-text-primary antialiased selection:bg-accent-blue/20 selection:text-text-primary overflow-x-hidden;
     font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-    letter-spacing: -0.01em;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight text-text-primary;
+    font-family: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text-primary);
     text-wrap: balance;
+  }
+
+  /* Cursor pointer on all interactive elements — accessibility requirement */
+  button, [role="button"], a, [tabindex]:not([tabindex="-1"]) {
+    cursor: pointer;
+  }
+
+  /* Focus visible rings for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 }
 
@@ -69,7 +150,10 @@
   }
 
   .eyebrow {
-    @apply mb-6 inline-flex items-center gap-3 text-[10px] font-bold tracking-[0.4em] uppercase text-accent-cyan bg-white/[0.02] border border-white/5 px-4 py-1.5 rounded-sm;
+    @apply mb-6 inline-flex items-center gap-2.5 text-[9px] font-bold tracking-[0.45em] uppercase text-accent-cyan px-4 py-1.5 rounded-full;
+    background: rgba(56, 189, 248, 0.05);
+    border: 1px solid rgba(56, 189, 248, 0.14);
+    letter-spacing: 0.18em;
   }
 
   /* Infrastructure Controls (Glass Panels) */
@@ -79,15 +163,21 @@
 
   /* Tactile Interactive States */
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-sm bg-text-primary px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-primary-bg transition-all duration-300 hover:bg-white hover:shadow-[0_0_30px_rgba(245,245,245,0.2)] active:scale-[0.98];
+    @apply inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 text-[11px] font-semibold tracking-[0.04em] text-black transition-all hover:bg-white/90 hover:shadow-[0_0_24px_rgba(255,255,255,0.18)] hover:scale-[0.98] active:scale-[0.96];
+    transition-duration: 240ms;
+    transition-timing-function: var(--ease-premium);
+    letter-spacing: 0.01em;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-sm border border-glass-border bg-white/[0.02] px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-text-primary backdrop-blur-md transition-all duration-300 hover:bg-white/[0.08] hover:border-glass-border-hover active:scale-[0.98];
+    @apply inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.04] px-7 py-3.5 text-[11px] font-medium text-white/90 backdrop-blur-md hover:bg-white/[0.08] hover:border-white/25 hover:scale-[0.98] active:scale-[0.96];
+    transition: all 240ms var(--ease-premium);
+    letter-spacing: 0.01em;
   }
 
   .btn-accent {
-    @apply inline-flex items-center justify-center rounded-sm bg-accent-blue px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-text-primary transition-all duration-300 hover:bg-blue-600 hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] active:scale-[0.98];
+    @apply inline-flex items-center justify-center rounded-sm bg-accent-blue px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-text-primary hover:bg-blue-600 hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] hover:scale-[0.97] active:scale-[0.95];
+    transition: all 220ms var(--ease-premium);
   }
 
   /* Engineered Visual Backgrounds */
@@ -99,9 +189,243 @@
     background-position: center top;
   }
 
-  .terminal-text {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Calistoga display font — for hero and large section headings (adds human warmth) */
+  .font-display {
+    font-family: var(--font-display), 'Georgia', serif;
+    font-weight: 400;
   }
+
+  /* JetBrains Mono — for terminal text, data labels, status indicators, section badges */
+  .terminal-text {
+    font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* Success / positive metric color */
+  .text-accent-success {
+    color: var(--accent-success);
+  }
+
+  /* Skeleton loading state */
+  .skeleton {
+    @apply animate-pulse bg-white/[0.04] rounded-sm;
+  }
+
+  /* Proof strip divider */
+  .proof-divider {
+    @apply hidden md:block w-[1px] self-stretch bg-glass-border;
+  }
+
+  /* ============================================
+     GLASSMORPHISM SYSTEM
+     3 levels of depth for visual hierarchy
+     ============================================ */
+
+  /* Level 1 — Glass Card: dark glass with blue rim-glow */
+  .glass-card {
+    position: relative;
+    background: rgba(5, 5, 5, 0.88);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(79, 124, 255, 0.08);
+    border-top-color: rgba(79, 124, 255, 0.22);
+    box-shadow:
+      0 4px 32px rgba(0, 0, 20, 0.6),
+      inset 0 1px 0 rgba(79, 124, 255, 0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    transition:
+      border-color 300ms var(--ease-premium),
+      box-shadow 300ms var(--ease-premium);
+  }
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 12%; right: 12%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(79,124,255,0.55) 28%,
+      rgba(0,212,255,0.85) 50%,
+      rgba(79,124,255,0.55) 72%,
+      transparent
+    );
+    filter: blur(0.3px);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .glass-card:hover {
+    border-top-color: rgba(79, 124, 255, 0.38);
+    border-color: rgba(79, 124, 255, 0.14);
+    box-shadow:
+      0 12px 48px rgba(0, 0, 20, 0.75),
+      0 0 30px rgba(79, 124, 255, 0.05);
+  }
+  .glass-card:hover::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(79,124,255,0.75) 24%,
+      rgba(0,212,255,1.0) 50%,
+      rgba(79,124,255,0.75) 76%,
+      transparent
+    );
+  }
+
+  /* Level 2 — Glass Deep: authority panels, founder quotes */
+  .glass-deep {
+    background: rgba(3, 3, 14, 0.94);
+    backdrop-filter: blur(40px) saturate(140%);
+    -webkit-backdrop-filter: blur(40px) saturate(140%);
+    border: 1px solid rgba(79, 124, 255, 0.10);
+    border-top-color: rgba(0, 212, 255, 0.28);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 20, 0.85),
+      inset 0 1px 0 rgba(0, 212, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .glass-deep::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 8%; right: 8%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0,212,255,0.5) 30%,
+      rgba(0,212,255,0.9) 50%,
+      rgba(0,212,255,0.5) 70%,
+      transparent
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Level 3 — Glass Frosted: section grouping backdrop */
+  .glass-frosted {
+    background: rgba(5, 5, 15, 0.55);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1px solid rgba(79, 124, 255, 0.07);
+    border-top-color: rgba(79, 124, 255, 0.14);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  /* Level 4 — Glass Spotlight: Von Restorff isolation — ONE element per section */
+  .glass-spotlight {
+    position: relative;
+    background: rgba(79, 124, 255, 0.06);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid rgba(79, 124, 255, 0.28);
+    border-top-color: rgba(0, 212, 255, 0.50);
+    box-shadow:
+      0 0 60px rgba(79, 124, 255, 0.12),
+      0 8px 40px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(0, 212, 255, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .glass-spotlight::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 8%; right: 8%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(79,124,255,0.7) 25%,
+      rgba(0,212,255,1.0) 50%,
+      rgba(79,124,255,0.7) 75%,
+      transparent
+    );
+    filter: blur(0.5px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── RIM CARD: explicit standalone utility ───────── */
+  .rim-card {
+    position: relative;
+    background: rgba(0, 4, 18, 0.85);
+    border: 1px solid rgba(56, 189, 248, 0.06);
+    border-top-color: rgba(56, 189, 248, 0.20);
+    overflow: hidden;
+    transition: border-color 300ms var(--ease-premium), box-shadow 300ms var(--ease-premium);
+  }
+  .rim-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56,189,248,0.70) 30%, rgba(200,242,255,0.96) 50%, rgba(56,189,248,0.70) 70%, transparent);
+    filter: blur(0.3px);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .rim-card:hover {
+    border-top-color: rgba(56, 189, 248, 0.42);
+    border-color: rgba(56, 189, 248, 0.11);
+    box-shadow: 0 0 40px rgba(56, 189, 248, 0.04), 0 20px 60px rgba(0, 0, 15, 0.7);
+  }
+  .rim-card:hover::before {
+    background: linear-gradient(90deg, transparent, rgba(56,189,248,0.90) 25%, rgba(210,246,255,1.0) 50%, rgba(56,189,248,0.90) 75%, transparent);
+  }
+
+  /* Focal Ring — radial gradient anchor pulling the eye inward (CTA sections) */
+  .focal-ring {
+    position: relative;
+  }
+  .focal-ring::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(800px, 100vw);
+    height: min(800px, 100vw);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(99,102,241,0.1) 0%,
+      rgba(59,130,246,0.05) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* Premium input field — indigo focus glow (ui-ux-pro-max: interaction feedback) */
+.input-field {
+  @apply w-full border border-glass-border bg-white/[0.02] px-4 py-3 text-xs text-text-primary outline-none rounded-sm;
+  transition: border-color 250ms var(--ease-premium), box-shadow 250ms var(--ease-premium), background 250ms var(--ease-premium);
+}
+.input-field::placeholder {
+  color: var(--text-muted);
+}
+.input-field:focus {
+  border-color: rgba(99, 102, 241, 0.6);
+  background: rgba(99, 102, 241, 0.04);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+}
+
+/* Section divider — pure cyan rim-glow gradient */
+.section-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56,189,248,0.55) 30%, rgba(200,242,255,0.90) 50%, rgba(56,189,248,0.55) 70%, transparent);
+}
+
+/* Stat pulse — subtle animation for live data indicators */
+@keyframes stat-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.stat-live {
+  animation: stat-pulse 2.5s ease-in-out infinite;
 }
 
 /* Custom Scrollbar */
@@ -122,7 +446,18 @@
 
 /* Custom Utilities */
 .text-gradient-monochrome {
-  @apply bg-clip-text text-transparent bg-gradient-to-b from-text-primary via-text-primary to-text-secondary/50;
+  background: linear-gradient(180deg, #EFF6FF 0%, #EFF6FF 55%, rgba(99,102,241,0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Cyan → blue → white — matches the rim-light aesthetic */
+.text-gradient-accent {
+  background: linear-gradient(135deg, #38BDF8 0%, #3B82F6 50%, #E0F5FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .noise-overlay {
@@ -138,4 +473,236 @@
 
 .telemetry-pulse {
   animation: pulse-soft 4s infinite ease-in-out;
+}
+
+/* Ambient blob float — cinematic dark premium feel (ui-ux-pro-max: Modern Dark Cinema) */
+@keyframes blob-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(28px, -18px) scale(1.04); }
+  66%       { transform: translate(-18px, 14px) scale(0.96); }
+}
+
+.ambient-blob {
+  animation: blob-float 14s infinite ease-in-out;
+  will-change: transform;
+}
+
+.ambient-blob-delay {
+  animation: blob-float 16s infinite ease-in-out;
+  animation-delay: -6s;
+  will-change: transform;
+}
+
+/* Dashboard live dot pulse — used in hero-dashboard */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* Hero gradient headline shimmer — runs once on load */
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero-gradient-text {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* Smooth fade-in for lazy loaded content */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s var(--ease-premium) both;
+}
+
+/* Perspective floor grid — 3D depth receding to horizon */
+.grid-floor {
+  background-image:
+    linear-gradient(to right, rgba(99, 102, 241, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.07) 1px, transparent 1px);
+  background-size: 70px 70px;
+  transform-origin: center bottom;
+  transform: perspective(800px) rotateX(58deg);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+}
+
+/* Prefers-reduced-motion: disable all animations for motion-sensitive users */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ambient-blob, .ambient-blob-delay, .telemetry-pulse {
+    animation: none !important;
+  }
+  .grid-floor {
+    transform: none !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
+  .glass-card, .glass-card:hover {
+    transition: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .glass-deep, .glass-frosted {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* ============================================
+   TRIDIMENSI 3D DEPTH SYSTEM
+   AI System 3D Landing Page aesthetic
+   ============================================ */
+
+/* CSS 3D Sphere — multi-stop radial gradient mimics a lit sphere */
+.threed-orb {
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 28%,
+    rgba(160, 120, 255, 0.62) 0%,
+    rgba(99,  102, 241, 0.38) 22%,
+    rgba(59,  130, 246, 0.18) 50%,
+    rgba(6,   11,  24,  0.93) 78%
+  );
+  box-shadow:
+    0 0 70px  rgba(99, 102, 241, 0.28),
+    0 0 140px rgba(59, 130, 246, 0.13),
+    inset -10px -10px 40px rgba(0, 0, 20, 0.90),
+    inset  8px   8px 28px rgba(147, 112, 255, 0.18);
+  will-change: transform;
+}
+
+/* 3D Orbital Ring — perspective-tilted ellipse with edge glow */
+.threed-ring {
+  border-radius: 50%;
+  border: 1px solid rgba(99, 102, 241, 0.17);
+  box-shadow:
+    0 0 16px rgba(99, 102, 241, 0.10),
+    inset 0 0 16px rgba(99, 102, 241, 0.05);
+}
+
+/* Floating 3D animation — gentle vertical float + slight axis tilt */
+@keyframes float-3d {
+  0%, 100% { transform: translateY(0px)   rotateY(0deg)    rotateX(0deg); }
+  33%       { transform: translateY(-16px) rotateY(4deg)    rotateX(1deg); }
+  66%       { transform: translateY(-9px)  rotateY(-2.5deg) rotateX(-0.5deg); }
+}
+
+/* Orbital ring slow rotation */
+@keyframes orbit-ring {
+  from { transform: rotateX(72deg) rotateZ(0deg); }
+  to   { transform: rotateX(72deg) rotateZ(360deg); }
+}
+
+.animate-float-3d {
+  animation: float-3d 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-orbit {
+  animation: orbit-ring 14s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: orbit-ring 20s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-3d,
+  .animate-orbit,
+  .animate-orbit-reverse {
+    animation: none !important;
+  }
+  .threed-orb {
+    box-shadow: none !important;
+  }
+}
+
+/* ============================================
+   3D DISC CLUSTER SYSTEM
+   Lens/glass disc aesthetic — AI System style
+   ============================================ */
+
+/* Float animation: outer wrapper only (translateY) — inner div keeps 3D perspective */
+@keyframes disc-float {
+  0%,  100% { transform: translateY(0px); }
+  35%        { transform: translateY(-16px); }
+  65%        { transform: translateY(-9px); }
+}
+
+/* Slow majestic ring rotation — whole disc cluster spins as one */
+@keyframes ring-slow-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ============================================
+   RIM-LIGHT ORBS
+   Signature background elements from reference
+   Large dark glass orbs with glowing top rim
+   ============================================ */
+.rim-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Cyan glow button — interactive primary CTA */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  transition: all 250ms var(--ease-premium);
+}
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 0%, rgba(56,189,248,0.18) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 250ms var(--ease-premium);
+  pointer-events: none;
+}
+.btn-glow:hover::after {
+  opacity: 1;
+}
+
+/* Input field — cyan rim glow on focus */
+.input-rim:focus {
+  border-color: rgba(56, 189, 248, 0.50);
+  background: rgba(56, 189, 248, 0.03);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.07), 0 0 12px rgba(56, 189, 248, 0.08);
+}
+
+/* Glow pulse — stronger cyan variant for CTA sections */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(56,189,248,0.10), 0 0 40px rgba(56,189,248,0.05); }
+  50%       { box-shadow: 0 0 30px rgba(56,189,248,0.20), 0 0 60px rgba(56,189,248,0.08); }
+}
+.glow-pulse-cyan {
+  animation: glow-pulse 3.5s ease-in-out infinite;
+}
+
+/* Pill-shaped hero CTA buttons — rounded-full, matching 3D disc aesthetic */
+.btn-disc-primary {
+  @apply inline-flex items-center justify-center rounded-full bg-accent-blue px-8 py-3.5 text-xs font-bold tracking-[0.15em] uppercase text-white hover:bg-blue-600 hover:shadow-[0_0_28px_rgba(59,130,246,0.50)] hover:scale-[0.97] active:scale-[0.95];
+  transition: all 220ms var(--ease-premium);
+  min-width: 180px;
+}
+
+.btn-disc-secondary {
+  @apply inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.04] px-8 py-3.5 text-xs font-bold tracking-[0.15em] uppercase text-text-primary backdrop-blur-md hover:bg-white/[0.10] hover:border-white/28 hover:scale-[0.97] active:scale-[0.95];
+  transition: all 220ms var(--ease-premium);
+  min-width: 180px;
 }

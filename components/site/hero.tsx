@@ -1,89 +1,216 @@
+"use client";
+
 import Link from "next/link";
-import { company } from "@/lib/site";
-import { MotionDiv } from "@/components/ui/motion-wrapper";
-import { TelemetryCanvasLoader as TelemetryCanvas } from "./telemetry-canvas-loader";
+import { motion } from "framer-motion";
+import { MagneticWrapper } from "@/components/site/motion-primitives";
+
+function WordReveal({
+  text,
+  delay = 0,
+  style,
+}: {
+  text: string;
+  delay?: number;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <span style={{ display: "block", ...style }}>
+      {text.split(" ").map((word, i) => (
+        <span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top" }}>
+          <motion.span
+            style={{ display: "inline-block" }}
+            initial={{ y: "108%", opacity: 0 }}
+            animate={{ y: "0%", opacity: 1 }}
+            transition={{ delay: delay + i * 0.09, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {word}
+          </motion.span>
+          {i < text.split(" ").length - 1 && (
+            <span style={{ display: "inline-block", width: "0.28em" }} />
+          )}
+        </span>
+      ))}
+    </span>
+  );
+}
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 bg-primary-bg">
-      {/* Engineered System Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 grid-pattern opacity-[0.4]" />
-        {/* Extreme subtle radial vignette to convey restraint */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,#050505_95%)]" />
+    <section
+      className="relative overflow-hidden min-h-screen flex items-center justify-center"
+      style={{ background: "#050505" }}
+    >
+      {/* ── VIDEO BACKGROUND ─────────────────────────────── */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <video
+          autoPlay loop muted playsInline
+          className="w-full h-full object-cover pointer-events-none"
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_064122_c4750c0e-7476-4b44-94a2-a85a65c63bf2.mp4"
+        />
       </div>
 
-      <div className="section-container relative z-10 w-full grid gap-16 lg:grid-cols-[1.1fr_0.9fr] items-center py-16">
+      {/* ── OVERLAYS ─────────────────────────────────────── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        <div className="absolute inset-0" style={{ background: "rgba(5,5,5,0.68)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(circle at top center, rgba(79,124,255,.16), transparent 58%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(circle at bottom center, rgba(0,212,255,.07), transparent 70%)" }} />
+      </div>
 
-        {/* LEFT COLUMN: Swiss oversized typography structure */}
-        <MotionDiv
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col text-left space-y-8"
-        >
-          <span className="eyebrow w-fit">
-            OPERATIONAL INTELLIGENCE INFRASTRUCTURE
-          </span>
+      {/* ── CONTENT ──────────────────────────────────────── */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[76rem] mx-auto pt-32 pb-24">
 
-          <h1 className="oversized-heading text-gradient-monochrome">
-            Infrastructure <br />
-            <span className="text-text-secondary/45">For African</span> <br />
-            Enterprise.
-          </h1>
-
-          <p className="text-base md:text-lg text-text-secondary max-w-xl leading-relaxed">
-            {company.subtext} {company.promise} Acacia Labs deploys sovereign, highly resilient operating systems engineered for the unique structural realities of African commerce.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-            <Link href="/contact" className="btn-primary text-center">
-              Start a Project
-            </Link>
-            <Link href="/systems" className="btn-secondary text-center">
-              Explore Systems
-            </Link>
-          </div>
-        </MotionDiv>
-
-        {/* RIGHT COLUMN: Telemetry visualizer & high-density panels */}
-        <MotionDiv
-          initial={{ opacity: 0, scale: 0.98 }}
+        {/* Eyebrow */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-6 flex flex-col justify-center"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-12"
         >
-          {/* Telemetry Canvas Panel */}
-          <div className="rounded-sm border border-glass-border overflow-hidden bg-glass-bg shadow-2xl">
-            <TelemetryCanvas />
-          </div>
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: "10px",
+            padding: "7px 18px", borderRadius: "100px",
+            fontSize: "10px", fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase",
+            color: "rgba(79,124,255,0.95)",
+            background: "rgba(79,124,255,0.07)",
+            border: "1px solid rgba(79,124,255,0.2)",
+          }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4F7CFF", boxShadow: "0 0 10px #4F7CFF", flexShrink: 0 }} />
+            Intelligence Infrastructure · East Africa
+          </span>
+        </motion.div>
 
-          {/* Floating High-Density Systems Metric Panels */}
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { label: "SYSTEM THROUGHPUT", value: "4.8GB/s", detail: "Sub-50ms sync latency" },
-              { label: "AUTOMATION LOAD", value: "18.4M", detail: "Active task executions" },
-              { label: "SME NETWORK", value: "2,400+", detail: "Coordinated workflows" },
-              { label: "SYNC INDEX", value: "98.2%", detail: "Ledger accuracy" },
-            ].map((metric) => (
-              <div
-                key={metric.label}
-                className="border border-glass-border bg-white/[0.01] p-5 rounded-sm hover:border-glass-border-hover transition-colors"
-              >
-                <div className="text-[9px] font-mono tracking-widest text-text-muted uppercase mb-1">{metric.label}</div>
-                <div className="text-2xl font-bold tracking-tight text-text-primary">{metric.value}</div>
-                <div className="text-[9px] font-mono text-accent-cyan/80 tracking-wider mt-1">{metric.detail}</div>
-              </div>
-            ))}
-          </div>
-        </MotionDiv>
+        {/* Headline — three-word minimal authority statement */}
+        <h1 style={{
+          fontFamily: "var(--font-display), system-ui, sans-serif",
+          fontSize: "clamp(2.8rem, 7.2vw, 6.8rem)",
+          fontWeight: 700,
+          letterSpacing: "-0.045em",
+          lineHeight: 0.94,
+          marginBottom: "2.25rem",
+        }}>
+          <WordReveal
+            text="Infrastructure"
+            delay={0.2}
+            style={{ color: "#fff" }}
+          />
+          <WordReveal
+            text="For African"
+            delay={0.4}
+            style={{
+              backgroundImage: "linear-gradient(to right, #091020 0%, #0B2551 12.5%, #A4F4FD 32.5%, #00d2ff 50%, #0B2551 67.5%, #091020 87.5%, #091020 100%)",
+              backgroundSize: "200% auto",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              WebkitTextFillColor: "transparent",
+              filter: "url(#c3-noise)",
+              animation: "shine-sweep 6s linear infinite",
+              marginTop: "0.04em",
+            }}
+          />
+          <WordReveal
+            text="Enterprise."
+            delay={0.62}
+            style={{ color: "rgba(255,255,255,0.55)", marginTop: "0.04em" }}
+          />
+        </h1>
+
+        {/* Subheadline — single precise truth */}
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            fontFamily: "var(--font-inter), system-ui, sans-serif",
+            fontSize: "clamp(0.95rem, 1.4vw, 1.1rem)",
+            lineHeight: 1.75,
+            color: "rgba(255,255,255,0.4)",
+            maxWidth: "36rem",
+            fontWeight: 400,
+            letterSpacing: "-0.005em",
+            marginBottom: "3rem",
+          }}
+        >
+          Execution infrastructure for ambitious organizations. We do not build tools.
+          We build the systems that make everything else possible.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.7, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3"
+        >
+          <MagneticWrapper strength={0.28}>
+            <Link href="/contact" style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              borderRadius: "100px", background: "#4F7CFF", color: "#fff",
+              padding: "13px 34px", fontSize: "13px", fontWeight: 600,
+              letterSpacing: "-0.005em", textDecoration: "none",
+              transition: "all 260ms cubic-bezier(0.22,1,0.36,1)",
+              boxShadow: "0 0 28px rgba(79,124,255,0.35)",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#6B93FF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(79,124,255,0.55)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#4F7CFF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px rgba(79,124,255,0.35)"; }}
+            >
+              Build With Us
+            </Link>
+          </MagneticWrapper>
+          <MagneticWrapper strength={0.22}>
+            <Link href="/about" style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              borderRadius: "100px", border: "1px solid rgba(255,255,255,0.14)",
+              color: "rgba(255,255,255,0.7)", padding: "13px 34px",
+              fontSize: "13px", fontWeight: 500, letterSpacing: "-0.005em",
+              textDecoration: "none", transition: "all 260ms cubic-bezier(0.22,1,0.36,1)",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.3)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.14)"; }}
+            >
+              Our Vision
+            </Link>
+          </MagneticWrapper>
+        </motion.div>
+
+        {/* Origin */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.0, duration: 0.7 }}
+          style={{
+            marginTop: "3.5rem",
+            fontFamily: "var(--font-mono), monospace",
+            fontSize: "9px",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "rgba(154,154,154,0.35)",
+          }}
+        >
+          Dar es Salaam · Est. 2024 · Intelligence Infrastructure
+        </motion.p>
       </div>
 
-      {/* System Scroll Telemetry Pulse */}
-      <div className="absolute bottom-8 left-6 lg:left-12 flex items-center gap-4 font-mono text-[9px] text-text-muted tracking-widest uppercase z-10 select-none">
-        <span className="telemetry-pulse">SCROLL_TELEMETRY</span>
-        <div className="w-16 h-[1px] bg-glass-border" />
-      </div>
+      {/* Scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.1, duration: 0.8 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 pointer-events-none z-10"
+      >
+        <motion.div
+          animate={{ y: [0, 7, 0] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <svg width="14" height="24" viewBox="0 0 14 24" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="12" height="22" rx="6" stroke="rgba(154,154,154,0.25)" strokeWidth="1.5" />
+            <motion.rect x="5.5" y="5" width="3" height="5" rx="1.5" fill="rgba(79,124,255,0.7)"
+              animate={{ y: [0, 7, 0], opacity: [0.9, 0.2, 0.9] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </svg>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

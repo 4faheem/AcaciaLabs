@@ -45,3 +45,5 @@ next-env.d.ts
 
 # installed third-party agent skill (not product code)
 .claude/skills/
+
+.vercel

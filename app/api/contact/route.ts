@@ -135,7 +135,7 @@ export async function POST(request: Request) {
       <p style="margin:0;font-size:13px;color:#888;line-height:1.6;">${message.slice(0, 200)}${message.length > 200 ? "…" : ""}</p>
     </div>
     <p style="font-size:14px;color:#555;margin:0 0 32px;">
-      In the meantime, explore our thinking at <a href="https://www.acacialabs.co.tz/blog" style="color:#4F7CFF;text-decoration:none;">acacialabs.co.tz/blog</a>.
+      In the meantime, explore our thinking at <a href="https://acacialabs.co.tz/blog" style="color:#4F7CFF;text-decoration:none;">acacialabs.co.tz/blog</a>.
     </p>
     <div style="padding-top:32px;border-top:1px solid #1a1a1a;">
       <p style="margin:0;font-size:12px;color:#333;">Acacia Labs · Dar es Salaam, Tanzania</p>

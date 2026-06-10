@@ -20,7 +20,7 @@ function FounderHero() {
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 85% 80%, rgba(0,212,255,0.07), transparent 60%)" }} />
       </div>
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16 lg:gap-24 items-center">
+        <div className="max-w-4xl mx-auto text-center md:text-left">
           <div>
             <FadeUp><span className="eyebrow mb-8">Founder Profile · 01</span></FadeUp>
             <FadeUp delay={0.1}>
@@ -34,17 +34,17 @@ function FounderHero() {
               </p>
             </FadeUp>
             <FadeUp delay={0.3}>
-              <p style={{ fontSize: "clamp(1rem, 1.5vw, 1.2rem)", lineHeight: 1.7, color: "rgba(255,255,255,0.65)", fontWeight: 400, letterSpacing: "-0.005em", maxWidth: "36rem", marginBottom: "1.25rem" }}>
+              <p style={{ fontSize: "clamp(1rem, 1.5vw, 1.2rem)", lineHeight: 1.7, color: "rgba(255,255,255,0.65)", fontWeight: 400, letterSpacing: "-0.005em", maxWidth: "36rem", marginBottom: "1.25rem", margin: "0 auto md:0" }}>
                 Building intelligence infrastructure for African enterprise.
               </p>
             </FadeUp>
             <FadeUp delay={0.4}>
-              <p style={{ fontSize: "0.98rem", lineHeight: 1.75, color: "rgba(154,154,154,0.6)", maxWidth: "32rem" }}>
+              <p style={{ fontSize: "0.98rem", lineHeight: 1.75, color: "rgba(154,154,154,0.6)", maxWidth: "32rem", margin: "0 auto md:0" }}>
                 Focused on operational systems, enterprise architecture, and AI-native execution platforms.
               </p>
             </FadeUp>
             <FadeUp delay={0.55}>
-              <div className="flex flex-wrap items-center gap-3 mt-10">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mt-10">
                 {["Systems Thinker", "Enterprise Architect", "Long-Term Operator"].map(role => (
                   <span key={role} className="text-[10px] terminal-text font-semibold tracking-[0.18em] uppercase px-3.5 py-1.5 rounded-full" style={{ color: "rgba(255,255,255,0.7)", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(79,124,255,0.18)", backdropFilter: "blur(12px)" }}>
                     {role}
@@ -53,21 +53,6 @@ function FounderHero() {
               </div>
             </FadeUp>
           </div>
-          <FadeUp delay={0.15}>
-            <div className="relative aspect-[4/5] max-w-md mx-auto lg:mx-0 lg:ml-auto">
-              <div className="absolute -inset-4 rounded-3xl" style={{ background: "radial-gradient(ellipse at center, rgba(79,124,255,0.18), transparent 70%)", filter: "blur(40px)" }} />
-              <div className="relative h-full w-full overflow-hidden rounded-2xl" style={{ border: "1px solid rgba(79,124,255,0.18)", boxShadow: "0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04)" }}>
-                <Image src="/ceo-portrait.png" alt="Fahim Kiama, Founder & CEO of Acacia Labs" fill className="object-cover" priority />
-                <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, transparent 60%, rgba(5,5,5,0.4) 100%)" }} />
-                <div className="absolute inset-x-0 top-0 h-[2px] pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(0,212,255,0.7) 50%, transparent)" }} />
-              </div>
-              <div className="absolute -bottom-4 -left-4 px-4 py-2 rounded-full" style={{ background: "rgba(5,5,5,0.92)", border: "1px solid rgba(79,124,255,0.25)", backdropFilter: "blur(20px)" }}>
-                <span className="text-[9px] terminal-text font-bold tracking-[0.22em] uppercase" style={{ color: "rgba(0,212,255,0.9)" }}>
-                  Dar es Salaam · 2024
-                </span>
-              </div>
-            </div>
-          </FadeUp>
         </div>
       </div>
     </section>

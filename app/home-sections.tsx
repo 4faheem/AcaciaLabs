@@ -40,119 +40,6 @@ function MiniBar({ data }: { data: { label: string; value: number; color: string
   );
 }
 
-/* ── Acacia OS Dashboard ────────────────────────────── */
-function AcaciaDashboard() {
-  const spark1 = [10, 16, 14, 22, 18, 28, 24, 34, 28, 40, 35, 44];
-  const spark2 = [6, 11, 9, 15, 18, 13, 21, 17, 25, 21, 28, 32];
-  const bars = [
-    { label: "Mon", value: 65, color: "rgba(79,124,255,0.6)" },
-    { label: "Tue", value: 82, color: "rgba(79,124,255,0.7)" },
-    { label: "Wed", value: 74, color: "rgba(0,212,255,0.65)" },
-    { label: "Thu", value: 91, color: "rgba(0,212,255,0.8)" },
-    { label: "Fri", value: 88, color: "rgba(79,124,255,0.7)" },
-    { label: "Sat", value: 52, color: "rgba(79,124,255,0.3)" },
-    { label: "Sun", value: 38, color: "rgba(79,124,255,0.25)" },
-  ];
-  const stats = [
-    { label: "Active Workflows", value: "2,847", change: "+12%", color: "#4F7CFF", spark: spark1 },
-    { label: "AI Operations", value: "48.2K", change: "+28%", color: "#00D4FF", spark: spark2 },
-    { label: "Revenue Tracked", value: "$1.4M", change: "+8%", color: "#34D399", spark: spark1 },
-    { label: "System Uptime", value: "99.99%", change: "SLA", color: "#E0B341", spark: spark2 },
-  ];
-  const side = [
-    { icon: BarChart3, label: "Executive Dashboard", active: true },
-    { icon: Brain, label: "AI Assistant", active: false },
-    { icon: Activity, label: "Analytics", active: false },
-    { icon: GitBranch, label: "Workflow Auto.", active: false },
-    { icon: Users, label: "Team Activity", active: false },
-    { icon: TrendingUp, label: "Predictions", active: false },
-  ];
-  return (
-    <div className="rounded-xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.9)]"
-      style={{ background: "rgba(5,5,5,0.96)", border: "1px solid rgba(79,124,255,0.12)" }}>
-      <div className="flex items-center justify-between px-5 py-3 border-b"
-        style={{ background: "rgba(3,3,3,0.9)", borderColor: "rgba(79,124,255,0.08)" }}>
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1.5">
-            {["#ff5f57","#febc2e","#28c840"].map(c => <div key={c} className="w-2.5 h-2.5 rounded-full" style={{ background: c, opacity: 0.55 }} />)}
-          </div>
-          <span className="terminal-text text-[10px] tracking-[0.2em]" style={{ color: "rgba(154,154,154,0.6)" }}>ACACIA OS · AI WORKSPACE</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent-success stat-live" />
-          <span className="terminal-text text-[9px] tracking-widest text-accent-success">LIVE</span>
-        </div>
-      </div>
-      <div className="flex" style={{ minHeight: 360 }}>
-        <div className="w-44 border-r flex flex-col gap-0.5 p-2.5"
-          style={{ background: "rgba(3,3,3,0.7)", borderColor: "rgba(79,124,255,0.07)" }}>
-          {side.map(({ icon: Icon, label, active }) => (
-            <div key={label} className={`flex items-center gap-2.5 px-3 py-2 rounded-sm cursor-pointer transition-all ${active ? "bg-accent-blue/10 text-accent-cyan" : "hover:bg-white/[0.03]"}`}
-              style={{ color: active ? "#4F7CFF" : "rgba(154,154,154,0.55)" }}>
-              <Icon size={11} strokeWidth={1.5} /><span className="text-[9px] terminal-text tracking-wide">{label}</span>
-            </div>
-          ))}
-        </div>
-        <div className="flex-1 p-4 flex flex-col gap-3 overflow-hidden">
-          <div className="grid grid-cols-4 gap-2">
-            {stats.map(s => (
-              <div key={s.label} className="rounded-sm p-3 flex flex-col gap-2"
-                style={{ background: "rgba(255,255,255,0.018)", border: "1px solid rgba(79,124,255,0.06)" }}>
-                <div className="text-[8px] terminal-text tracking-wide leading-tight" style={{ color: "rgba(154,154,154,0.6)" }}>{s.label}</div>
-                <div className="text-sm font-bold" style={{ color: s.color }}>{s.value}</div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[8px] text-accent-success">{s.change}</span>
-                  <Sparkline data={s.spark} color={s.color} />
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="grid grid-cols-5 gap-3 flex-1">
-            <div className="col-span-2 rounded-sm p-3.5 flex flex-col gap-2.5"
-              style={{ background: "rgba(79,124,255,0.04)", border: "1px solid rgba(79,124,255,0.1)" }}>
-              <div className="flex items-center gap-2 pb-2.5 border-b" style={{ borderColor: "rgba(79,124,255,0.08)" }}>
-                <Sparkles size={11} style={{ color: "#4F7CFF" }} />
-                <span className="text-[9px] terminal-text tracking-widest" style={{ color: "#4F7CFF" }}>AI ASSISTANT</span>
-              </div>
-              <div className="flex flex-col gap-2 text-[9px] terminal-text leading-relaxed">
-                {[
-                  { from: "user", text: "Analyze Q4 operations." },
-                  { from: "ai", text: "Revenue +18% vs Q3. 847 tasks automated this month." },
-                  { from: "user", text: "Predict next month efficiency." },
-                  { from: "ai", text: "Forecast: +22% gain. Confidence: 94%." },
-                ].map((msg, i) => (
-                  <div key={i} className={`rounded-sm px-2.5 py-2 max-w-[92%] ${msg.from === "user" ? "self-start" : "self-end"}`}
-                    style={{ background: msg.from === "user" ? "rgba(79,124,255,0.07)" : "rgba(255,255,255,0.04)" }}>
-                    <span style={{ color: msg.from === "ai" ? "rgba(255,255,255,0.7)" : "rgba(154,154,154,0.7)" }}>{msg.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="col-span-3 rounded-sm p-3.5 flex flex-col gap-3"
-              style={{ background: "rgba(255,255,255,0.012)", border: "1px solid rgba(79,124,255,0.06)" }}>
-              <div className="flex items-center justify-between pb-2.5 border-b" style={{ borderColor: "rgba(79,124,255,0.07)" }}>
-                <div className="flex items-center gap-2">
-                  <BarChart3 size={11} style={{ color: "#00D4FF" }} />
-                  <span className="text-[9px] terminal-text tracking-widest" style={{ color: "#00D4FF" }}>WORKFLOW ANALYTICS</span>
-                </div>
-                <span className="text-[8px] terminal-text" style={{ color: "rgba(154,154,154,0.5)" }}>This Week</span>
-              </div>
-              <div className="flex-1 flex items-end"><MiniBar data={bars} /></div>
-              <div className="grid grid-cols-3 gap-2 pt-2 border-t" style={{ borderColor: "rgba(79,124,255,0.06)" }}>
-                {[{ label: "Automated", value: "84%", color: "#4F7CFF" }, { label: "Avg Speed", value: "1.8s", color: "#00D4FF" }, { label: "Error Rate", value: "0.02%", color: "#34D399" }].map(s => (
-                  <div key={s.label} className="text-center">
-                    <div className="text-sm font-bold" style={{ color: s.color }}>{s.value}</div>
-                    <div className="text-[8px] terminal-text" style={{ color: "rgba(154,154,154,0.5)" }}>{s.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ── Section heading helper ─────────────────────────── */
 function SectionHeading({ eyebrow, headline, sub }: { eyebrow: string; headline: string | React.ReactNode; sub?: string }) {
@@ -301,20 +188,7 @@ export default function HomeSections() {
         </div>
       </section>
 
-      {/* 5. PLATFORM SHOWCASE */}
-      <section className="relative py-32 overflow-hidden" style={{ background: "#050505" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at top center, rgba(79,124,255,0.07), transparent 60%)" }} />
-        <div className="section-container">
-          <SectionHeading
-            eyebrow="Flagship Platform"
-            headline="One workspace. Every operation."
-            sub="Acacia OS brings executive intelligence, AI automation, and real-time analytics into a single command center for your organization."
-          />
-          <MotionDiv initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}>
-            <AcaciaDashboard />
-          </MotionDiv>
-        </div>
-      </section>
+
 
       {/* 6. CONNECTED ECOSYSTEM */}
       <section className="relative py-36 border-t overflow-hidden" style={{ background: "#080808", borderColor: "rgba(79,124,255,0.07)" }}>

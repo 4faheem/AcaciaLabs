@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { MagneticWrapper } from "@/components/site/motion-primitives";
+import { AcaciaConversation } from "@/components/ui/acacia-conversation";
 
 function WordReveal({
   text,
@@ -171,6 +172,16 @@ export function Hero() {
               Our Vision
             </Link>
           </MagneticWrapper>
+        </motion.div>
+
+        {/* --- ACACIA CONVERSATION CENTERPIECE --- */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.9, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-20 w-full z-20 relative flex justify-center"
+        >
+          <AcaciaConversation />
         </motion.div>
 
         {/* Origin */}

@@ -153,11 +153,10 @@ export function PricingSection() {
         >
           <span className="eyebrow mx-auto mb-6">Pricing</span>
           <h2 className="mb-5 text-white" style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 1.05, fontFamily: "var(--font-display), system-ui, sans-serif" }}>
-            Monetization & pricing strategy.
+            Simple, transparent pricing.
           </h2>
-          <p className="max-w-3xl mx-auto mb-9" style={{ color: "rgba(154,154,154,0.76)", fontSize: "1rem", lineHeight: 1.75 }}>
-            E-Manager is the Business Operating System that powers modern organizations: operations, inventory, sales, procurement,
-            debt tracking, finance, HR, payroll, assets, branches, analytics, executive reporting, and AI decision support.
+          <p className="max-w-2xl mx-auto mb-9" style={{ color: "rgba(154,154,154,0.76)", fontSize: "1rem", lineHeight: 1.75 }}>
+            Start free for 30 days. No credit card required. Pick the plan that fits your business size — upgrade or downgrade anytime.
           </p>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border p-1.5" style={{ borderColor: "rgba(79,124,255,0.18)", background: "rgba(255,255,255,0.025)" }}>
             <button
@@ -364,10 +363,6 @@ export function PricingSection() {
           transition={{ duration: 0.7 }}
           className="mt-8 text-center"
         >
-          <p className="mx-auto max-w-3xl text-[14px] leading-relaxed" style={{ color: "rgba(255,255,255,0.68)" }}>
-            The UI, onboarding, dashboards, copywriting, and feature packaging should communicate authority, reliability,
-            operational excellence, executive visibility, and data-driven decision making.
-          </p>
           <p className="mt-4 text-white" style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "clamp(1.3rem, 3vw, 2rem)", fontWeight: 700, letterSpacing: "-0.02em" }}>
             E-Manager is the operating system that powers modern organizations.
           </p>

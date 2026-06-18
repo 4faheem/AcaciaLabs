@@ -7,39 +7,9 @@ import { PricingSection } from "@/components/site/pricing-section";
 import { TiltCard3D, MagneticWrapper, staggerContainer, springCard, FadeUp } from "@/components/site/motion-primitives";
 import { motion } from "framer-motion";
 import {
-  Brain, Database, BarChart3, GitBranch, Search, FileText,
-  Zap, TrendingUp, Users, Activity, Shield, Globe, Heart,
-  GraduationCap, Building2, Truck, ShoppingBag, Factory,
-  Briefcase, ArrowRight, Cpu, Network, Bot, MessageSquare,
-  Lightbulb, Target, Star, Award, Check, Sparkles
+  Package, Receipt, Wallet, Users, Contact, BarChart3,
+  Clock, Boxes, Smartphone, Check, ArrowRight, X
 } from "lucide-react";
-
-/* ── Sparkline ──────────────────────────────────────── */
-function Sparkline({ data, color = "#4F7CFF" }: { data: number[]; color?: string }) {
-  const max = Math.max(...data), min = Math.min(...data), range = max - min || 1;
-  const w = 72, h = 28;
-  const pts = data.map((v, i) => `${(i / (data.length - 1)) * w},${h - ((v - min) / range) * (h - 4) - 2}`).join(" ");
-  return (
-    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="overflow-visible opacity-70">
-      <polyline fill="none" stroke={color} strokeWidth="1.5" strokeLinejoin="round" points={pts} />
-    </svg>
-  );
-}
-
-function MiniBar({ data }: { data: { label: string; value: number; color: string }[] }) {
-  const max = Math.max(...data.map(d => d.value));
-  return (
-    <div className="flex items-end gap-1.5 h-16">
-      {data.map(d => (
-        <div key={d.label} className="flex flex-col items-center gap-1 flex-1">
-          <div className="w-full rounded-sm" style={{ height: `${(d.value / max) * 56}px`, background: d.color, minHeight: 3 }} />
-          <span className="text-[7px] terminal-text" style={{ color: "rgba(154,154,154,0.7)" }}>{d.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 
 /* ── Section heading helper ─────────────────────────── */
 function SectionHeading({ eyebrow, headline, sub }: { eyebrow: string; headline: string | React.ReactNode; sub?: string }) {
@@ -57,24 +27,22 @@ function SectionHeading({ eyebrow, headline, sub }: { eyebrow: string; headline:
 export default function HomeSections() {
   return (
     <>
-      {/* 1. HERO */}
+      {/* 1. HERO (includes E-Manager conversation centerpiece) */}
       <Hero />
 
-      {/* 2. TRUST BAR */}
+      {/* 2. EARLY ACCESS BAR + who it's for */}
       <section className="border-y overflow-hidden" style={{ background: "rgba(8,8,8,0.95)", borderColor: "rgba(79,124,255,0.08)" }}>
         <div className="py-7">
-          <p className="text-center terminal-text text-[9px] tracking-[0.35em] uppercase mb-5" style={{ color: "rgba(154,154,154,0.4)" }}>
-            Trusted by ambitious teams building the next generation of business.
+          <p className="text-center text-[11px] font-semibold tracking-[0.2em] uppercase mb-5" style={{ color: "rgba(0,212,255,0.7)" }}>
+            Now accepting early access clients in Dar es Salaam.
           </p>
           <div className="relative overflow-hidden">
-            <div className="flex gap-16 whitespace-nowrap" style={{ animation: "marquee-left 24s linear infinite", width: "max-content" }}>
+            <div className="flex gap-14 whitespace-nowrap" style={{ animation: "marquee-left 26s linear infinite", width: "max-content" }}>
               {[
-                "Financial Services","Healthcare","Government","Education",
-                "Logistics","Retail","Manufacturing","Professional Services",
-                "Financial Services","Healthcare","Government","Education",
-                "Logistics","Retail","Manufacturing","Professional Services",
+                "Wholesale Traders", "Agro-Dealers", "Schools", "Property Managers", "Retail Chains", "Hardware Stores",
+                "Wholesale Traders", "Agro-Dealers", "Schools", "Property Managers", "Retail Chains", "Hardware Stores",
               ].map((name, i) => (
-                <span key={i} className="text-[11px] font-semibold tracking-[0.2em] uppercase cursor-default transition-colors hover:text-white" style={{ color: "rgba(154,154,154,0.45)" }}>
+                <span key={i} className="text-[12px] font-semibold tracking-[0.15em] uppercase cursor-default transition-colors hover:text-white" style={{ color: "rgba(154,154,154,0.45)" }}>
                   {name}
                 </span>
               ))}
@@ -83,332 +51,82 @@ export default function HomeSections() {
         </div>
       </section>
 
-      {/* 3. CALLOUT — You See The Problems */}
-      <section className="relative py-36 overflow-hidden" style={{ background: "#050505" }}>
+      {/* 3. THE PROBLEM — plain language */}
+      <section className="relative py-32 overflow-hidden" style={{ background: "#050505" }}>
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(79,124,255,0.05) 0%, transparent 70%)" }} />
         <div className="mx-auto max-w-5xl px-6 lg:px-12 relative z-10">
-          <FadeUp>
-            <h2 style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff", marginBottom: "3rem" }}>
-              Execution is the bottleneck.
-              <br />
-              <span style={{ color: "rgba(154,154,154,0.45)" }}>Not ambition.</span>
+          <FadeUp className="text-center mb-14">
+            <span className="eyebrow mx-auto mb-6">The Daily Struggle</span>
+            <h2 style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 1.05, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff" }}>
+              Still running your business on<br />
+              <span style={{ color: "rgba(154,154,154,0.45)" }}>spreadsheets and paper?</span>
             </h2>
           </FadeUp>
-          {/* glass-frosted wrapper — Gestalt closure */}
+
           <motion.div
-            className="glass-frosted grid sm:grid-cols-2 gap-px"
-            style={{ border: "none" }}
+            className="grid sm:grid-cols-2 gap-4"
             variants={staggerContainer}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-8%" }}
           >
             {[
-              { label: "Hard work without intelligent systems produces diminishing returns.", num: "01" },
-              { label: "Opportunity doesn't disappear. It moves to whoever executes faster.", num: "02" },
-              { label: "Talent is not the constraint. Access to the right systems is.", num: "03" },
-              { label: "World-class infrastructure has never been built for this market. Until now.", num: "04" },
-            ].map(({ label, num }) => (
-              <motion.div key={num} variants={springCard}
-                className="group p-8 flex items-start gap-6 cursor-default transition-all duration-300"
-                style={{ background: "rgba(8,8,8,0.9)" }}
-                whileHover={{ background: "rgba(79,124,255,0.04)" }}
-              >
-                <span className="terminal-text text-[10px] font-bold tracking-widest pt-1 flex-shrink-0" style={{ color: "rgba(79,124,255,0.5)" }}>{num}</span>
-                <p style={{ fontSize: "1rem", fontWeight: 500, color: "rgba(255,255,255,0.7)", lineHeight: 1.6, letterSpacing: "-0.01em" }}>{label}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-          <FadeUp delay={0.3}>
-            <p className="mt-10 text-center" style={{ fontSize: "1rem", fontWeight: 500, color: "rgba(79,124,255,0.8)", letterSpacing: "-0.01em" }}>
-              Acacia Labs builds the systems that remove this constraint permanently.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* 4. PROBLEM — Africa Has Never Lacked Talent */}
-      <section className="relative py-36 border-t overflow-hidden" style={{ background: "#080808", borderColor: "rgba(79,124,255,0.07)" }}>
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <FadeUp>
-              <span className="eyebrow mb-8">The Foundation</span>
-              <h2 style={{ fontSize: "clamp(2.2rem, 5vw, 4.2rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1.05, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff", marginBottom: "1.75rem" }}>
-                Ambition is not the constraint.
-                <br />
-                <span style={{ color: "rgba(154,154,154,0.45)" }}>Access is.</span>
-              </h2>
-              <p style={{ fontSize: "1.05rem", lineHeight: 1.78, color: "rgba(154,154,154,0.6)", maxWidth: "32rem", marginBottom: "1.25rem" }}>
-                Without access to intelligence systems, execution cannot scale.
-              </p>
-              <p style={{ fontSize: "1.05rem", lineHeight: 1.78, color: "rgba(255,255,255,0.75)", maxWidth: "32rem", fontWeight: 500, marginBottom: "2.5rem" }}>
-                Acacia Labs exists to close that gap.
-              </p>
-              <MagneticWrapper strength={0.25}>
-                <Link href="/about" style={{
-                  display: "inline-flex", alignItems: "center", gap: "8px",
-                  borderRadius: "100px", border: "1px solid rgba(79,124,255,0.3)",
-                  color: "rgba(79,124,255,0.9)", padding: "11px 28px",
-                  fontSize: "13px", fontWeight: 600, letterSpacing: "0.02em",
-                  textDecoration: "none", transition: "all 240ms cubic-bezier(0.22,1,0.36,1)",
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(79,124,255,0.08)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-                >
-                  Our Mission <ArrowRight size={13} />
-                </Link>
-              </MagneticWrapper>
-            </FadeUp>
-
-            <motion.div
-              className="grid grid-cols-2 gap-3"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-8%" }}
-            >
-              {[
-                { icon: Cpu, label: "Operating Systems", desc: "The coordination layer most businesses are missing — finance, logistics, and teams running on one source of truth instead of twelve spreadsheets." },
-                { icon: Brain, label: "Decision Intelligence", desc: "Models that speak Swahili, understand M-Pesa reconciliation, and survive a dropped connection — not Silicon Valley demos ported overseas." },
-                { icon: Zap, label: "Real Tooling", desc: "Software built around how work actually happens here: offline-first, mobile-money native, resilient by default." },
-                { icon: TrendingUp, label: "Execution", desc: "The gap between a good idea and a shipped result. We close it — and we measure what closing it is worth." },
-              ].map(({ icon: Icon, label, desc }) => (
-                <motion.div key={label} variants={springCard}>
-                  <TiltCard3D intensity={6} className="glass-card p-6 h-full cursor-default">
-                    <div className="p-2 rounded-sm mb-4 inline-flex" style={{ background: "rgba(79,124,255,0.08)", border: "1px solid rgba(79,124,255,0.14)" }}>
-                      <Icon size={16} style={{ color: "#4F7CFF" }} strokeWidth={1.5} />
-                    </div>
-                    <div className="text-sm font-bold mb-2" style={{ color: "#fff" }}>{label}</div>
-                    <p className="text-[11px] leading-relaxed" style={{ color: "rgba(154,154,154,0.7)" }}>{desc}</p>
-                  </TiltCard3D>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* 6. CONNECTED ECOSYSTEM */}
-      <section className="relative py-36 border-t overflow-hidden" style={{ background: "#080808", borderColor: "rgba(79,124,255,0.07)" }}>
-        <div className="section-container">
-          <SectionHeading
-            eyebrow="Intelligence Ecosystem"
-            headline={<>One layer.<br /><span style={{ color: "rgba(154,154,154,0.45)" }}>Every capability.</span></>}
-            sub="Not isolated products. A unified intelligence layer — every system connected, every capability compounding."
-          />
-
-          {/* Connected node visualization */}
-          <div className="relative max-w-4xl mx-auto">
-            {/* Central node */}
-            <FadeUp className="flex justify-center mb-8">
-              <div className="relative flex items-center justify-center w-24 h-24 rounded-full" style={{ background: "radial-gradient(circle, rgba(79,124,255,0.15), rgba(79,124,255,0.04))", border: "1px solid rgba(79,124,255,0.3)", boxShadow: "0 0 40px rgba(79,124,255,0.15)" }}>
-                <Brain size={28} style={{ color: "#4F7CFF" }} strokeWidth={1.5} />
-                <div className="absolute inset-0 rounded-full animate-ping" style={{ background: "rgba(79,124,255,0.06)", animationDuration: "3s" }} />
-              </div>
-            </FadeUp>
-
-            {/* Ecosystem nodes */}
-            <motion.div
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-8%" }}
-            >
-              {[
-                { icon: Sparkles, name: "Syncraft AI", tag: "AI Productivity", desc: "Intelligence assistant for teams — thinks, automates, and surfaces insights from your entire operation.", color: "#4F7CFF" },
-                { icon: Database, name: "Enterprise Systems", tag: "Operations Intelligence", desc: "End-to-end enterprise infrastructure covering finance, logistics, and team coordination.", color: "#00D4FF" },
-                { icon: Zap, name: "AI Productivity", tag: "Workflow Amplification", desc: "AI-native productivity systems that turn every team member into a high-leverage operator.", color: "#4F7CFF" },
-                { icon: GitBranch, name: "Autonomous Workflows", tag: "Execution Engine", desc: "Self-running operational workflows that execute without constant human supervision.", color: "#00D4FF" },
-                { icon: Network, name: "Intelligence API", tag: "Integration Layer", desc: "Connect any existing system to the Acacia intelligence layer via a unified API.", color: "#4F7CFF" },
-                { icon: TrendingUp, name: "Future Products", tag: "Next Generation", desc: "Continuously evolving intelligence capabilities designed for the next decade of African business.", color: "#00D4FF" },
-              ].map(({ icon: Icon, name, tag, desc, color }) => (
-                <motion.div key={name} variants={springCard}>
-                  <TiltCard3D intensity={6} className="glass-card p-7 h-full group flex flex-col cursor-default">
-                    <div className="flex items-start justify-between mb-5">
-                      <div className="p-2.5 rounded-sm inline-flex" style={{ background: `${color}12`, border: `1px solid ${color}20` }}>
-                        <Icon size={17} style={{ color }} strokeWidth={1.5} />
-                      </div>
-                      <span className="text-[8px] terminal-text tracking-widest uppercase" style={{ color: "rgba(154,154,154,0.45)" }}>{tag}</span>
-                    </div>
-                    <h3 className="text-[15px] font-bold mb-3 group-hover:text-accent-blue transition-colors duration-200" style={{ color: "#fff", fontFamily: "var(--font-display), system-ui, sans-serif" }}>{name}</h3>
-                    <p className="text-[12px] leading-relaxed flex-1" style={{ color: "rgba(154,154,154,0.7)" }}>{desc}</p>
-                    <div className="flex items-center gap-1.5 mt-5 text-[10px] font-semibold tracking-[0.12em] uppercase transition-colors group-hover:text-white" style={{ color: color }}>
-                      Explore <ArrowRight size={10} />
-                    </div>
-                  </TiltCard3D>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. DIFFERENTIATION */}
-      <section className="relative py-36 border-t overflow-hidden" style={{ background: "#050505", borderColor: "rgba(79,124,255,0.07)" }}>
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          <FadeUp className="text-center mb-20">
-            <h2 style={{ fontSize: "clamp(2.8rem, 6.5vw, 5.8rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff" }}>
-              Others build software.
-              <br />
-              <span style={{ color: "rgba(79,124,255,0.9)" }}>We build capability.</span>
-            </h2>
-          </FadeUp>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {/* Others — flat, dead */}
-            <FadeUp delay={0.1}>
-              <div className="p-8 rounded-2xl h-full" style={{ background: "rgba(8,8,8,0.8)", border: "1px solid rgba(154,154,154,0.07)" }}>
-                <div className="text-[10px] terminal-text font-bold tracking-[0.3em] uppercase mb-7" style={{ color: "rgba(154,154,154,0.35)" }}>The market</div>
-                <div className="space-y-4">
-                  {["More features","Better dashboards","Faster tools","Automation templates","AI wrappers"].map(item => (
-                    <div key={item} className="flex items-center gap-4">
-                      <div className="w-4 h-px flex-shrink-0" style={{ background: "rgba(154,154,154,0.2)" }} />
-                      <span style={{ fontSize: "1rem", fontWeight: 400, color: "rgba(154,154,154,0.4)", textDecoration: "line-through" }}>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </FadeUp>
-
-            {/* Acacia Labs — glass-spotlight: Von Restorff isolation */}
-            <FadeUp delay={0.2}>
-              <div className="glass-spotlight p-8 h-full">
-                <div className="text-[10px] terminal-text font-bold tracking-[0.3em] uppercase mb-7" style={{ color: "rgba(79,124,255,0.8)" }}>Acacia Labs</div>
-                <div className="space-y-4">
-                  {["Intelligence systems","Decision engines","Execution infrastructure","Unified capability layer","Compounding outcomes"].map(item => (
-                    <div key={item} className="flex items-center gap-4">
-                      <Check size={14} style={{ color: "#4F7CFF", flexShrink: 0 }} />
-                      <span style={{ fontSize: "1rem", fontWeight: 600, color: "#fff" }}>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </FadeUp>
-          </div>
-        </div>
-      </section>
-
-      {/* 8. EAST AFRICA IDENTITY */}
-      <section className="relative py-36 border-t overflow-hidden" style={{ background: "#080808", borderColor: "rgba(79,124,255,0.07)" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at bottom right, rgba(0,212,255,0.04), transparent 60%)" }} />
-        <div className="mx-auto max-w-7xl px-6 lg:px-12 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <FadeUp>
-              <span className="eyebrow mb-8">Our Origin</span>
-              <h2 style={{ fontSize: "clamp(2.6rem, 5.5vw, 5rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1.02, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff", marginBottom: "1.5rem" }}>
-                Built in East Africa.<br />
-                <span style={{ color: "rgba(0,212,255,0.75)" }}>Built for the world.</span>
-              </h2>
-              <p style={{ fontSize: "1rem", lineHeight: 1.78, color: "rgba(154,154,154,0.6)", maxWidth: "32rem", marginBottom: "2.5rem" }}>
-                World-class technology does not require geography. It requires precision, discipline, and the refusal to accept inferior systems as the default.
-              </p>
-              <div className="space-y-3">
-                {["We did not adapt existing platforms. We built from first principles.","Designed for real conditions — not theoretical environments.","The infrastructure others said couldn't exist here."].map(t => (
-                  <div key={t} className="flex items-start gap-3">
-                    <span className="h-1.5 w-1.5 rounded-full mt-2 flex-shrink-0" style={{ background: "#00D4FF" }} />
-                    <p style={{ fontSize: "0.9rem", color: "rgba(154,154,154,0.65)", lineHeight: 1.6 }}>{t}</p>
+              "You never know your real stock until you count it by hand.",
+              "Cash comes in and goes out, but the numbers never quite add up.",
+              "Every branch keeps its own records — and none of them match.",
+              "Reports take hours to prepare, and they're out of date by the time they're ready.",
+            ].map((pain, i) => (
+              <motion.div key={i} variants={springCard}>
+                <div className="glass-card p-6 h-full flex items-start gap-4 cursor-default">
+                  <div className="p-1.5 rounded-full flex-shrink-0 mt-0.5" style={{ background: "rgba(255,90,90,0.1)", border: "1px solid rgba(255,90,90,0.2)" }}>
+                    <X size={12} style={{ color: "rgba(255,120,120,0.9)" }} />
                   </div>
-                ))}
-              </div>
-            </FadeUp>
-
-            {/* glass-deep — deepest authority signal: founder quote carries maximum weight */}
-            <FadeUp delay={0.15}>
-              <div className="glass-deep p-10 text-center">
-                <p style={{ fontSize: "clamp(1.1rem, 2vw, 1.35rem)", fontWeight: 500, color: "rgba(255,255,255,0.82)", lineHeight: 1.72, fontFamily: "var(--font-display), system-ui, sans-serif", letterSpacing: "-0.02em", fontStyle: "italic" }}>
-                  "Africa consumed systems built for someone else's reality for decades. We are building the systems built for ours."
-                </p>
-                <div className="mt-8 pt-8 border-t border-glass-border/40">
-                  <div className="text-sm font-bold text-white">Fahim Kiama</div>
-                  <div className="text-[11px] terminal-text tracking-widest mt-1" style={{ color: "rgba(154,154,154,0.45)" }}>FOUNDER & CEO · ACACIA LABS</div>
-                </div>
-              </div>
-            </FadeUp>
-          </div>
-        </div>
-      </section>
-
-      {/* 9. VISION */}
-      <section className="relative py-36 border-t overflow-hidden" style={{ background: "#050505", borderColor: "rgba(79,124,255,0.07)" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(79,124,255,0.06), transparent 65%)" }} />
-        <div className="mx-auto max-w-5xl px-6 lg:px-12 text-center relative z-10">
-          <FadeUp>
-            <span className="eyebrow mx-auto mb-8">The Inevitable</span>
-            <h2 style={{ fontSize: "clamp(2.4rem, 6vw, 5.5rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff", marginBottom: "2rem" }}>
-              Every economic era is defined<br />
-              <span style={{ color: "rgba(79,124,255,0.85)" }}>by its infrastructure.</span>
-            </h2>
-          </FadeUp>
-
-          <motion.div
-            className="grid grid-cols-3 gap-4 mt-14 mb-14"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-8%" }}
-          >
-            {[
-              { era: "Industrial Age", driver: "Machines", icon: Factory, muted: true },
-              { era: "Digital Age", driver: "Software", icon: Cpu, muted: true },
-              { era: "Intelligence Age", driver: "Intelligence", icon: Brain, muted: false },
-            ].map(({ era, driver, icon: Icon, muted }, i) => (
-              <motion.div key={era} variants={springCard}>
-                <div className={muted ? "glass-card p-8 text-center" : "glass-spotlight p-8 text-center"}>
-                  <Icon size={22} style={{ color: muted ? "rgba(154,154,154,0.25)" : "#4F7CFF", margin: "0 auto 16px" }} strokeWidth={1.5} />
-                  <div className="text-[9px] terminal-text tracking-widest uppercase mb-2" style={{ color: muted ? "rgba(154,154,154,0.3)" : "rgba(79,124,255,0.75)" }}>{era}</div>
-                  <div style={{ fontSize: "1.3rem", fontWeight: 700, color: muted ? "rgba(154,154,154,0.28)" : "#fff", fontFamily: "var(--font-display), system-ui, sans-serif", letterSpacing: "-0.03em" }}>{driver}</div>
-                  {!muted && <div className="mt-3 text-[9px] terminal-text tracking-widest" style={{ color: "rgba(0,212,255,0.7)" }}>NOW BUILDING</div>}
+                  <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "rgba(255,255,255,0.75)" }}>{pain}</p>
                 </div>
               </motion.div>
             ))}
           </motion.div>
 
           <FadeUp delay={0.3}>
-            <p style={{ fontSize: "1rem", color: "rgba(154,154,154,0.6)", lineHeight: 1.75, maxWidth: "34rem", margin: "0 auto" }}>
-              The intelligence era is not approaching. It is here. Acacia Labs is building the infrastructure that defines it.
+            <p className="mt-10 text-center" style={{ fontSize: "1.05rem", fontWeight: 500, color: "rgba(0,212,255,0.8)" }}>
+              E-Manager puts all of it in one place — and keeps it up to date automatically.
             </p>
           </FadeUp>
         </div>
       </section>
 
-      {/* 10. INDUSTRIES */}
+      {/* 4. HOW IT WORKS */}
       <section className="relative py-32 border-t overflow-hidden" style={{ background: "#080808", borderColor: "rgba(79,124,255,0.07)" }}>
         <div className="section-container">
-          <SectionHeading eyebrow="Industries" headline="Built for every modern industry." />
-          <motion.div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-8%" }}>
+          <SectionHeading
+            eyebrow="How It Works"
+            headline="Up and running in an afternoon."
+            sub="No IT department needed. No complicated setup. Just three simple steps."
+          />
+          <motion.div
+            className="grid md:grid-cols-3 gap-5"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-8%" }}
+          >
             {[
-              { icon: Building2, name: "Financial Services", challenge: "Fragmented transaction data", opportunity: "AI-powered reconciliation", solution: "Unified financial intelligence" },
-              { icon: Heart, name: "Healthcare", challenge: "Disconnected workflows", opportunity: "Automated care coordination", solution: "Intelligent operations" },
-              { icon: GraduationCap, name: "Education", challenge: "Manual admin overhead", opportunity: "AI-assisted management", solution: "Smart campus systems" },
-              { icon: Globe, name: "Government", challenge: "Paper-based processes", opportunity: "Digital automation", solution: "e-Government infrastructure" },
-              { icon: Truck, name: "Logistics", challenge: "Route visibility gaps", opportunity: "Real-time tracking AI", solution: "End-to-end intelligence" },
-              { icon: ShoppingBag, name: "Retail", challenge: "Inventory complexity", opportunity: "Demand forecasting AI", solution: "Unified commerce ops" },
-              { icon: Factory, name: "Manufacturing", challenge: "Production bottlenecks", opportunity: "Predictive maintenance", solution: "AI-powered factory systems" },
-              { icon: Briefcase, name: "Professional Services", challenge: "Project coordination", opportunity: "Automated delivery", solution: "Intelligent service management" },
-            ].map(({ icon: Icon, name, challenge, opportunity, solution }) => (
-              <motion.div key={name} variants={springCard}>
-                <TiltCard3D intensity={5} className="glass-card p-6 h-full group cursor-default flex flex-col">
-                  <div className="flex items-center gap-3 mb-5">
-                    <Icon size={17} style={{ color: "#4F7CFF" }} strokeWidth={1.5} />
-                    <span className="text-sm font-bold group-hover:text-accent-blue transition-colors duration-200" style={{ color: "#fff", fontFamily: "var(--font-display), system-ui, sans-serif" }}>{name}</span>
+              { icon: Clock, step: "1", title: "Set up your business in 30 minutes", desc: "Create your account, add your business details, and you're ready. No installation, no technician visit." },
+              { icon: Boxes, step: "2", title: "Add your products, staff, and customers", desc: "Enter your stock, your team, and your customers once. E-Manager keeps everything connected from there." },
+              { icon: Smartphone, step: "3", title: "See your business from any device", desc: "Open your real-time dashboard on your phone, tablet, or computer — from the shop, the warehouse, or home." },
+            ].map(({ icon: Icon, step, title, desc }) => (
+              <motion.div key={step} variants={springCard}>
+                <TiltCard3D intensity={5} className="glass-card p-8 h-full cursor-default group">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="p-2.5 rounded-md inline-flex" style={{ background: "rgba(79,124,255,0.1)", border: "1px solid rgba(79,124,255,0.2)" }}>
+                      <Icon size={18} style={{ color: "#4F7CFF" }} strokeWidth={1.5} />
+                    </div>
+                    <span style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "2.5rem", fontWeight: 700, lineHeight: 1, color: "rgba(79,124,255,0.18)" }}>{step}</span>
                   </div>
-                  <div className="flex flex-col gap-3 flex-1 text-[11px]">
-                    <div>
-                      <span className="terminal-text text-[8px] tracking-widest uppercase block mb-1" style={{ color: "rgba(154,154,154,0.4)" }}>Challenge</span>
-                      <p style={{ color: "rgba(154,154,154,0.7)" }}>{challenge}</p>
-                    </div>
-                    <div>
-                      <span className="terminal-text text-[8px] tracking-widest uppercase block mb-1" style={{ color: "rgba(79,124,255,0.6)" }}>AI Opportunity</span>
-                      <p style={{ color: "rgba(154,154,154,0.7)" }}>{opportunity}</p>
-                    </div>
-                    <div className="mt-auto pt-3 border-t border-glass-border/40">
-                      <span className="terminal-text text-[8px] tracking-widest uppercase block mb-1" style={{ color: "rgba(0,212,255,0.6)" }}>Acacia Solution</span>
-                      <p style={{ color: "#fff" }} className="font-medium">{solution}</p>
-                    </div>
-                  </div>
+                  <h3 style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "1.15rem", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.25, color: "#fff", marginBottom: "0.75rem" }} className="group-hover:text-accent-blue transition-colors">
+                    {title}
+                  </h3>
+                  <p style={{ fontSize: "0.92rem", lineHeight: 1.65, color: "rgba(154,154,154,0.65)" }}>{desc}</p>
                 </TiltCard3D>
               </motion.div>
             ))}
@@ -416,96 +134,132 @@ export default function HomeSections() {
         </div>
       </section>
 
-      {/* 11. TRUST PRINCIPLES */}
+      {/* 5. THE 6 MODULES */}
       <section className="relative py-32 border-t overflow-hidden" style={{ background: "#050505", borderColor: "rgba(79,124,255,0.07)" }}>
-        <div className="mx-auto max-w-4xl px-6 lg:px-12 text-center">
-          <FadeUp>
-            <span className="eyebrow mx-auto mb-8">Our Commitment</span>
-            <h2 style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)", fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 1.05, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff", marginBottom: "3rem" }}>
-              No metrics without meaning.<br />
-              <span style={{ color: "rgba(154,154,154,0.45)" }}>Only principles.</span>
-            </h2>
-          </FadeUp>
+        <div className="section-container">
+          <SectionHeading
+            eyebrow="One Platform · Six Tools"
+            headline="Everything your business needs."
+            sub="E-Manager brings the six things every business runs on into a single, connected platform."
+          />
           <motion.div
-            className="space-y-3"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
             variants={staggerContainer}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-8%" }}
           >
-            {/* glass-card on each row — transparency as trust */}
             {[
-              "Impact is the metric. Everything else is noise.",
-              "Designed to scale without redesigning. Compounding systems, not patched tools.",
-              "Capability, not productivity. We expand what is possible.",
-              "Intelligence systems — not dashboards dressed as strategy.",
-              "African innovation is not a vertical. It is the foundation.",
-            ].map((p, i) => (
-              <motion.div key={i} variants={springCard}
-                className="glass-card flex items-center gap-5 p-5 text-left group cursor-default"
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Check size={16} style={{ color: "#4F7CFF", flexShrink: 0 }} />
-                <p style={{ fontSize: "0.95rem", fontWeight: 500, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>{p}</p>
+              { icon: Package, name: "Inventory", desc: "Track every product across every branch. Know exactly what's in stock, what's running low, and what's selling — in real time." },
+              { icon: Receipt, name: "Sales & Invoicing", desc: "Record sales, print or send invoices, and watch your daily revenue update automatically as you trade." },
+              { icon: Wallet, name: "Finance", desc: "See money in and money out at a glance. Track expenses, profit, and cash flow without touching a spreadsheet." },
+              { icon: Users, name: "HR & Staff", desc: "Manage your team, roles, and permissions. See who did what, and give each person access to only what they need." },
+              { icon: Contact, name: "Customer Records", desc: "Keep every customer's details and history in one place — so you can follow up, build loyalty, and sell more." },
+              { icon: BarChart3, name: "Reports", desc: "Get clear reports on sales, stock, and finances whenever you want them — ready in seconds, not hours." },
+            ].map(({ icon: Icon, name, desc }) => (
+              <motion.div key={name} variants={springCard}>
+                <TiltCard3D intensity={6} className="glass-card p-7 h-full group flex flex-col cursor-default">
+                  <div className="p-2.5 rounded-md inline-flex mb-5 self-start" style={{ background: "rgba(79,124,255,0.1)", border: "1px solid rgba(79,124,255,0.2)" }}>
+                    <Icon size={18} style={{ color: "#4F7CFF" }} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-[16px] font-bold mb-3 group-hover:text-accent-blue transition-colors duration-200" style={{ color: "#fff", fontFamily: "var(--font-display), system-ui, sans-serif" }}>{name}</h3>
+                  <p className="text-[12.5px] leading-relaxed flex-1" style={{ color: "rgba(154,154,154,0.7)" }}>{desc}</p>
+                </TiltCard3D>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* 12. PRICING */}
+      {/* 6. BUILT FOR TANZANIA + founder */}
+      <section className="relative py-32 border-t overflow-hidden" style={{ background: "#080808", borderColor: "rgba(79,124,255,0.07)" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at bottom right, rgba(0,212,255,0.04), transparent 60%)" }} />
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <FadeUp>
+              <span className="eyebrow mb-8">Built for Tanzania</span>
+              <h2 style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1.05, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff", marginBottom: "1.5rem" }}>
+                Made here, for how<br />
+                <span style={{ color: "rgba(0,212,255,0.75)" }}>business really works.</span>
+              </h2>
+              <p style={{ fontSize: "1.05rem", lineHeight: 1.78, color: "rgba(154,154,154,0.65)", maxWidth: "32rem", marginBottom: "2.5rem" }}>
+                E-Manager isn't a foreign tool forced to fit. It's built in Dar es Salaam, for
+                Tanzanian businesses — the way you actually buy, sell, and keep records.
+              </p>
+              <div className="space-y-3">
+                {[
+                  "Works on the phone you already have.",
+                  "Built for multiple branches and busy shops.",
+                  "Simple enough that any staff member can use it.",
+                ].map(t => (
+                  <div key={t} className="flex items-start gap-3">
+                    <Check size={16} style={{ color: "#00D4FF", flexShrink: 0, marginTop: 2 }} />
+                    <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.5 }}>{t}</p>
+                  </div>
+                ))}
+              </div>
+            </FadeUp>
+
+            <FadeUp delay={0.15}>
+              <div className="glass-deep p-10 text-center">
+                <p style={{ fontSize: "clamp(1.1rem, 2vw, 1.35rem)", fontWeight: 500, color: "rgba(255,255,255,0.85)", lineHeight: 1.72, fontFamily: "var(--font-display), system-ui, sans-serif", letterSpacing: "-0.02em", fontStyle: "italic" }}>
+                  "Tanzanian businesses don't need more complicated software. They need one simple
+                  place to run everything. That's what we built."
+                </p>
+                <div className="mt-8 pt-8 border-t border-glass-border/40">
+                  <div className="text-sm font-bold text-white">Fahim Kiama</div>
+                  <div className="text-[11px] terminal-text tracking-widest mt-1" style={{ color: "rgba(154,154,154,0.45)" }}>FOUNDER · ACACIA LABS</div>
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. PRICING */}
       <PricingSection />
 
-      {/* 13. FINAL CTA */}
-      <section className="relative py-36 border-t overflow-hidden" style={{ background: "#050505", borderColor: "rgba(79,124,255,0.07)" }}>
+      {/* 8. FINAL CTA */}
+      <section className="relative py-32 border-t overflow-hidden" style={{ background: "#050505", borderColor: "rgba(79,124,255,0.07)" }}>
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(79,124,255,0.1), transparent 65%)" }} />
         <div className="section-container flex flex-col items-center text-center relative z-10">
-          {/* glass-spotlight on CTA — maximum focal energy, conversion point of the entire page */}
           <MotionDiv initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="glass-spotlight p-14 md:p-20 max-w-4xl w-full"
             style={{ boxShadow: "0 0 100px rgba(79,124,255,0.18), 0 0 40px rgba(0,212,255,0.08), 0 20px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(0,212,255,0.2)" }}>
             <span className="eyebrow mx-auto mb-8">Get Started</span>
-            <h2 style={{ fontSize: "clamp(2.4rem, 5.5vw, 4.5rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff", marginBottom: "0.12em" }}>
-              The infrastructure exists.
+            <h2 style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1.05, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff", marginBottom: "1rem" }}>
+              Try E-Manager free for 30 days.
             </h2>
-            <h2 style={{
-              fontSize: "clamp(2.4rem, 5.5vw, 4.5rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1,
-              fontFamily: "var(--font-display), system-ui, sans-serif", marginBottom: "2rem",
-              backgroundImage: "linear-gradient(90deg, #4F7CFF 0%, #00D4FF 50%, #4F7CFF 100%)",
-              backgroundSize: "200% auto",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-              backgroundClip: "text", animation: "shine-sweep 4s linear infinite",
-            }}>
-              Use it.
-            </h2>
-            <p className="max-w-md mx-auto mb-12" style={{ color: "rgba(154,154,154,0.6)", fontSize: "1rem", lineHeight: 1.75, letterSpacing: "-0.005em" }}>
-              Partner with Acacia Labs. We will build the intelligence layer your organization needs to execute at a level previously inaccessible to you.
+            <p className="max-w-md mx-auto mb-3" style={{ color: "rgba(255,255,255,0.6)", fontSize: "1.05rem", lineHeight: 1.7 }}>
+              No card needed. Set up in 30 minutes. See your whole business on one screen.
+            </p>
+            <p className="max-w-md mx-auto mb-12" style={{ color: "rgba(0,212,255,0.6)", fontSize: "0.95rem", fontWeight: 500 }}>
+              Jaribu bure kwa siku 30. Hakuna malipo ya awali.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <MagneticWrapper strength={0.3}>
                 <Link href="/contact" style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
                   borderRadius: "100px", background: "#4F7CFF", color: "#fff",
-                  padding: "14px 36px", fontSize: "13px", fontWeight: 600,
+                  padding: "14px 36px", fontSize: "14px", fontWeight: 600,
                   textDecoration: "none", boxShadow: "0 0 32px rgba(79,124,255,0.4)",
                   transition: "all 240ms cubic-bezier(0.22,1,0.36,1)",
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#6B93FF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 48px rgba(79,124,255,0.6)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#4F7CFF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 32px rgba(79,124,255,0.4)"; }}
-                >Build With Us</Link>
+                >Start Free 30-Day Trial</Link>
               </MagneticWrapper>
               <MagneticWrapper strength={0.22}>
                 <Link href="/contact" style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
-                  borderRadius: "100px", border: "1px solid rgba(255,255,255,0.14)",
-                  color: "rgba(255,255,255,0.75)", padding: "14px 36px",
-                  fontSize: "13px", fontWeight: 500, textDecoration: "none",
+                  borderRadius: "100px", border: "1px solid rgba(255,255,255,0.18)",
+                  color: "rgba(255,255,255,0.8)", padding: "14px 36px",
+                  fontSize: "14px", fontWeight: 500, textDecoration: "none",
                   transition: "all 240ms cubic-bezier(0.22,1,0.36,1)",
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-                >Schedule Consultation</Link>
+                >Book a Demo</Link>
               </MagneticWrapper>
             </div>
           </MotionDiv>

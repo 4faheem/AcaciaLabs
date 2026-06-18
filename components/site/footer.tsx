@@ -3,56 +3,30 @@ import { Logo } from "./logo";
 
 const footerCols = [
   {
-    heading: "Solutions",
-    color: "text-accent-cyan",
-    links: [
-      { label: "Workflow Automation", href: "/services" },
-      { label: "AI Integration", href: "/services" },
-      { label: "Digital Infrastructure", href: "/services" },
-      { label: "Custom Systems", href: "/services" },
-      { label: "Analytics & BI", href: "/services" },
-    ],
-  },
-  {
-    heading: "Products",
+    heading: "Product",
     color: "text-accent-blue",
     links: [
-      { label: "Syncraft AI", href: "/products/syncai" },
       { label: "E-Manager", href: "/products/e-manager" },
-      { label: "Acacia OS", href: "/products" },
-      { label: "Acacia Analytics", href: "/products" },
-      { label: "Acacia Cloud", href: "/products" },
-    ],
-  },
-  {
-    heading: "Research",
-    color: "text-accent-indigo",
-    links: [
-      { label: "AI Research", href: "/blog" },
-      { label: "Automation", href: "/blog" },
-      { label: "LLM Applications", href: "/blog" },
-      { label: "Knowledge Systems", href: "/blog" },
-      { label: "Future of Work", href: "/blog" },
+      { label: "Pricing", href: "/contact" },
+      { label: "Start Free Trial", href: "/contact" },
+      { label: "Book a Demo", href: "/contact" },
     ],
   },
   {
     heading: "Company",
-    color: "text-accent-gold",
+    color: "text-accent-cyan",
     links: [
-      { label: "About Acacia Labs", href: "/about" },
+      { label: "About", href: "/about" },
       { label: "Founder", href: "/founder" },
-      { label: "Leadership", href: "/coo" },
-      { label: "Careers", href: "/about" },
-      { label: "Contact", href: "/contact" },
+      { label: "Blog", href: "/blog" },
+      { label: "Careers", href: "/careers" },
     ],
   },
   {
-    heading: "Resources",
-    color: "text-accent-success",
+    heading: "Support",
+    color: "text-accent-indigo",
     links: [
-      { label: "Documentation", href: "/blog" },
-      { label: "Blog", href: "/blog" },
-      { label: "Case Studies", href: "/blog" },
+      { label: "Contact Us", href: "/contact" },
       { label: "Privacy Policy", href: "/legal" },
       { label: "Terms of Service", href: "/legal" },
     ],
@@ -68,21 +42,21 @@ export function Footer() {
       <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: "linear-gradient(90deg, transparent, rgba(56,189,248,0.25) 50%, transparent)" }} />
 
       {/* Main grid */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-12 py-16 grid gap-12 md:grid-cols-2 lg:grid-cols-6 relative z-10">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12 py-16 grid gap-12 md:grid-cols-2 lg:grid-cols-5 relative z-10">
         {/* Brand column */}
-        <div className="lg:col-span-1 space-y-6">
+        <div className="lg:col-span-2 space-y-6">
           <Logo size="sm" showText={true} />
-          <p className="text-[11px] leading-relaxed text-text-secondary tracking-tight max-w-[200px]">
-            Building intelligent systems for the future of business.
+          <p className="text-[12px] leading-relaxed text-text-secondary tracking-tight max-w-[240px]">
+            Run your entire business from one screen. E-Manager is the all-in-one platform for Tanzanian businesses.
           </p>
           <div className="terminal-text text-[9px] text-text-muted uppercase tracking-widest leading-loose">
             DAR ES SALAAM, TANZANIA<br />
-            EST. 2024 · v5.5
+            EST. 2024
           </div>
           {/* Social links */}
           <div className="flex items-center gap-4 pt-2">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/fahim-kiama"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -93,7 +67,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/4faheem"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -104,7 +78,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://x.com"
+              href="https://x.com/acacialabs_tz"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X (Twitter)"
@@ -144,7 +118,7 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-4">
             <span>© {new Date().getFullYear()} Acacia Labs</span>
             <span className="h-[3px] w-[3px] rounded-full bg-white/20" />
-            <span>Building intelligent systems for the future.</span>
+            <span>Run your entire business from one screen.</span>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/legal" className="hover:text-text-primary transition-colors">Privacy</Link>

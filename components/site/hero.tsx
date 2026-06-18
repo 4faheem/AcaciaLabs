@@ -76,27 +76,27 @@ export function Hero() {
             border: "1px solid rgba(79,124,255,0.2)",
           }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4F7CFF", boxShadow: "0 0 10px #4F7CFF", flexShrink: 0 }} />
-            Intelligence Infrastructure · East Africa
+            Now in early access · Dar es Salaam
           </span>
         </motion.div>
 
-        {/* Headline — three-word minimal authority statement */}
+        {/* Headline — clear value, plain language */}
         <h1 style={{
           fontFamily: "var(--font-display), system-ui, sans-serif",
-          fontSize: "clamp(2.8rem, 7.2vw, 6.8rem)",
+          fontSize: "clamp(2.6rem, 6.5vw, 6rem)",
           fontWeight: 700,
           letterSpacing: "-0.045em",
-          lineHeight: 0.94,
-          marginBottom: "2.25rem",
+          lineHeight: 0.98,
+          marginBottom: "1.5rem",
         }}>
           <WordReveal
-            text="Infrastructure"
+            text="Run your entire business"
             delay={0.2}
             style={{ color: "#fff" }}
           />
           <WordReveal
-            text="For African"
-            delay={0.4}
+            text="from one screen."
+            delay={0.45}
             style={{
               backgroundImage: "linear-gradient(to right, #091020 0%, #0B2551 12.5%, #A4F4FD 32.5%, #00d2ff 50%, #0B2551 67.5%, #091020 87.5%, #091020 100%)",
               backgroundSize: "200% auto",
@@ -109,45 +109,57 @@ export function Hero() {
               marginTop: "0.04em",
             }}
           />
-          <WordReveal
-            text="Enterprise."
-            delay={0.62}
-            style={{ color: "rgba(255,255,255,0.55)", marginTop: "0.04em" }}
-          />
         </h1>
 
-        {/* Subheadline — single precise truth */}
+        {/* Swahili subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            fontFamily: "var(--font-inter), system-ui, sans-serif",
+            fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)",
+            color: "rgba(0,212,255,0.7)",
+            fontWeight: 500,
+            letterSpacing: "0.01em",
+            marginBottom: "1.75rem",
+          }}
+        >
+          Endesha biashara yako yote kwa skrini moja.
+        </motion.p>
+
+        {/* Subheadline — plain English */}
         <motion.p
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 0.9, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           style={{
             fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: "clamp(0.95rem, 1.4vw, 1.1rem)",
-            lineHeight: 1.75,
-            color: "rgba(255,255,255,0.4)",
-            maxWidth: "36rem",
+            fontSize: "clamp(1rem, 1.5vw, 1.15rem)",
+            lineHeight: 1.7,
+            color: "rgba(255,255,255,0.55)",
+            maxWidth: "40rem",
             fontWeight: 400,
             letterSpacing: "-0.005em",
-            marginBottom: "3rem",
+            marginBottom: "2.5rem",
           }}
         >
-          Execution infrastructure for ambitious organizations. We do not build tools.
-          We build the systems that make everything else possible.
+          E-Manager replaces spreadsheets, paper records, and disconnected tools with one
+          platform — inventory, sales, finance, staff, and reporting, all in one place.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.7, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 1.1, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <MagneticWrapper strength={0.28}>
             <Link href="/contact" style={{
               display: "inline-flex", alignItems: "center", justifyContent: "center",
               borderRadius: "100px", background: "#4F7CFF", color: "#fff",
-              padding: "13px 34px", fontSize: "13px", fontWeight: 600,
+              padding: "14px 36px", fontSize: "14px", fontWeight: 600,
               letterSpacing: "-0.005em", textDecoration: "none",
               transition: "all 260ms cubic-bezier(0.22,1,0.36,1)",
               boxShadow: "0 0 28px rgba(79,124,255,0.35)",
@@ -155,21 +167,21 @@ export function Hero() {
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#6B93FF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(79,124,255,0.55)"; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#4F7CFF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px rgba(79,124,255,0.35)"; }}
             >
-              Build With Us
+              Start Free 30-Day Trial
             </Link>
           </MagneticWrapper>
           <MagneticWrapper strength={0.22}>
-            <Link href="/about" style={{
+            <Link href="/contact" style={{
               display: "inline-flex", alignItems: "center", justifyContent: "center",
-              borderRadius: "100px", border: "1px solid rgba(255,255,255,0.14)",
-              color: "rgba(255,255,255,0.7)", padding: "13px 34px",
-              fontSize: "13px", fontWeight: 500, letterSpacing: "-0.005em",
+              borderRadius: "100px", border: "1px solid rgba(255,255,255,0.18)",
+              color: "rgba(255,255,255,0.8)", padding: "14px 36px",
+              fontSize: "14px", fontWeight: 500, letterSpacing: "-0.005em",
               textDecoration: "none", transition: "all 260ms cubic-bezier(0.22,1,0.36,1)",
             }}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.3)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.14)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.18)"; }}
             >
-              Our Vision
+              Book a Demo
             </Link>
           </MagneticWrapper>
         </motion.div>
@@ -198,7 +210,7 @@ export function Hero() {
             color: "rgba(154,154,154,0.35)",
           }}
         >
-          Dar es Salaam · Est. 2024 · Intelligence Infrastructure
+          Dar es Salaam · Built for Tanzanian businesses
         </motion.p>
       </div>
 

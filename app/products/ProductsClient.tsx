@@ -26,8 +26,8 @@ export default function ProductsClient() {
         "AI-assisted reconciliation and reporting",
         "Enterprise-grade uptime at 99.99% SLA",
       ],
-      proof: { revenue: "$1.2M+", growth: "+142%", label: "Revenue tracked · Growth rate" },
-      cta: "Initialize Deployment",
+      proof: null,
+      cta: "Start Free 30-Day Trial",
       href: "/contact",
     },
     {
@@ -41,7 +41,6 @@ export default function ProductsClient() {
         "Natural language workflow commands in Swahili & English",
         "Autonomous task routing and team coordination",
         "Predictive cash flow and inventory alerts",
-        "Smart automation with 88.4% automation index target",
         "Integrates natively with E-Manager data layer",
       ],
       proof: null,

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Activity, LayoutDashboard, CheckCircle2 } from "lucide-react";
+import { Package, Receipt, Wallet, BarChart3 } from "lucide-react";
 import {
   ConversationContainer,
   ConversationList,
@@ -11,28 +11,28 @@ import {
 } from "./conversation";
 
 const conversationFlow = [
-  { from: "user", text: "Why does it feel like my organization is always busy but never getting ahead?" },
-  { from: "bot", text: "Because activity and progress are not the same thing." },
-  { from: "user", text: "Then what's holding us back?" },
-  { from: "bot", text: "I've identified limited visibility across operations, disconnected data, and workflow bottlenecks." },
-  { from: "user", text: "So it's not my team?" },
-  { from: "bot", text: "The data suggests a systems problem, not a talent problem." },
-  { from: "user", text: "Can you show me where we're losing performance?" },
-  { from: "bot", text: "Analysis complete. Multiple inefficiencies detected across reporting, coordination, and execution workflows." },
-  { from: "user", text: "Can we fix it?" },
+  { from: "user", text: "I'm running my whole business on spreadsheets and paper. It's becoming chaos." },
+  { from: "bot", text: "That's the most common problem we see. Scattered records hide what's really happening." },
+  { from: "user", text: "I never know my real stock or how much cash I actually have." },
+  { from: "bot", text: "Because your sales, stock, and money live in separate places that don't talk to each other." },
+  { from: "user", text: "So what would E-Manager actually do for me?" },
+  { from: "bot", text: "Put everything in one place — inventory, sales, finance, staff, and customers — updated in real time." },
+  { from: "user", text: "Even across my branches?" },
+  { from: "bot", text: "Yes. Every branch, every device, one live dashboard." },
+  { from: "user", text: "Can I see it before I pay?" },
   { from: "bot", text: "Yes." },
-  { from: "bot", text: "Monitoring activated.", isStatus: true, card: 0 },
-  { from: "bot", text: "Optimization opportunities identified.", isStatus: true, card: 1 },
-  { from: "bot", text: "Executive visibility established.", isStatus: true, card: 2 },
-  { from: "user", text: "What exactly is Acacia?" },
-  { from: "bot", text: "Acacia helps organizations understand what's happening, identify what's slowing them down, and operate with intelligence." }
+  { from: "bot", text: "Inventory synced.", isStatus: true, card: 0 },
+  { from: "bot", text: "Daily sales tracked.", isStatus: true, card: 1 },
+  { from: "bot", text: "Cash flow visible.", isStatus: true, card: 2 },
+  { from: "user", text: "How fast can I start?" },
+  { from: "bot", text: "Set up your business in about 30 minutes. Free for the first 30 days." }
 ];
 
 const cards = [
-  { title: "Operational Visibility", subtitle: "91% Analysis Confidence", icon: Search },
-  { title: "Workflow Health", subtitle: "Bottlenecks Detected", icon: Activity },
-  { title: "Executive Intelligence", subtitle: "Recommendations Generated", icon: LayoutDashboard },
-  { title: "System Status", subtitle: "Monitoring Active", icon: CheckCircle2 },
+  { title: "Inventory", subtitle: "Synced in real time", icon: Package },
+  { title: "Sales & Invoicing", subtitle: "Tracked daily", icon: Receipt },
+  { title: "Finance", subtitle: "Cash flow visible", icon: Wallet },
+  { title: "Reports", subtitle: "One live dashboard", icon: BarChart3 },
 ];
 
 export function AcaciaConversation() {
@@ -101,11 +101,11 @@ export function AcaciaConversation() {
               <span className="absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75 animate-ping"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
             </div>
-            <span className="text-[11px] font-bold tracking-[0.2em] text-cyan-500">LIVE</span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-cyan-500">LIVE DEMO</span>
           </div>
           <div className="text-right flex flex-col">
-            <span className="text-[12px] font-bold tracking-widest text-white/90">ACACIA OS</span>
-            <span className="text-[9px] uppercase tracking-widest text-cyan-500/60">Operational Intelligence Layer</span>
+            <span className="text-[12px] font-bold tracking-widest text-white/90">E-MANAGER</span>
+            <span className="text-[9px] uppercase tracking-widest text-cyan-500/60">Your business, one screen</span>
           </div>
         </div>
 
@@ -181,10 +181,10 @@ export function AcaciaConversation() {
                       className="space-y-2"
                     >
                       <p className="text-xl md:text-2xl text-white/80 font-medium">
-                        Most organizations don't have a talent problem.
+                        Stop juggling spreadsheets, paper, and apps that don't talk.
                       </p>
                       <p className="text-xl md:text-2xl text-cyan-300 font-semibold drop-shadow-[0_0_15px_rgba(0,255,255,0.4)]">
-                        They have a systems problem.
+                        Run everything from one screen.
                       </p>
                     </motion.div>
                   )}
@@ -198,7 +198,7 @@ export function AcaciaConversation() {
                       transition={{ duration: 1.5, ease: "easeOut" }}
                     >
                       <p className="text-2xl md:text-3xl text-white font-bold tracking-tight">
-                        Acacia labs helps you see it.
+                        E-Manager makes it simple.
                       </p>
                     </motion.div>
                   )}
@@ -213,10 +213,10 @@ export function AcaciaConversation() {
                       className="pt-8 border-t border-cyan-500/20"
                     >
                       <p className="text-cyan-400 tracking-widest text-sm font-semibold uppercase mb-3">
-                        Build Smarter. Operate Faster.
+                        One business. One screen.
                       </p>
                       <p className="text-white tracking-[0.3em] font-bold text-lg drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                        ACACIA LABS
+                        E-MANAGER &nbsp;·&nbsp; ACACIA LABS
                       </p>
                     </motion.div>
                   )}

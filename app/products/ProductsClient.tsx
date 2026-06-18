@@ -115,20 +115,6 @@ export default function ProductsClient() {
                   {product.description}
                 </p>
 
-                {product.proof && (
-                  <div className="flex gap-6 pt-2">
-                    <div>
-                      <div className="text-2xl font-bold text-accent-success tracking-tight">{product.proof.revenue}</div>
-                      <div className="terminal-text text-[9px] text-text-muted tracking-widest mt-0.5">Revenue tracked</div>
-                    </div>
-                    <div className="w-[1px] bg-glass-border self-stretch" />
-                    <div>
-                      <div className="text-2xl font-bold text-accent-cyan tracking-tight">{product.proof.growth}</div>
-                      <div className="terminal-text text-[9px] text-text-muted tracking-widest mt-0.5">Growth rate</div>
-                    </div>
-                  </div>
-                )}
-
                 <div className="pt-2">
                   <Link href={product.href} className="btn-primary">
                     {product.cta}

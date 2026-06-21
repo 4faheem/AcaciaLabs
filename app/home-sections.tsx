@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Hero } from "@/components/site/hero";
 import { MotionDiv } from "@/components/ui/motion-wrapper";
 import { PricingSection } from "@/components/site/pricing-section";
+import { emanagerAppUrl } from "@/lib/site";
 import { TiltCard3D, MagneticWrapper, staggerContainer, springCard, FadeUp } from "@/components/site/motion-primitives";
 import { motion } from "framer-motion";
 import {
@@ -238,7 +239,7 @@ export default function HomeSections() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <MagneticWrapper strength={0.3}>
-                <Link href="/contact" style={{
+                <Link href={emanagerAppUrl} target="_blank" rel="noopener noreferrer" style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
                   borderRadius: "100px", background: "#4F7CFF", color: "#fff",
                   padding: "14px 36px", fontSize: "14px", fontWeight: 600,

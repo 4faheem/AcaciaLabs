@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import Link from "next/link";
+import { emanagerAppUrl } from "@/lib/site";
 
 type Tier = {
   name: string;
@@ -259,7 +260,8 @@ export function PricingSection() {
                   </ul>
 
                   <Link
-                    href="/contact"
+                    href={tier.cta === "Contact Us" ? "/contact" : emanagerAppUrl}
+                    {...(tier.cta === "Contact Us" ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                     className="w-full text-center py-3.5 rounded-full text-[12px] font-semibold tracking-wide transition-all duration-300"
                     style={tier.highlight
                       ? { background: "#4F7CFF", color: "#fff", boxShadow: "0 0 24px rgba(79,124,255,0.35)" }

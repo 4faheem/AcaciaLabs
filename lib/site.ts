@@ -46,6 +46,10 @@ export const company = {
   philosophy: "Acacia Labs builds operational systems that help East African businesses coordinate workflows, improve visibility, and scale more efficiently through AI automation.",
 };
 
+// Live E-Manager web app. "Start Free 30-Day Trial" CTAs deep-link here so a
+// visitor lands directly in the app to sign up, rather than the contact form.
+export const emanagerAppUrl = "https://acacialabs.co.tz/";
+
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },

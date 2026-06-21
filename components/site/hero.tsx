@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { MagneticWrapper } from "@/components/site/motion-primitives";
 import { AcaciaConversation } from "@/components/ui/acacia-conversation";
+import { emanagerAppUrl } from "@/lib/site";
 
 function WordReveal({
   text,
@@ -156,7 +157,7 @@ export function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <MagneticWrapper strength={0.28}>
-            <Link href="/contact" style={{
+            <Link href={emanagerAppUrl} target="_blank" rel="noopener noreferrer" style={{
               display: "inline-flex", alignItems: "center", justifyContent: "center",
               borderRadius: "100px", background: "#4F7CFF", color: "#fff",
               padding: "14px 36px", fontSize: "14px", fontWeight: 600,

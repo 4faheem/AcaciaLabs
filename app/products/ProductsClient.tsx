@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { TiltCard } from "@/components/ui/tilt-card";
+import { emanagerAppUrl } from "@/lib/site";
 
 const ChevronRight = () => (
   <svg className="w-3 h-3 flex-shrink-0 mt-0.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -28,7 +29,7 @@ export default function ProductsClient() {
       ],
       proof: null,
       cta: "Start Free 30-Day Trial",
-      href: "/contact",
+      href: emanagerAppUrl,
     },
     {
       title: "syncAI",
@@ -116,7 +117,11 @@ export default function ProductsClient() {
                 </p>
 
                 <div className="pt-2">
-                  <Link href={product.href} className="btn-primary">
+                  <Link
+                    href={product.href}
+                    {...(product.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="btn-primary"
+                  >
                     {product.cta}
                   </Link>
                 </div>

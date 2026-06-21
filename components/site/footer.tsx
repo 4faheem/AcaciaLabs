@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./logo";
+import { emanagerAppUrl } from "@/lib/site";
 
 const footerCols = [
   {
@@ -8,7 +9,7 @@ const footerCols = [
     links: [
       { label: "E-Manager", href: "/products/e-manager" },
       { label: "Pricing", href: "/contact" },
-      { label: "Start Free Trial", href: "/contact" },
+      { label: "Start Free Trial", href: emanagerAppUrl },
       { label: "Book a Demo", href: "/contact" },
     ],
   },
@@ -102,6 +103,7 @@ export function Footer() {
                 <Link
                   key={item.label}
                   href={item.href}
+                  {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="text-[11px] font-medium tracking-wide text-text-secondary transition-colors duration-200 hover:text-text-primary"
                 >
                   {item.label}

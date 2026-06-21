@@ -2,59 +2,49 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { TiltCard } from "@/components/ui/tilt-card";
 import { emanagerAppUrl } from "@/lib/site";
-
-const ChevronRight = () => (
-  <svg className="w-3 h-3 flex-shrink-0 mt-0.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4.5 2.5L8 6l-3.5 3.5" />
-  </svg>
-);
 
 export default function ProductsClient() {
   const productsList = [
     {
       title: "E-Manager",
-      status: "LIVE",
-      statusColor: "bg-emerald-500 shadow-[0_0_8px_#10B981]",
-      accent: "text-accent-cyan",
-      accentHex: "#22D3EE",
+      status: "Live",
+      statusColor: "bg-emerald-500",
+      badge: "Web Application",
       description: "A complete operational and financial tracking system. Know exactly where every shilling is and what's happening across your entire business in real-time.",
-      features: [
-        "Real-time financial tracking across mobile money networks",
-        "Workflow management and team coordination",
-        "Unified operational visibility dashboard",
-        "AI-assisted reconciliation and reporting",
-        "Enterprise-grade uptime at 99.99% SLA",
-      ],
-      proof: null,
+      tags: ["React", "Node.js", "PostgreSQL"],
       cta: "Start Free 30-Day Trial",
       href: emanagerAppUrl,
+      media: (
+        <iframe 
+          src="https://emanager.africa/" 
+          className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+          title="E-Manager Preview"
+        />
+      )
     },
     {
       title: "syncAI",
-      status: "COMING SOON",
-      statusColor: "bg-accent-blue shadow-[0_0_8px_#3B82F6]",
-      accent: "text-accent-blue",
-      accentHex: "#3B82F6",
-      description: "Your intelligent automated assistant. Automates your workflows, routes tasks to the right people, and surfaces decisions — so your team executes faster with less guesswork.",
-      features: [
-        "Natural language workflow commands in Swahili & English",
-        "Autonomous task routing and team coordination",
-        "Predictive cash flow and inventory alerts",
-        "Integrates natively with E-Manager data layer",
-      ],
-      proof: null,
+      status: "Coming Soon",
+      statusColor: "bg-blue-500",
+      badge: "Intelligence Layer",
+      description: "Your intelligent automated assistant. Automates your workflows, routes tasks to the right people, and surfaces decisions — so your team executes faster.",
+      tags: ["Python", "FastAPI", "React"],
       cta: "Join Waitlist",
       href: "/contact",
+      media: (
+        <div className="absolute inset-0 bg-gradient-to-br from-[#060B18] to-[#1a2b4c] flex items-center justify-center">
+          <div className="absolute inset-0 grid-pattern opacity-[0.1]" />
+          <span className="terminal-text text-accent-blue/40 tracking-[0.3em] text-sm font-bold">AWAITING_VISUALS</span>
+        </div>
+      )
     },
   ];
 
   return (
-    <div className="bg-primary-bg min-h-screen pt-32 pb-24 overflow-hidden">
-
+    <div className="bg-[#050810] min-h-screen pt-32 pb-24 overflow-hidden">
       {/* 1. CINEMATIC HERO */}
-      <section className="relative overflow-hidden border-b border-glass-border bg-secondary-bg py-24 mb-16">
+      <section className="relative overflow-hidden border-b border-glass-border bg-[#070b14] py-24 mb-16">
         <div className="absolute inset-0 grid-pattern opacity-[0.25]" />
         <div className="absolute inset-x-0 bottom-0 h-[1px] section-rule" />
 
@@ -66,11 +56,11 @@ export default function ProductsClient() {
             className="max-w-4xl space-y-8"
           >
             <span className="eyebrow">OUR SYSTEMS</span>
-            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tight leading-tight text-white">
               Products That <br />
               <span className="text-gradient-accent">Eliminate Guesswork.</span>
             </h1>
-            <p className="text-text-secondary text-base md:text-lg max-w-2xl leading-relaxed">
+            <p className="text-white/60 text-base md:text-lg max-w-2xl leading-relaxed">
               We build systems that show you where your money is, what&apos;s happening, and what to do next—automatically.
             </p>
           </motion.div>
@@ -79,80 +69,69 @@ export default function ProductsClient() {
 
       {/* 2. PRODUCTS SPECIFICATION LIST */}
       <section className="section-container space-y-20">
-        {productsList.map((product, idx) => (
-          <motion.div
-            key={product.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <TiltCard
-              intensity={4}
-              className="glass-card p-8 md:p-12 grid lg:grid-cols-[1fr_1.2fr] gap-12 items-start relative overflow-hidden"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+          {productsList.map((product, idx) => (
+            <motion.div
+              key={product.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-[#0a0f1c] rounded-3xl overflow-hidden flex flex-col border border-white/[0.04] shadow-2xl"
             >
-              {/* Status accent stripe */}
-              <div
-                className="absolute inset-x-0 top-0 h-[2px] pointer-events-none"
-                style={{
-                  background: `linear-gradient(90deg, transparent, ${product.accentHex}50, transparent)`,
-                }}
-              />
-
-              {/* Left Col: Info & CTA */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <span className={`h-2 w-2 rounded-full ${product.statusColor}`} />
-                  <span className={`terminal-text text-[10px] tracking-widest uppercase ${product.accent}`}>
+              {/* Media Section */}
+              <div className="relative w-full aspect-[16/11] bg-black overflow-hidden">
+                {/* Badges */}
+                <div className="absolute top-5 left-5 right-5 z-10 flex justify-between items-start">
+                  <span className="px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/90 text-sm font-medium tracking-wide">
+                    {product.badge}
+                  </span>
+                  <span className={`px-4 py-1.5 rounded-full text-white font-bold text-sm shadow-lg ${product.statusColor}`}>
                     {product.status}
                   </span>
                 </div>
+                {/* Embedded Media */}
+                <div className="absolute inset-0">
+                  {product.media}
+                </div>
+                {/* Subtle inner shadow overlay to blend edges */}
+                <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.3)] pointer-events-none" />
+              </div>
 
-                <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tight text-text-primary">
+              {/* Content Section */}
+              <div className="p-8 md:p-10 flex flex-col flex-1">
+                <h2 className="text-3xl font-bold tracking-tight text-white mb-4">
                   {product.title}
                 </h2>
-
-                <p className="text-sm leading-relaxed text-text-secondary">
+                <p className="text-lg leading-relaxed text-white/60 mb-8 flex-1">
                   {product.description}
                 </p>
-
-                <div className="pt-2">
-                  <Link
-                    href={product.href}
-                    {...(product.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="btn-primary"
-                  >
-                    {product.cta}
-                  </Link>
-                </div>
-              </div>
-
-              {/* Right Col: Feature list */}
-              <div className="border-t lg:border-t-0 lg:border-l border-glass-border/40 pt-8 lg:pt-0 lg:pl-12 space-y-5">
-                <div className="terminal-text text-[10px] text-text-muted tracking-widest uppercase">
-                  System Capabilities
-                </div>
-                <ul className="space-y-3">
-                  {product.features.map((feat) => (
-                    <li key={feat} className="flex items-start gap-3 text-sm text-text-secondary leading-relaxed group/feat">
-                      <span className={`${product.accent} mt-0.5 flex-shrink-0 opacity-70 group-hover/feat:opacity-100 transition-opacity`}>
-                        <ChevronRight />
-                      </span>
-                      {feat}
-                    </li>
+                
+                {/* Tags */}
+                <div className="flex flex-wrap gap-3 mb-10 mt-auto">
+                  {product.tags.map((tag) => (
+                    <span key={tag} className="px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-white/70">
+                      {tag}
+                    </span>
                   ))}
-                </ul>
-                <div className="border-t border-glass-border/40 pt-5 terminal-text text-[9px] text-text-muted uppercase tracking-widest">
-                  AL-SPEC // {product.title === "E-Manager" ? "EMGR-NODE" : "SAI-NODE"}
                 </div>
+
+                {/* CTA */}
+                <Link
+                  href={product.href}
+                  {...(product.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-center font-semibold transition-all"
+                >
+                  {product.cta}
+                </Link>
               </div>
-            </TiltCard>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* 3. ECOSYSTEM FOOTNOTE */}
-      <section className="section-container py-16 border-t border-glass-border/40 mt-8">
+      <section className="section-container py-16 border-t border-glass-border/40 mt-16">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -171,7 +150,6 @@ export default function ProductsClient() {
           </Link>
         </motion.div>
       </section>
-
     </div>
   );
 }

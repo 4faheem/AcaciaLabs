@@ -48,7 +48,7 @@ export const company = {
 
 // Live E-Manager web app. "Start Free 30-Day Trial" CTAs deep-link here so a
 // visitor lands directly in the app to sign up, rather than the contact form.
-export const emanagerAppUrl = "https://acacialabs.co.tz/";
+export const emanagerAppUrl = "https://emanager.africa/";
 
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },

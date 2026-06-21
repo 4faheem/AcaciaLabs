@@ -75,6 +75,17 @@ export default function EManagerPage() {
         </div>
       </section>
 
+      {/* LIVE APP PREVIEW */}
+      <section className="section-container pb-16">
+        <div className="w-full aspect-video md:aspect-[16/9] rounded-xl overflow-hidden border border-glass-border shadow-2xl bg-black relative">
+          <iframe 
+            src="https://emanager.africa/" 
+            className="absolute inset-0 w-full h-full border-0"
+            title="E-Manager Live App"
+          />
+        </div>
+      </section>
+
       {/* 2. SPEC SHEET */}
       <section className="section-container">
         <div className="grid lg:grid-cols-[1.5fr_1fr] gap-16 items-start">

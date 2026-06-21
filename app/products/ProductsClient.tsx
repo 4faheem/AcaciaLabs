@@ -68,8 +68,8 @@ export default function ProductsClient() {
       </section>
 
       {/* 2. PRODUCTS SPECIFICATION LIST */}
-      <section className="section-container space-y-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+      <section className="section-container space-y-20 max-w-[72rem] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {productsList.map((product, idx) => (
             <motion.div
               key={product.title}
@@ -77,16 +77,16 @@ export default function ProductsClient() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-[#0a0f1c] rounded-3xl overflow-hidden flex flex-col border border-white/[0.04] shadow-2xl"
+              className="bg-[#0a0f1c] rounded-2xl overflow-hidden flex flex-col border border-white/[0.04] shadow-2xl"
             >
               {/* Media Section */}
-              <div className="relative w-full aspect-[16/11] bg-black overflow-hidden">
+              <div className="relative w-full aspect-video bg-black overflow-hidden border-b border-white/[0.04]">
                 {/* Badges */}
-                <div className="absolute top-5 left-5 right-5 z-10 flex justify-between items-start">
-                  <span className="px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/90 text-sm font-medium tracking-wide">
+                <div className="absolute top-4 left-4 right-4 z-10 flex justify-between items-start">
+                  <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white/90 text-xs font-medium tracking-wide">
                     {product.badge}
                   </span>
-                  <span className={`px-4 py-1.5 rounded-full text-white font-bold text-sm shadow-lg ${product.statusColor}`}>
+                  <span className={`px-3 py-1 rounded-full text-white font-bold text-xs shadow-lg ${product.statusColor}`}>
                     {product.status}
                   </span>
                 </div>
@@ -99,18 +99,18 @@ export default function ProductsClient() {
               </div>
 
               {/* Content Section */}
-              <div className="p-8 md:p-10 flex flex-col flex-1">
-                <h2 className="text-3xl font-bold tracking-tight text-white mb-4">
+              <div className="p-6 md:p-8 flex flex-col flex-1">
+                <h2 className="text-2xl font-bold tracking-tight text-white mb-3">
                   {product.title}
                 </h2>
-                <p className="text-lg leading-relaxed text-white/60 mb-8 flex-1">
+                <p className="text-base leading-relaxed text-white/60 mb-6 flex-1">
                   {product.description}
                 </p>
                 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-3 mb-10 mt-auto">
+                <div className="flex flex-wrap gap-2 mb-8 mt-auto">
                   {product.tags.map((tag) => (
-                    <span key={tag} className="px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-white/70">
+                    <span key={tag} className="px-3 py-1 rounded-full border border-white/10 bg-white/[0.02] text-xs font-medium text-white/70">
                       {tag}
                     </span>
                   ))}
@@ -120,7 +120,7 @@ export default function ProductsClient() {
                 <Link
                   href={product.href}
                   {...(product.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-center font-semibold transition-all"
+                  className="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm text-center font-semibold transition-all"
                 >
                   {product.cta}
                 </Link>

@@ -1,7 +1,9 @@
 ﻿import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // NOTE: no `output: "export"`. Static export disables API routes (the
+  // /api/contact email handler). Deploy on Vercel (or any Node host) so the
+  // server-side Resend route runs and keeps the API key off the client.
   images: {
     unoptimized: true,
   },

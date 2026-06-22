@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 // In-memory rate limiter
 const ipCache = new Map<string, number>();
@@ -36,38 +36,39 @@ export async function POST(request: Request) {
     ipCache.set(ip, now);
 
     // 4. Dev fallback when credentials are missing
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    if (!process.env.RESEND_API_KEY) {
       console.log("📧 [DEV MODE] Contact form submission:", { name, company, email, projectType, message });
       await new Promise(r => setTimeout(r, 600));
       return NextResponse.json({
         success: true,
-        message: "Dev mode: submission logged. Set EMAIL_USER + EMAIL_PASS in .env.local to send live emails.",
+        message: "Dev mode: submission logged. Set RESEND_API_KEY in .env.local to send live emails.",
       });
     }
 
-    const COMPANY_EMAIL = process.env.COMPANY_EMAIL ?? process.env.EMAIL_USER;
+    const COMPANY_EMAIL = process.env.COMPANY_EMAIL;
+    if (!COMPANY_EMAIL) {
+      console.error("COMPANY_EMAIL is not set — cannot route inquiry.");
+      return NextResponse.json({ error: "Delivery failed. Please email us directly." }, { status: 500 });
+    }
+
+    // Verified sender. Until your domain is verified in Resend, use the shared
+    // onboarding@resend.dev sender (works with zero DNS). Once emanager.africa
+    // (or acacialabs.co.tz) is verified, set EMAIL_FROM to e.g. hello@your-domain.
+    const EMAIL_FROM = process.env.EMAIL_FROM ?? "Acacia Labs <onboarding@resend.dev>";
     const timestamp = new Date().toLocaleString("en-US", {
       dateStyle: "full",
       timeStyle: "short",
       timeZone: "Africa/Nairobi",
     });
 
-    // 5. Nodemailer transporter — Zoho SMTP
-    const transporter = nodemailer.createTransport({
-      host: "smtp.zoho.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    // 5. Resend client
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     // 6. Email TO COMPANY
-    await transporter.sendMail({
-      from: `"Acacia Labs Inquiries" <${process.env.EMAIL_USER}>`,
+    await resend.emails.send({
+      from: EMAIL_FROM,
       to: COMPANY_EMAIL,
-      replyTo: `"${name}" <${email}>`,
+      replyTo: `${name} <${email}>`,
       subject: `New Inquiry: ${name}${company ? ` · ${company}` : ""} [${projectType}]`,
       html: `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"></head>
@@ -112,9 +113,9 @@ export async function POST(request: Request) {
     });
 
     // 7. AUTO-REPLY to the person who submitted (best practice for credibility)
-    await transporter.sendMail({
-      from: `"Acacia Labs" <${process.env.EMAIL_USER}>`,
-      to: `"${name}" <${email}>`,
+    await resend.emails.send({
+      from: EMAIL_FROM,
+      to: `${name} <${email}>`,
       subject: "We received your inquiry — Acacia Labs",
       html: `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"></head>

@@ -25,7 +25,7 @@ const conversationFlow = [
   { from: "bot", text: "Daily sales tracked.", isStatus: true, card: 1 },
   { from: "bot", text: "Cash flow visible.", isStatus: true, card: 2 },
   { from: "user", text: "How fast can I start?" },
-  { from: "bot", text: "Set up your business in about 30 minutes. Free for the first 30 days." }
+  { from: "bot", text: "Set up your business in about 30 minutes. Free for the first 14 days." }
 ];
 
 const cards = [

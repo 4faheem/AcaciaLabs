@@ -168,7 +168,7 @@ export function Hero() {
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#6B93FF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(79,124,255,0.55)"; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#4F7CFF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px rgba(79,124,255,0.35)"; }}
             >
-              Start Free 30-Day Trial
+              Start Free 14-Day Trial
             </Link>
           </MagneticWrapper>
           <MagneticWrapper strength={0.22}>

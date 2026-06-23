@@ -4,13 +4,13 @@ import { company } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "E-Manager — Business Management Software for Tanzania | Acacia Labs",
-  description: "E-Manager is an all-in-one business management platform built for Tanzanian businesses. Manage inventory, sales, finance, staff, and reporting from one screen. Start free for 30 days.",
+  description: "E-Manager is an all-in-one business management platform built for Tanzanian businesses. Manage inventory, sales, finance, staff, and reporting from one screen. Start free for 14 days.",
   alternates: {
     canonical: `${company.url}/products`,
   },
   openGraph: {
     title: "E-Manager — Business Management Software for Tanzania | Acacia Labs",
-    description: "E-Manager is an all-in-one business management platform built for Tanzanian businesses. Manage inventory, sales, finance, staff, and reporting from one screen. Start free for 30 days.",
+    description: "E-Manager is an all-in-one business management platform built for Tanzanian businesses. Manage inventory, sales, finance, staff, and reporting from one screen. Start free for 14 days.",
     url: `${company.url}/products`,
     siteName: company.name,
     type: "website",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "E-Manager — Business Management Software for Tanzania | Acacia Labs",
-    description: "E-Manager is an all-in-one business management platform built for Tanzanian businesses. Manage inventory, sales, finance, staff, and reporting from one screen. Start free for 30 days.",
+    description: "E-Manager is an all-in-one business management platform built for Tanzanian businesses. Manage inventory, sales, finance, staff, and reporting from one screen. Start free for 14 days.",
     images: ["/opengraph-image.png"],
   },
 };

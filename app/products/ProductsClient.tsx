@@ -13,7 +13,7 @@ export default function ProductsClient() {
       badge: "Web Application",
       description: "A complete operational and financial tracking system. Know exactly where every shilling is and what's happening across your entire business in real-time.",
       tags: ["React", "Node.js", "PostgreSQL"],
-      cta: "Start Free 30-Day Trial",
+      cta: "Start Free 14-Day Trial",
       href: emanagerAppUrl,
       media: (
         <iframe 

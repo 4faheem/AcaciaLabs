@@ -229,13 +229,13 @@ export default function HomeSections() {
             style={{ boxShadow: "0 0 100px rgba(79,124,255,0.18), 0 0 40px rgba(0,212,255,0.08), 0 20px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(0,212,255,0.2)" }}>
             <span className="eyebrow mx-auto mb-8">Get Started</span>
             <h2 style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 700, letterSpacing: "-0.045em", lineHeight: 1.05, fontFamily: "var(--font-display), system-ui, sans-serif", color: "#fff", marginBottom: "1rem" }}>
-              Try E-Manager free for 30 days.
+              Try E-Manager free for 14 days.
             </h2>
             <p className="max-w-md mx-auto mb-3" style={{ color: "rgba(255,255,255,0.6)", fontSize: "1.05rem", lineHeight: 1.7 }}>
               No card needed. Set up in 30 minutes. See your whole business on one screen.
             </p>
             <p className="max-w-md mx-auto mb-12" style={{ color: "rgba(0,212,255,0.6)", fontSize: "0.95rem", fontWeight: 500 }}>
-              Jaribu bure kwa siku 30. Hakuna malipo ya awali.
+              Jaribu bure kwa siku 14. Hakuna malipo ya awali.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <MagneticWrapper strength={0.3}>
@@ -248,7 +248,7 @@ export default function HomeSections() {
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#6B93FF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 48px rgba(79,124,255,0.6)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#4F7CFF"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 32px rgba(79,124,255,0.4)"; }}
-                >Start Free 30-Day Trial</Link>
+                >Start Free 14-Day Trial</Link>
               </MagneticWrapper>
               <MagneticWrapper strength={0.22}>
                 <Link href="/contact" style={{

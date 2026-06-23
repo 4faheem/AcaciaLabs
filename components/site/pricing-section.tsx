@@ -2,129 +2,122 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Minus } from "lucide-react";
 import Link from "next/link";
 import { emanagerAppUrl } from "@/lib/site";
 
 type Tier = {
   name: string;
-  tag: string;
+  stage: string;
+  blurb: string;
+  // Pricing. monthlyUsd null → use priceWord ("Free" / "Custom").
   monthlyUsd: number | null;
-  annualUsd: number | null;
-  expectedRange?: string;
+  priceWord?: string;
+  priceSub: string;
   highlight: boolean;
-  target: string[];
-  limits: string[];
-  features: string[];
   cta: string;
+  ctaHref: string;
+  ctaExternal: boolean;
+  features: string[];
 };
 
+// Mirrors emanager.africa pricing: Launch (free) · Growth ($20/mo) · Enterprise (custom).
+// Annual billing = 2 months free (10× monthly).
 const TIERS: Tier[] = [
   {
-    name: "Starter",
-    tag: "Small businesses · single-location operations",
-    monthlyUsd: 19,
-    annualUsd: 182,
+    name: "Launch",
+    stage: "Getting started",
+    blurb: "For organizations getting started.",
+    monthlyUsd: 0,
+    priceWord: "Free",
+    priceSub: "forever",
     highlight: false,
-    cta: "Start Free 30-Day Trial",
-    target: ["Small businesses", "Single-location operations", "Early-stage organizations"],
-    limits: ["1 branch", "Up to 5 staff accounts"],
+    cta: "Start free",
+    ctaHref: emanagerAppUrl,
+    ctaExternal: true,
     features: [
-      "Inventory management",
-      "Sales management",
-      "Customer records",
-      "Debt tracking",
-      "Basic finance tracking",
-      "Standard reports",
-      "Mobile money integration",
-      "Email support",
+      "1 location",
+      "1 staff member",
+      "100 invoices / month",
+      "100 customers",
+      "Inventory & sales tracking",
+      "Offline mode",
+      "AI Copilot — 20 requests/day",
+      "Basic analytics",
     ],
   },
   {
     name: "Growth",
-    tag: "Growing SMEs · multiple departments",
-    monthlyUsd: 59,
-    annualUsd: 566,
+    stage: "Scaling operations",
+    blurb: "For organizations ready to run and scale.",
+    monthlyUsd: 20,
+    priceSub: "/ month",
     highlight: true,
-    cta: "Start Free 30-Day Trial",
-    target: ["Growing SMEs", "Businesses with multiple departments"],
-    limits: ["Up to 3 branches", "Up to 20 staff accounts"],
+    cta: "Start 14-day free trial",
+    ctaHref: emanagerAppUrl,
+    ctaExternal: true,
     features: [
-      "Everything in Starter",
-      "Advanced finance",
-      "Procurement",
-      "Staff roles & permissions",
-      "Workflow automation",
-      "Advanced analytics",
-      "Custom invoices",
-      "Priority support",
-    ],
-  },
-  {
-    name: "Professional",
-    tag: "Multi-branch organizations · regional operations",
-    monthlyUsd: 179,
-    annualUsd: 1718,
-    highlight: false,
-    cta: "Start Free 30-Day Trial",
-    target: ["Multi-branch organizations", "Regional operations", "Established companies"],
-    limits: ["Up to 10 branches", "Up to 100 staff accounts"],
-    features: [
-      "Everything in Growth",
-      "AI insights",
-      "Executive dashboards",
-      "Business forecasting",
-      "Audit logs",
-      "Advanced reporting",
-      "Cross-branch analytics",
-      "Dedicated onboarding",
-      "Phone & WhatsApp support",
+      "Everything in Launch",
+      "Unlimited invoices & customers",
+      "Unlimited devices",
+      "Team collaboration",
+      "Unlimited AI Copilot",
+      "Cloud sync & automatic backups",
+      "Smart automations",
+      "Advanced analytics & dashboards",
+      "Excel imports & exports",
+      "Document management",
     ],
   },
   {
     name: "Enterprise",
-    tag: "Corporations · institutions · networks",
+    stage: "Operating at scale",
+    blurb: "For organizations operating at scale.",
     monthlyUsd: null,
-    annualUsd: null,
-    expectedRange: "$500-$5,000+/month",
+    priceWord: "Custom",
+    priceSub: "let's talk",
     highlight: false,
-    cta: "Contact Us",
-    target: ["Corporations", "School networks", "Hospital groups", "Cooperatives", "Manufacturers", "NGOs", "Government institutions"],
-    limits: ["Unlimited branches", "Unlimited staff"],
+    cta: "Talk to sales",
+    ctaHref: "/contact",
+    ctaExternal: false,
     features: [
-      "Everything in Professional",
-      "Custom modules",
-      "Custom workflows",
-      "Dedicated infrastructure options",
-      "SLA agreements",
-      "Dedicated account manager",
-      "API access",
-      "Custom integrations",
-      "Enterprise security controls",
-      "On-site training",
-      "White label options",
+      "Everything in Growth",
+      "Multi-location management",
+      "Department management",
+      "Role-based permissions",
+      "Audit logs & compliance exports",
+      "SLA support & dedicated manager",
+      "Custom integrations & API access",
+      "Industry configurations",
+      "White-label capabilities",
     ],
   },
 ];
 
-const EXPANSION_REVENUE = [
-  "Additional staff seats",
-  "Additional branches",
-  "AI credit packages",
-  "Premium analytics",
-  "API access",
-  "Custom integrations",
-  "Dedicated support plans",
-  "Data migration services",
-  "Training services",
-  "White label licensing",
+// "Compare every stage" matrix. `true` renders a check, `false` a dash.
+const COMPARISON: { label: string; values: [string | boolean, string | boolean, string | boolean] }[] = [
+  { label: "Locations", values: ["1", "Up to 5", "Unlimited"] },
+  { label: "Staff seats", values: ["1", "Up to 10", "Unlimited"] },
+  { label: "Invoices / month", values: ["100", "Unlimited", "Unlimited"] },
+  { label: "Customers", values: ["100", "Unlimited", "Unlimited"] },
+  { label: "Devices", values: ["1", "Unlimited", "Unlimited"] },
+  { label: "Offline mode", values: [true, true, true] },
+  { label: "AI Copilot", values: ["20 / day", "Unlimited", "Unlimited"] },
+  { label: "Cloud sync & backups", values: [false, true, true] },
+  { label: "Smart automations", values: [false, true, true] },
+  { label: "Role-based permissions", values: [false, false, true] },
+  { label: "Audit logs & compliance", values: [false, false, true] },
+  { label: "SLA & dedicated manager", values: [false, false, true] },
 ];
-
-const TRIAL_INDUSTRIES = ["Business", "School", "Real Estate", "AgroMarket", "Manufacturing", "Healthcare"];
-const ANNUAL_BENEFITS = ["Price lock guarantee", "Priority onboarding", "Early feature access", "Enhanced support benefits"];
 
 function formatUSD(n: number) {
   return n.toLocaleString("en-US");
+}
+
+function Cell({ v }: { v: string | boolean }) {
+  if (v === true) return <Check size={14} style={{ color: "#00D4FF" }} className="mx-auto" />;
+  if (v === false) return <Minus size={14} style={{ color: "rgba(255,255,255,0.18)" }} className="mx-auto" />;
+  return <span className="text-[12px]" style={{ color: "rgba(255,255,255,0.7)" }}>{v}</span>;
 }
 
 export function PricingSection() {
@@ -157,9 +150,9 @@ export function PricingSection() {
             Simple, transparent pricing.
           </h2>
           <p className="max-w-2xl mx-auto mb-9" style={{ color: "rgba(154,154,154,0.76)", fontSize: "1rem", lineHeight: 1.75 }}>
-            Start free for 30 days. No credit card required. Pick the plan that fits your business size — upgrade or downgrade anytime.
+            Start free. Scale when you&apos;re ready. No card required — free forever under 50 invoices a month.
           </p>
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border p-1.5" style={{ borderColor: "rgba(79,124,255,0.18)", background: "rgba(255,255,255,0.025)" }}>
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border p-1.5" style={{ borderColor: "rgba(79,124,255,0.18)", background: "rgba(255,255,255,0.025)" }}>
             <button
               type="button"
               onClick={() => setAnnual(false)}
@@ -177,13 +170,13 @@ export function PricingSection() {
               Annual
             </button>
           </div>
-          <p className="mb-6 text-[13px] font-semibold" style={{ color: "#34D399" }}>Save 20% with annual billing.</p>
+          <p className="text-[13px] font-semibold" style={{ color: "#34D399" }}>Save 2 months with annual billing.</p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
           {TIERS.map((tier, i) => {
-            const annualMonthlyEquivalent = tier.annualUsd !== null ? Math.floor(tier.annualUsd / 12) : null;
+            const annualUsd = tier.monthlyUsd ? tier.monthlyUsd * 10 : null;
             return (
               <motion.div
                 key={tier.name}
@@ -193,7 +186,7 @@ export function PricingSection() {
                 transition={{ delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               >
                 <div
-                  className={`glass-card h-full flex flex-col p-7 relative ${tier.highlight ? "" : ""}`}
+                  className="glass-card h-full flex flex-col p-7 relative"
                   style={tier.highlight ? { borderColor: "rgba(79,124,255,0.3)", boxShadow: "0 0 40px rgba(79,124,255,0.1), 0 4px 32px rgba(0,0,20,0.6)" } : {}}
                 >
                   {tier.highlight && (
@@ -203,51 +196,39 @@ export function PricingSection() {
                   )}
 
                   <div className="mb-6">
+                    <div className="text-[9px] terminal-text uppercase tracking-widest mb-2" style={{ color: "rgba(154,154,154,0.5)" }}>{tier.stage}</div>
                     <h3 style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "1.4rem", fontWeight: 700, letterSpacing: "-0.02em", color: "#fff", marginBottom: "0.35rem" }}>{tier.name}</h3>
-                    <p className="text-[11px]" style={{ color: "rgba(154,154,154,0.6)" }}>{tier.tag}</p>
+                    <p className="text-[11px]" style={{ color: "rgba(154,154,154,0.6)" }}>{tier.blurb}</p>
                   </div>
 
                   <div className="mb-7 pb-7 border-b" style={{ borderColor: "rgba(79,124,255,0.1)" }}>
-                    {tier.monthlyUsd !== null ? (
+                    {tier.monthlyUsd && tier.monthlyUsd > 0 ? (
                       <>
-                        {annual && tier.annualUsd !== null ? (
+                        {annual && annualUsd ? (
                           <>
                             <div className="flex items-baseline gap-1.5">
                               <span className="text-[13px] font-semibold" style={{ color: "rgba(154,154,154,0.7)" }}>$</span>
-                              <span style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "2.15rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>{formatUSD(tier.annualUsd)}</span>
+                              <span style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "2.15rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>{formatUSD(annualUsd)}</span>
                               <span className="text-[13px]" style={{ color: "rgba(154,154,154,0.6)" }}>/yr</span>
                             </div>
                             <div className="text-[12px] font-semibold mt-1" style={{ color: "#34D399" }}>
-                              (${annualMonthlyEquivalent}/month billed annually)
+                              2 months free
                             </div>
                           </>
                         ) : (
                           <div className="flex items-baseline gap-1.5">
                             <span className="text-[13px] font-semibold" style={{ color: "rgba(154,154,154,0.7)" }}>$</span>
                             <span style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "2.15rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>{formatUSD(tier.monthlyUsd)}</span>
-                            <span className="text-[13px]" style={{ color: "rgba(154,154,154,0.6)" }}>/mo</span>
+                            <span className="text-[13px]" style={{ color: "rgba(154,154,154,0.6)" }}>{tier.priceSub}</span>
                           </div>
                         )}
-                        <div className="text-[10px] terminal-text mt-2 tracking-wide" style={{ color: "rgba(154,154,154,0.5)" }}>
-                          {annual ? "Annual billing · two months free equivalent" : "Monthly billing · switch anytime"} · local equivalent at checkout
-                        </div>
                       </>
                     ) : (
-                      <>
-                        <div style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "2.15rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>Custom</div>
-                        <div className="text-[10px] terminal-text mt-2 tracking-wide" style={{ color: "rgba(154,154,154,0.5)" }}>Expected range: {tier.expectedRange}</div>
-                      </>
+                      <div className="flex items-baseline gap-2">
+                        <span style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "2.15rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>{tier.priceWord}</span>
+                        <span className="text-[13px]" style={{ color: "rgba(154,154,154,0.6)" }}>{tier.priceSub}</span>
+                      </div>
                     )}
-                  </div>
-
-                  <div className="mb-5">
-                    <div className="text-[9px] terminal-text uppercase tracking-widest mb-2" style={{ color: "rgba(154,154,154,0.48)" }}>Target customer</div>
-                    <p className="text-[12px] leading-relaxed" style={{ color: "rgba(255,255,255,0.66)" }}>{tier.target.join(" · ")}</p>
-                  </div>
-
-                  <div className="mb-5">
-                    <div className="text-[9px] terminal-text uppercase tracking-widest mb-2" style={{ color: "rgba(154,154,154,0.48)" }}>Limits</div>
-                    <p className="text-[12px] leading-relaxed" style={{ color: "rgba(255,255,255,0.66)" }}>{tier.limits.join(" · ")}</p>
                   </div>
 
                   <ul className="flex-1 space-y-2.5 mb-8">
@@ -260,8 +241,8 @@ export function PricingSection() {
                   </ul>
 
                   <Link
-                    href={tier.cta === "Contact Us" ? "/contact" : emanagerAppUrl}
-                    {...(tier.cta === "Contact Us" ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+                    href={tier.ctaHref}
+                    {...(tier.ctaExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="w-full text-center py-3.5 rounded-full text-[12px] font-semibold tracking-wide transition-all duration-300"
                     style={tier.highlight
                       ? { background: "#4F7CFF", color: "#fff", boxShadow: "0 0 24px rgba(79,124,255,0.35)" }
@@ -275,86 +256,52 @@ export function PricingSection() {
           })}
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-5 mt-8">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="glass-card p-7"
-          >
-            <h3 className="text-white mb-3" style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "1.15rem", fontWeight: 700 }}>Billing currency</h3>
-            <p className="text-[13px] leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.66)" }}>
-              Use USD as the master billing currency, with Tanzania, Kenya, Uganda, and Rwanda equivalents displayed dynamically by region.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {["TZS", "KES", "UGX", "RWF"].map((currency) => (
-                <span key={currency} className="rounded-full border px-3 py-1 text-[10px] font-bold" style={{ borderColor: "rgba(0,212,255,0.2)", color: "#00D4FF" }}>{currency}</span>
-              ))}
-            </div>
-          </motion.div>
+        {/* Reassurance line */}
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="max-w-2xl mx-auto mt-10 text-center text-[13px] leading-relaxed"
+          style={{ color: "rgba(255,255,255,0.55)" }}
+        >
+          We never cut you off mid-day. When your organization grows — invoices climb, a teammate joins, a new branch opens — we&apos;ll show you the next stage. You decide when to move.
+        </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.08, duration: 0.7 }}
-            className="glass-card p-7"
-          >
-            <h3 className="text-white mb-3" style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "1.15rem", fontWeight: 700 }}>Expansion revenue</h3>
-            <p className="text-[13px] leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.66)" }}>
-              Monetization scales with organization size and business value, without locking essential business functionality behind excessive paywalls.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {EXPANSION_REVENUE.map((item) => (
-                <span key={item} className="rounded-full border px-3 py-1 text-[10px]" style={{ borderColor: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.64)" }}>{item}</span>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.16, duration: 0.7 }}
-            className="glass-card p-7"
-          >
-            <h3 className="text-white mb-3" style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "1.15rem", fontWeight: 700 }}>Trial strategy</h3>
-            <p className="text-[13px] leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.66)" }}>
-              Offer a 30-day free trial with no credit card required. Trial onboarding configures dashboards based on industry.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {TRIAL_INDUSTRIES.map((industry) => (
-                <span key={industry} className="rounded-full border px-3 py-1 text-[10px]" style={{ borderColor: "rgba(79,124,255,0.18)", color: "rgba(255,255,255,0.64)" }}>{industry}</span>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-
+        {/* Compare every stage */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="glass-card mt-5 p-7"
-          style={{ borderColor: "rgba(52,211,153,0.22)", background: "rgba(52,211,153,0.035)" }}
+          className="mt-16 max-w-4xl mx-auto"
         >
-          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-            <div>
-              <h3 className="text-white mb-3" style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "1.25rem", fontWeight: 700 }}>
-                Annual billing strategy
-              </h3>
-              <p className="text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.66)" }}>
-                Annual billing is the default pricing view to maximize ARR while giving long-term customers meaningful incentives and clear monthly-equivalent value.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {ANNUAL_BENEFITS.map((benefit) => (
-                <span key={benefit} className="rounded-full border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em]" style={{ borderColor: "rgba(52,211,153,0.24)", color: "#34D399" }}>
-                  {benefit}
-                </span>
-              ))}
-            </div>
+          <h3 className="text-center text-white mb-8" style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>
+            Compare every stage
+          </h3>
+          <div className="glass-card overflow-hidden">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr style={{ borderBottom: "1px solid rgba(79,124,255,0.12)" }}>
+                  <th className="text-left p-4 text-[10px] terminal-text uppercase tracking-widest font-bold" style={{ color: "rgba(154,154,154,0.6)" }}>Capability</th>
+                  {TIERS.map((t) => (
+                    <th key={t.name} className="p-4 text-center text-[11px] font-bold uppercase tracking-[0.1em]" style={{ color: t.highlight ? "#4F7CFF" : "rgba(255,255,255,0.85)" }}>{t.name}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {COMPARISON.map((row, idx) => (
+                  <tr key={row.label} style={{ borderBottom: idx < COMPARISON.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
+                    <td className="p-4 text-[12.5px]" style={{ color: "rgba(255,255,255,0.75)" }}>{row.label}</td>
+                    {row.values.map((v, i) => (
+                      <td key={i} className="p-4 text-center">
+                        <Cell v={v} />
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </motion.div>
 
@@ -363,7 +310,7 @@ export function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mt-8 text-center"
+          className="mt-12 text-center"
         >
           <p className="mt-4 text-white" style={{ fontFamily: "var(--font-display), system-ui, sans-serif", fontSize: "clamp(1.3rem, 3vw, 2rem)", fontWeight: 700, letterSpacing: "-0.02em" }}>
             E-Manager is the operating system that powers modern organizations.

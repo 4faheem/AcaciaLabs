@@ -7,9 +7,9 @@ import { AnimatedCounter } from "@/components/ui/animated-counter";
 
 const companyStats = [
   { value: "2024", label: "Founded", sub: "Dar es Salaam", color: "text-accent-indigo" },
-  { value: "99.99%", label: "Uptime SLA", sub: "Guaranteed", color: "text-accent-success" },
-  { value: "4.8GB/s", label: "Throughput", sub: "System capacity", color: "text-accent-cyan" },
-  { value: "2,400+", label: "Workflows", sub: "Active & coordinated", color: "text-accent-blue" },
+  { value: "2", label: "Founders", sub: "Building full-time", color: "text-accent-success" },
+  { value: "1", label: "Product", sub: "E-Manager — live", color: "text-accent-cyan" },
+  { value: "Tanzania", label: "Market", sub: "East Africa focus", color: "text-accent-blue" },
 ];
 
 export default function AboutClient() {

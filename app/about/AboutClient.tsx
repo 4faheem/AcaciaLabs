@@ -3,13 +3,12 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { operationalPrinciples } from "@/lib/site";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
 
-const companyStats = [
-  { value: "2024", label: "Founded", sub: "Dar es Salaam", color: "text-accent-indigo" },
-  { value: "2", label: "Founders", sub: "Building full-time", color: "text-accent-success" },
-  { value: "1", label: "Product", sub: "E-Manager — live", color: "text-accent-cyan" },
-  { value: "Tanzania", label: "Market", sub: "East Africa focus", color: "text-accent-blue" },
+const milestones = [
+  { date: "Aug 2024", title: "Company Founded", desc: "Acacia Labs incorporated in Dar es Salaam.", color: "text-accent-indigo", dot: "bg-accent-indigo" },
+  { date: "Oct 2024", title: "E-Manager Development Begins", desc: "Product research and architecture started.", color: "text-accent-blue", dot: "bg-accent-blue" },
+  { date: "Feb 2025", title: "MVP Completed", desc: "First working version of E-Manager built and tested.", color: "text-accent-cyan", dot: "bg-accent-cyan" },
+  { date: "Jun 2026", title: "Early Access Launch", desc: "Accepting first clients in Dar es Salaam.", color: "text-accent-success", dot: "bg-accent-success" },
 ];
 
 export default function AboutClient() {
@@ -40,28 +39,38 @@ export default function AboutClient() {
         </div>
       </section>
 
-      {/* 1.5 BY THE NUMBERS — animated stats row (content-research-writer: authority signals) */}
+      {/* 1.5 MILESTONES */}
       <section className="border-b border-glass-border bg-primary-bg">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12 py-10">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 py-14">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-glass-border"
           >
-            {companyStats.map((stat) => (
-              <div key={stat.label} className="flex flex-col items-center text-center px-6 md:px-10">
-                <AnimatedCounter
-                  value={stat.value}
-                  className={`text-3xl md:text-4xl font-bold tracking-tighter ${stat.color}`}
-                  duration={1400}
-                />
-                <div className="text-[10px] font-bold tracking-[0.25em] uppercase text-text-primary mt-2">
-                  {stat.label}
-                </div>
-                <div className="terminal-text text-[9px] text-text-muted tracking-widest mt-1">{stat.sub}</div>
+            <div className="text-[10px] font-bold tracking-[0.25em] uppercase text-text-muted mb-10">
+              Company Milestones
+            </div>
+            <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-0 top-3 bottom-3 w-[1px] bg-glass-border hidden md:block" />
+              <div className="grid md:grid-cols-4 gap-8 md:gap-0">
+                {milestones.map((m, i) => (
+                  <motion.div
+                    key={m.date}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="md:pl-8 relative"
+                  >
+                    {/* Dot */}
+                    <div className={`absolute left-[-4.5px] top-[10px] w-[9px] h-[9px] rounded-full ${m.dot} hidden md:block`} />
+                    <div className={`terminal-text text-[10px] tracking-widest mb-2 ${m.color}`}>{m.date}</div>
+                    <div className="text-[14px] font-bold text-text-primary leading-snug mb-1">{m.title}</div>
+                    <div className="text-[12px] text-text-muted leading-relaxed">{m.desc}</div>
+                  </motion.div>
+                ))}
               </div>
-            ))}
+            </div>
           </motion.div>
         </div>
       </section>
